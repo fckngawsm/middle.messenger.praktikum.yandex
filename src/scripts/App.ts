@@ -1,14 +1,30 @@
-import { registerPartial } from "../components/registerPartial";
-import { PAGE_NAMES } from "../constants/pageNames";
+import "../styles/index.css";
 
+import { registerPartial } from "../components/registerPartial";
+import { LoginStrategy } from "./strategies/LoginStrategy";
+import { PageStrategy } from "./strategies/PageStrategies";
 registerPartial();
 
 export class App {
+  private appElement: HTMLElement | null;
+  private currentStrategy: PageStrategy;
+
   constructor() {
-    this.currentPage = PAGE_NAMES.login;
-    this.pages = {
-        login:
+    this.appElement = document.querySelector(".main");
+    this.currentStrategy = new LoginStrategy();
+  }
+  render() {
+    if (this.appElement) {
+      this.currentStrategy.render(this.appElement);
     }
   }
-  render() {}
+
+  changePage(page: string): void {
+    const strategies: Record<string, PageStrategy> = {
+      login: new LoginStrategy(),
+    };
+
+    this.currentStrategy = strategies[page];
+    this.render();
+  }
 }

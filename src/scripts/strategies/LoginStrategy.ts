@@ -1,16 +1,26 @@
+import Handlebars from "handlebars";
 import { LoginPage } from "../../templates";
+import { PageStrategy } from "./PageStrategies";
 
-export class LoginStrategy {
-  constructor(appElement) {
-    this.appElement = appElement; // Передаем appElement в конструктор
-  }
+const buttons = [
+  {
+    class: "button",
+    type: "submit",
+    form: "login-form",
+    text: "Авторизоваться",
+  },
+  {
+    class: "button button__type-link",
+    type: "button",
+    form: "login-form",
+    text: "Нет аккаунта?",
+  },
+];
 
-  render() {
+export class LoginStrategy implements PageStrategy {
+  render(appElement: HTMLElement): void {
     const template = Handlebars.compile(LoginPage);
-    this.appElement.innerHTML = template({
-      // Здесь можно передать данные, если они нужны
-      title: "Login", // Например, заголовок
-      errorMessage: "", // Или пустое сообщение об ошибке
-    });
+
+    appElement.innerHTML = template({ buttons });
   }
 }
