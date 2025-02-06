@@ -34,7 +34,7 @@ export class App {
     this.currentStrategy = strategies[page];
     this.render();
   }
-
+  // TODO: добавить в саму стратегию?
   private initEventListeners(): void {
     document
       .querySelector("#login-btn")
