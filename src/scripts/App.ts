@@ -6,6 +6,9 @@ import { PageStrategy } from "./strategies/PageStrategies";
 import { RegisterStrategy } from "./strategies/RegisterStrategy";
 registerPartial();
 
+// TODO: ошибки для инпутов
+// ссылка должны быть в тегах a
+
 export class App {
   private appElement: HTMLElement | null;
   private currentStrategy: PageStrategy;
@@ -36,7 +39,6 @@ export class App {
     document
       .querySelector("#login-btn")
       ?.addEventListener("click", () => this.changePage("login"));
-    console.log(document.querySelector("#login-btn"));
 
     document
       .querySelector("#register-btn")
