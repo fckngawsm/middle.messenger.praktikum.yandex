@@ -1,1 +1,1 @@
-export default `<button class="{{class}}" type="{{type}}" form="{{form}}">{{text}}</button>`;
+export default `<button id="{{id}}" class="{{class}}" type="{{type}}" form="{{form}}">{{text}}</button>`;

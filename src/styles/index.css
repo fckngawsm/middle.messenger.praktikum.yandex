@@ -2,6 +2,7 @@
 @import url(../assets/fonts/inter.css);
 @import url(./root.css);
 
+/* TODO: надо разбить на файлы а то какая то помойка */
 .container__auth {
   display: flex;
   align-items: center;
@@ -72,6 +73,9 @@
         }
       }
     }
+  }
+  .form__wrapper--full-height {
+    min-height: 615px;
   }
 }
 
