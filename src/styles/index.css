@@ -1,5 +1,6 @@
 @import url(./base/normalize.css);
 @import url(../assets/fonts/inter.css);
+@import url(./theme/theme.css);
 @import url(./base/root.css);
 
 @import url(./auth/auth.css);

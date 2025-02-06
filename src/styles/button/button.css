@@ -3,10 +3,8 @@
   flex-direction: column;
 
   .button {
-    cursor: pointer;
-    background-color: rgba(51, 105, 243, 1);
-    width: 100%;
-    font-family: Inter;
+    background-color: var(--purple-color);
+    width: 100%;    
     font-size: 13px;
     font-weight: 500;
     line-height: 1;
@@ -15,14 +13,14 @@
     width: 100%;
     outline: none;
     border: none;
-    color: #ffffff;
+    color: var(--white-color);
+    cursor: pointer;
     border-radius: 8px;
     padding: 12px;
   }
   .button__type-link {
     background-color: transparent;
-    color: rgba(51, 105, 243, 1);
-    font-family: Inter;
+    color: var(--purple-color);
     font-size: 11px;
     font-weight: 500;
     line-height: 1;

@@ -1,17 +1,17 @@
 .body {
-    background-color: #ffffff;
+  background-color: var(--white-color);
 
-    .page {
-        text-rendering: optimizeLegibility;
-        background-color: inherit;
-        margin: 0 auto;
-        font-family: 'Inter',Arial, Helvetica, sans-serif;
-        font-weight: 400;
-        max-width: 1280px;
-        color:#000000;
+  .page {
+    text-rendering: optimizeLegibility;
+    background-color: inherit;
+    margin: 0 auto;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    max-width: 1280px;
+    color: #000000;
 
-        .main {
-            height: 100vh;
-        }
+    .main {
+      height: 100vh;
     }
+  }
 }

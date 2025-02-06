@@ -17,15 +17,12 @@
     flex-direction: column;
 
     .form__title {
-      font-family: Inter;
       font-size: 20px;
       font-weight: 500;
       line-height: 20px;
       text-align: center;
       margin: 0;
       margin-bottom: 40px;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
     }
 
     .form {
@@ -53,7 +50,7 @@
           padding-top: 8px;
           padding-bottom: 7px;
           border: none;
-          border-bottom: 1px solid rgba(51, 105, 243, 1);
+          border-bottom: 1px solid var(--purple-color);
           font-size: 13px;
           line-height: 1;
           outline: none;
