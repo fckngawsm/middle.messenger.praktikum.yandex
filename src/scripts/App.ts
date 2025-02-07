@@ -1,5 +1,5 @@
-import "../styles/index.css";
 import { registerPartial } from "../utils/registerPartial";
+import { ChatStrategy } from "./strategies/ChatStrategy";
 
 import { LoginStrategy } from "./strategies/LoginStrategy";
 import { PageStrategy } from "./strategies/PageStrategies";
@@ -20,6 +20,7 @@ export class App {
     const strategies: Record<string, PageStrategy> = {
       login: new LoginStrategy(),
       register: new RegisterStrategy(),
+      chat: new ChatStrategy(),
     };
 
     this.currentStrategy = strategies[page];
@@ -36,6 +37,11 @@ export class App {
       e.preventDefault();
       window.history.pushState({}, "", "/sign-in");
       this.changePage("login");
+    });
+    document.querySelector("#login-button")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.history.pushState({}, "", "chat");
+      this.changePage("chat");
     });
   }
 

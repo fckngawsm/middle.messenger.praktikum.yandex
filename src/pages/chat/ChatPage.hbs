@@ -1,0 +1,16 @@
+{{#> ChatsContainer}}
+    {{#> ChatList}}
+        {{> ChatHeader}}
+        <div class="chat__list">
+            {{#each dialogs}}
+                {{> ChatItem 
+                    userAvatar=this.userAvatar 
+                    userName=this.userName 
+                    lastMessage=this.lastMessage 
+                    lastMessageTime=this.lastMessageTime 
+                    unreadMessageCount=this.unreadMessageCount 
+                }}
+            {{/each}}
+        </div>
+    {{/ChatList}}
+{{/ChatsContainer}}

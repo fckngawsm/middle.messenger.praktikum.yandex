@@ -7,12 +7,14 @@ const button = {
   type: "submit",
   form: "login-form",
   text: "Авторизоваться",
+  id: "login-button",
 };
 
 const link = {
   id: "register-link",
   href: "/sign-up",
   linkText: "Нет аккаунта?",
+  class: "link__auth",
 };
 
 export class LoginStrategy implements PageStrategy {

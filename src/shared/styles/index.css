@@ -1,13 +1,16 @@
 @import url(./base/normalize.css);
-@import url(../assets/fonts/inter.css);
+@import url(../../assets/fonts/inter.css);
 @import url(./theme/theme.css);
 @import url(./base/root.css);
 
 @import url(../containers/containers.css);
 
-@import url(./form/form.css);
 @import url(./button/button.css);
 @import url(./spacer/space.css);
 @import url(./error/error.css);
 @import url(./link/link.css);
 
+
+@import url(../components/Avatar/avatar.css);
+@import url(../components/Chat/chat.css);
+@import url(../components/Form/form.css);

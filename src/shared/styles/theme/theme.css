@@ -1,5 +1,7 @@
 :root {
     --purple-color: rgba(51, 105, 243, 1);
-    --white-color: #ffffff;
     --error-color: rgba(255, 47, 47, 1);
+    --gray-color: rgba(153, 153, 153, 1);
+    --dark-gray-color: rgba(239, 239, 239, 1);
+    --white-color: #ffffff;
 }

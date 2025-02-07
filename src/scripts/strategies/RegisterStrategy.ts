@@ -6,13 +6,14 @@ const button = {
   class: "button",
   type: "submit",
   form: "register-form",
-  text: "Авторизоваться",
+  text: "Зарегистрироваться",
 };
 
 const link = {
   id: "login-link",
   href: "/sign-in",
   linkText: "Уже есть аккаунт? Войти",
+  class: "link__auth",
 };
 
 export class RegisterStrategy implements PageStrategy {
