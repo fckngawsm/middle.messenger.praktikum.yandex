@@ -1,10 +1,10 @@
 import Handlebars from "handlebars";
 // TODO: создать index.ts файл с импортами
+import ChatHeader from "../features/Chat/ChatHeader";
+import ChatItem from "../features/Chat/ChatItem";
+import ChatList from "../features/Chat/ChatList";
 import Avatar from "../shared/components/Avatar/Avatar";
 import Button from "../shared/components/Button";
-import ChatHeader from "../shared/components/Chat/ChatHeader";
-import ChatItem from "../shared/components/Chat/ChatItem";
-import ChatList from "../shared/components/Chat/ChatList";
 import Form from "../shared/components/Form/Form";
 import FormWrapper from "../shared/components/FormWrapper";
 import ChatInput from "../shared/components/Inputs/ChatInput";

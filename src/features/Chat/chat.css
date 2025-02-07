@@ -39,6 +39,7 @@
 
   .chat__list {
     overflow: scroll;
+
     .chat__item {
       padding: 12px;
       border-top: 1px solid var(--dark-gray-color);
@@ -46,30 +47,31 @@
       gap: 10px;
       width: 100%;
       box-sizing: border-box;
-  
+      cursor: pointer;
+
       .chat__avatar {
         width: 47px;
         height: 47px;
       }
-  
+
       .chat__info {
         display: flex;
         justify-content: space-between;
         gap: 15px;
         width: 100%;
-  
+
         .chat__info-user {
           display: flex;
           flex-direction: column;
           gap: 4px;
-  
+
           .chat__user-name {
             font-size: 13px;
             font-weight: 600;
             line-height: 1;
             margin: 0;
           }
-  
+
           .chat__last-message {
             font-size: 12px;
             font-weight: 500;
@@ -78,12 +80,12 @@
             margin: 0;
           }
         }
-  
+
         .chat__info-additional {
           display: flex;
           flex-direction: column;
           gap: 14px;
-  
+
           .chat__time {
             color: var(--gray-color);
             font-size: 9px;
@@ -91,7 +93,7 @@
             margin: 0;
             font-weight: 500;
           }
-  
+
           .chat__unread-message-count {
             display: flex;
             align-items: center;
@@ -108,6 +110,10 @@
           }
         }
       }
+
+      &:hover {
+        background-color: var(--light-blue-color);
+      }
     }
   }
 
@@ -116,4 +122,3 @@
     height: 0px;
   }
 }
-

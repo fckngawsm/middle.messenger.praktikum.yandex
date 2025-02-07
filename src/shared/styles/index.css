@@ -12,5 +12,6 @@
 
 
 @import url(../components/Avatar/avatar.css);
-@import url(../components/Chat/chat.css);
 @import url(../components/Form/form.css);
+
+@import url(../../features/Chat/chat.css);
