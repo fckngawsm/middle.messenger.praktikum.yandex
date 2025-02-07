@@ -6,9 +6,6 @@ import { PageStrategy } from "./strategies/PageStrategies";
 import { RegisterStrategy } from "./strategies/RegisterStrategy";
 registerPartial();
 
-// TODO: ошибки для инпутов
-// ссылка должны быть в тегах a
-
 export class App {
   private appElement: HTMLElement | null;
   private currentStrategy: PageStrategy;
@@ -27,16 +24,17 @@ export class App {
     this.currentStrategy = strategies[page];
     this.render();
   }
-  // TODO: добавить в саму стратегию?
-  private initEventListeners(): void {
-    document.querySelector("#login-link")?.addEventListener("click", (e) => {
-      e.preventDefault();
-      this.changePage("login");
-    });
 
+  private initEventListeners(): void {
     document.querySelector("#register-link")?.addEventListener("click", (e) => {
       e.preventDefault();
+      window.history.pushState({}, "", "/sign-up");
       this.changePage("register");
+    });
+    document.querySelector("#login-link")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.history.pushState({}, "", "/sign-in");
+      this.changePage("login");
     });
   }
 

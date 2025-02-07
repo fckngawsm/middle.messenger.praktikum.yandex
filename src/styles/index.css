@@ -5,7 +5,7 @@
 
 @import url(./containers/containers.css);
 
-@import url(./auth/auth.css);
+@import url(./form/form.css);
 @import url(./button/button.css);
 @import url(./spacer/space.css);
 @import url(./error/error.css);
