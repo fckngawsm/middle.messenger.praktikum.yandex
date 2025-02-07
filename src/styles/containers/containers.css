@@ -1,6 +1,14 @@
 .container {
+  height: inherit;
+  width: 100%;
+}
+
+.container__auth {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: inherit;
+}
+
+.container__chats {
+  display: flex;
 }

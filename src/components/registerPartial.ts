@@ -1,6 +1,7 @@
 import Handlebars from "handlebars";
 // TODO: создать index.ts файл с импортами
 import AuthContainer from "../containers/AuthContainer";
+import ChatsContainer from "../containers/ChatsContainer";
 import ErrorContainer from "../containers/ErrorContainer";
 import Button from "./Button";
 import Form from "./Form";
@@ -20,4 +21,5 @@ export const registerPartial = () => {
   // containers
   Handlebars.registerPartial("AuthContainer", AuthContainer);
   Handlebars.registerPartial("ErrorContainer", ErrorContainer);
+  Handlebars.registerPartial("ChatsContainer", ChatsContainer);
 };
