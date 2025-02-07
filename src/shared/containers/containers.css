@@ -12,3 +12,10 @@
 .container__chats {
   display: flex;
 }
+
+.container__dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+}

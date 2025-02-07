@@ -3,6 +3,7 @@ import Handlebars from "handlebars";
 import ChatHeader from "../features/Chat/ChatHeader";
 import ChatItem from "../features/Chat/ChatItem";
 import ChatList from "../features/Chat/ChatList";
+import ChatSelectDialog from "../features/Chat/ChatSelectDialog";
 import Avatar from "../shared/components/Avatar/Avatar";
 import Button from "../shared/components/Button";
 import Form from "../shared/components/Form/Form";
@@ -28,6 +29,7 @@ export const registerPartial = () => {
   Handlebars.registerPartial("ChatHeader", ChatHeader);
   Handlebars.registerPartial("ChatItem", ChatItem);
   Handlebars.registerPartial("Avatar", Avatar);
+  Handlebars.registerPartial("ChatSelectDialog", ChatSelectDialog);
   // containers
   Handlebars.registerPartial("AuthContainer", AuthContainer);
   Handlebars.registerPartial("ErrorContainer", ErrorContainer);

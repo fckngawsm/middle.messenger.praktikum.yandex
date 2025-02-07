@@ -115,10 +115,22 @@
         background-color: var(--light-blue-color);
       }
     }
+
+    .chat__item-active {
+      background-color: var(--light-blue-color);
+    }
   }
 
   .chat__list::-webkit-scrollbar {
     width: 0px;
     height: 0px;
   }
+}
+
+.chat__select-dialog {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  color: var(--gray-color);
 }
