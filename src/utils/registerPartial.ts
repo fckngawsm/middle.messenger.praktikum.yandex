@@ -1,14 +1,14 @@
 import Handlebars from "handlebars";
 // TODO: создать index.ts файл с импортами
-import AuthContainer from "../containers/AuthContainer";
-import ChatsContainer from "../containers/ChatsContainer";
-import ErrorContainer from "../containers/ErrorContainer";
-import Button from "./Button";
-import Form from "./Form";
-import FormWrapper from "./FormWrapper";
-import Input from "./Input";
-import Link from "./Link";
-import Spacer from "./Spacer";
+import Button from "../shared/components/Button";
+import Form from "../shared/components/Form";
+import FormWrapper from "../shared/components/FormWrapper";
+import Input from "../shared/components/Input";
+import Link from "../shared/components/Link";
+import Spacer from "../shared/components/Spacer";
+import AuthContainer from "../shared/containers/AuthContainer";
+import ChatsContainer from "../shared/containers/ChatsContainer";
+import ErrorContainer from "../shared/containers/ErrorContainer";
 
 export const registerPartial = () => {
   // components

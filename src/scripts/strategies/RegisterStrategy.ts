@@ -1,5 +1,5 @@
 import Handlebars from "handlebars";
-import { RegisterPage } from "../../templates";
+import { RegisterPage } from "../../pages";
 import { PageStrategy } from "./PageStrategies";
 
 const button = {

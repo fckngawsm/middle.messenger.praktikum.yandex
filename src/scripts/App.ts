@@ -1,9 +1,10 @@
 import "../styles/index.css";
+import { registerPartial } from "../utils/registerPartial";
 
-import { registerPartial } from "../components/registerPartial";
 import { LoginStrategy } from "./strategies/LoginStrategy";
 import { PageStrategy } from "./strategies/PageStrategies";
 import { RegisterStrategy } from "./strategies/RegisterStrategy";
+
 registerPartial();
 
 export class App {
