@@ -3,7 +3,7 @@
 @import url(./theme/theme.css);
 @import url(./base/root.css);
 
-@import url(./containers/containers.css);
+@import url(../containers/containers.css);
 
 @import url(./form/form.css);
 @import url(./button/button.css);
