@@ -2,26 +2,23 @@ import Handlebars from "handlebars";
 import { RegisterPage } from "../../templates";
 import { PageStrategy } from "./PageStrategies";
 
-const buttons = [
-  {
-    class: "button",
-    type: "submit",
-    form: "register-form",
-    text: "Авторизоваться",
-  },
-  {
-    class: "button button__type-link",
-    type: "button",
-    form: "register-form",
-    text: "Войти",
-    id: "login-btn",
-  },
-];
+const button = {
+  class: "button",
+  type: "submit",
+  form: "register-form",
+  text: "Авторизоваться",
+};
+
+const link = {
+  id: "login-link",
+  href: "/sign-in",
+  linkText: "Уже есть аккаунт? Войти",
+};
 
 export class RegisterStrategy implements PageStrategy {
   render(appElement: HTMLElement): void {
     const template = Handlebars.compile(RegisterPage);
 
-    appElement.innerHTML = template({ buttons });
+    appElement.innerHTML = template({ button, link });
   }
 }

@@ -18,13 +18,6 @@ export class App {
     this.currentStrategy = new LoginStrategy();
   }
 
-  private render() {
-    if (this.appElement) {
-      this.currentStrategy.render(this.appElement);
-      this.initEventListeners();
-    }
-  }
-
   private changePage(page: string): void {
     const strategies: Record<string, PageStrategy> = {
       login: new LoginStrategy(),
@@ -36,12 +29,21 @@ export class App {
   }
   // TODO: добавить в саму стратегию?
   private initEventListeners(): void {
-    document
-      .querySelector("#login-btn")
-      ?.addEventListener("click", () => this.changePage("login"));
+    document.querySelector("#login-link")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.changePage("login");
+    });
 
-    document
-      .querySelector("#register-btn")
-      ?.addEventListener("click", () => this.changePage("register"));
+    document.querySelector("#register-link")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.changePage("register");
+    });
+  }
+
+  render() {
+    if (this.appElement) {
+      this.currentStrategy.render(this.appElement);
+      this.initEventListeners();
+    }
   }
 }

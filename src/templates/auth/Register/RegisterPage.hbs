@@ -13,9 +13,8 @@
       {{/Form}}
       {{#> Spacer}}{{/Spacer}}
       <div class="button__group">
-        {{#each buttons}}
-          {{> Button class=this.class type=this.type form=this.form text=this.text id=this.id}}
-        {{/each}}
+          {{> Button class=button.class type=button.type form=button.form text=button.text id=button.id}}
+          {{> Link id=link.id href=link.href linkText=link.linkText}}
       </div>
     {{/FormWrapper}}
 {{/AuthContainer}}
