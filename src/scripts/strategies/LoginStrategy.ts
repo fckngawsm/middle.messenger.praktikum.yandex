@@ -3,11 +3,16 @@ import { LoginPage } from "../../pages";
 import { PageStrategy } from "./PageStrategies";
 
 const button = {
-  class: "button",
-  type: "submit",
+  class: "button link",
+  type: "button",
   form: "login-form",
   text: "Авторизоваться",
   id: "login-button",
+};
+
+const buttonLink = {
+  href: "/chat",
+  linkText: "",
 };
 
 const link = {
@@ -21,6 +26,6 @@ export class LoginStrategy implements PageStrategy {
   render(appElement: HTMLElement): void {
     const template = Handlebars.compile(LoginPage);
 
-    appElement.innerHTML = template({ button, link });
+    appElement.innerHTML = template({ button, link, buttonLink });
   }
 }
