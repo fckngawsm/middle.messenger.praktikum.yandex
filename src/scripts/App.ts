@@ -1,5 +1,6 @@
 import { registerPartial } from "../utils/registerPartial";
 import { ChatStrategy } from "./strategies/ChatStrategy";
+import { InternalServerErrorStrategy } from "./strategies/InternalServerErrorStrategy";
 import { LoginStrategy } from "./strategies/LoginStrategy";
 import { NotFoundStrategy } from "./strategies/NotFoundStrategy";
 import { PageStrategy } from "./strategies/PageInterface/PageStrategies";
@@ -31,6 +32,7 @@ export class App {
     if (path === "/sign-up") return new RegisterStrategy();
     if (path === "/sign-in" || path === "/") return new LoginStrategy();
     if (path === "/settings") return new ProfileStrategy();
+    if (path === "/error-500") return new InternalServerErrorStrategy();
 
     return new NotFoundStrategy();
   }

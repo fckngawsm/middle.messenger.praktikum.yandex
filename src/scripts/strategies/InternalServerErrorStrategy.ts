@@ -1,7 +1,7 @@
 import { ErrorPage } from "../../pages";
 import { PageStrategy } from "./PageInterface/PageStrategies";
 
-export class NotFoundStrategy implements PageStrategy {
+export class InternalServerErrorStrategy implements PageStrategy {
   render(appElement: HTMLElement): void {
     const template = Handlebars.compile(ErrorPage);
 
