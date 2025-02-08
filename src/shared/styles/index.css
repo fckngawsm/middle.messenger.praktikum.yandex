@@ -5,7 +5,6 @@
 
 @import url(../containers/containers.css);
 
-@import url(./button/button.css);
 @import url(./spacer/space.css);
 @import url(./error/error.css);
 @import url(./link/link.css);
@@ -13,5 +12,7 @@
 
 @import url(../components/Avatar/avatar.css);
 @import url(../components/Form/form.css);
+@import url(../components/Buttons/button.css);
 
 @import url(../../features/Chat/chat.css);
+@import url(../../features/Profile/profile.css);

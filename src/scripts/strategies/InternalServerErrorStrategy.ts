@@ -1,5 +1,5 @@
 import { ErrorPage } from "../../pages";
-import { PageStrategy } from "./PageStrategies";
+import { PageStrategy } from "./PageInterface/PageStrategies";
 
 export class NotFoundStrategy implements PageStrategy {
   render(appElement: HTMLElement): void {

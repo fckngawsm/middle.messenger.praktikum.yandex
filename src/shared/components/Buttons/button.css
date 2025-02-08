@@ -20,3 +20,16 @@
     box-sizing: border-box;
   }
 }
+
+.button__type-round {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--purple-color);
+  width: 28px;
+  height: 28px;
+  color: var(--white-color);
+  border: none;
+  outline: none;
+}

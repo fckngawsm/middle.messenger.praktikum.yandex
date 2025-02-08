@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
 import { RegisterPage } from "../../pages";
-import { PageStrategy } from "./PageStrategies";
+import { PageStrategy } from "./PageInterface/PageStrategies";
 
 const button = {
   class: "button",

@@ -2,7 +2,8 @@ import { registerPartial } from "../utils/registerPartial";
 import { ChatStrategy } from "./strategies/ChatStrategy";
 import { LoginStrategy } from "./strategies/LoginStrategy";
 import { NotFoundStrategy } from "./strategies/NotFoundStrategy";
-import { PageStrategy } from "./strategies/PageStrategies";
+import { PageStrategy } from "./strategies/PageInterface/PageStrategies";
+import { ProfileStrategy } from "./strategies/PorfileStrategy";
 import { RegisterStrategy } from "./strategies/RegisterStrategy";
 
 registerPartial();
@@ -29,6 +30,7 @@ export class App {
     if (path === "/chat") return new ChatStrategy();
     if (path === "/sign-up") return new RegisterStrategy();
     if (path === "/sign-in" || path === "/") return new LoginStrategy();
+    if (path === "/my-profile") return new ProfileStrategy();
 
     return new NotFoundStrategy();
   }

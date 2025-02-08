@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
 import { ChatPage } from "../../pages";
-import { PageStrategy } from "./PageStrategies";
+import { PageStrategy } from "./PageInterface/PageStrategies";
 
 const dialogs = Array.from({ length: 15 }, (_, i) => ({
   userAvatar: `https://i.pravatar.cc/40?img=${i + 1}`,

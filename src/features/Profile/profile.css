@@ -1,0 +1,7 @@
+.profile__navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-gray-color);
+  padding: 18px;
+}

@@ -26,3 +26,7 @@
   justify-content: center;
   flex-direction: column;
 }
+
+.container__profile {
+  display: flex;
+}

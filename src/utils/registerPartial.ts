@@ -4,8 +4,10 @@ import ChatHeader from "../features/Chat/ChatHeader";
 import ChatItem from "../features/Chat/ChatItem";
 import ChatList from "../features/Chat/ChatList";
 import ChatSelectDialog from "../features/Chat/ChatSelectDialog";
+import ProfileNavigationButton from "../features/Profile/ProfileNavigationButton";
 import Avatar from "../shared/components/Avatar/Avatar";
-import Button from "../shared/components/Button";
+import Button from "../shared/components/Buttons/Button";
+import RoundButton from "../shared/components/Buttons/RoundButton";
 import Form from "../shared/components/Form/Form";
 import FormWrapper from "../shared/components/FormWrapper";
 import ChatInput from "../shared/components/Inputs/ChatInput";
@@ -15,12 +17,14 @@ import Spacer from "../shared/components/Spacer";
 import AuthContainer from "../shared/containers/AuthContainer";
 import ChatsContainer from "../shared/containers/ChatsContainer";
 import ErrorContainer from "../shared/containers/ErrorContainer";
+import ProfileContainer from "../shared/containers/ProfileContainer";
 
 export const registerPartial = () => {
   // components
   Handlebars.registerPartial("FormWrapper", FormWrapper);
   Handlebars.registerPartial("Form", Form);
   Handlebars.registerPartial("Button", Button);
+  Handlebars.registerPartial("RoundButton", RoundButton);
   Handlebars.registerPartial("Input", Input);
   Handlebars.registerPartial("ChatInput", ChatInput);
   Handlebars.registerPartial("Spacer", Spacer);
@@ -30,8 +34,13 @@ export const registerPartial = () => {
   Handlebars.registerPartial("ChatItem", ChatItem);
   Handlebars.registerPartial("Avatar", Avatar);
   Handlebars.registerPartial("ChatSelectDialog", ChatSelectDialog);
+  Handlebars.registerPartial(
+    "ProfileNavigationButton",
+    ProfileNavigationButton
+  );
   // containers
   Handlebars.registerPartial("AuthContainer", AuthContainer);
   Handlebars.registerPartial("ErrorContainer", ErrorContainer);
   Handlebars.registerPartial("ChatsContainer", ChatsContainer);
+  Handlebars.registerPartial("ProfileContainer", ProfileContainer);
 };
