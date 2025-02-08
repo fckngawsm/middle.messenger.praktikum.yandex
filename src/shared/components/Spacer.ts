@@ -1,1 +1,1 @@
-export default `<div class="spacer"></div>`;
+export default `<div class="spacer"/></div>`;

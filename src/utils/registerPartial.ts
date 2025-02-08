@@ -5,6 +5,7 @@ import ChatItem from "../features/Chat/ChatItem";
 import ChatList from "../features/Chat/ChatList";
 import ChatSelectDialog from "../features/Chat/ChatSelectDialog";
 import ProfileNavigationButton from "../features/Profile/ProfileNavigationButton";
+import ProfileSettings from "../features/Profile/ProfileSettings";
 import Avatar from "../shared/components/Avatar/Avatar";
 import Button from "../shared/components/Buttons/Button";
 import RoundButton from "../shared/components/Buttons/RoundButton";
@@ -38,6 +39,7 @@ export const registerPartial = () => {
     "ProfileNavigationButton",
     ProfileNavigationButton
   );
+  Handlebars.registerPartial("ProfileSettings", ProfileSettings);
   // containers
   Handlebars.registerPartial("AuthContainer", AuthContainer);
   Handlebars.registerPartial("ErrorContainer", ErrorContainer);

@@ -1,7 +1,10 @@
 export default `
-<button id="{{id}}" class="button__type-round" type="{{type}}" form="{{form}}">{{text}}
-    {{#if icon}}
-        <img src="{{icon}}" alt="Иконка" class="link__icon"/>
-    {{/if}}
-</button>
+    <a id="{{id}}" href="{{href}}" class="button__type-round">
+        {{#if linkText}}
+            {{linkText}}
+        {{/if}}
+        {{#if icon}}
+            <img src="{{icon}}" alt="Иконка" class="link__icon"/>
+        {{/if}}
+    </a>
 `;

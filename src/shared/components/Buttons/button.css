@@ -1,24 +1,24 @@
 .button__group {
   display: flex;
   flex-direction: column;
+}
 
-  .button {
-    background-color: var(--purple-color);
-    width: 100%;    
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1;
-    text-align: center;
-    max-width: 280px;
-    width: 100%;
-    outline: none;
-    border: none;
-    color: var(--white-color);
-    cursor: pointer;
-    border-radius: 8px;
-    padding: 12px;
-    box-sizing: border-box;
-  }
+.button {
+  background-color: var(--purple-color);
+  width: 100%;    
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  max-width: 280px;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: var(--white-color);
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 12px;
+  box-sizing: border-box;
 }
 
 .button__type-round {
