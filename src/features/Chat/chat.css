@@ -32,7 +32,9 @@
       font-size: 12px;
       font-weight: 500;
       line-height: 1;
-      text-align: right;
+      display: flex;
+      align-items: center;
+      align-self: end;
       color: var(--gray-color);
     }
   }

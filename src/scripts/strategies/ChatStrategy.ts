@@ -1,4 +1,5 @@
 import Handlebars from "handlebars";
+import icon from "../../assets/images/caret-right.svg";
 import { ChatPage } from "../../pages";
 import { PageStrategy } from "./PageInterface/PageStrategies";
 
@@ -14,6 +15,6 @@ export class ChatStrategy implements PageStrategy {
   render(appElement: HTMLElement): void {
     const template = Handlebars.compile(ChatPage);
 
-    appElement.innerHTML = template({ dialogs });
+    appElement.innerHTML = template({ dialogs, icon });
   }
 }
