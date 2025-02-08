@@ -1,3 +1,3 @@
-export default `<div class="container">
+export default `<div class="container container__error">
     {{> @partial-block }}
 </div>`;

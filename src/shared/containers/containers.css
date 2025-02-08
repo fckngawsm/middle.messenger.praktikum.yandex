@@ -19,3 +19,10 @@
   justify-content: center;
   width: 75%;
 }
+
+.container__error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
