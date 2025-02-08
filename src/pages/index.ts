@@ -1,4 +1,3 @@
-export { LoginPage } from "./auth/Login/index";
-export { RegisterPage } from "./auth/Register/index";
+export { LoginPage, RegisterPage } from "./auth/index";
 export { ChatPage } from "./chat";
 export { ErrorPage } from "./error";
