@@ -1,6 +1,6 @@
+import Handlebars from "handlebars";
 import { ErrorPage } from "../../pages";
 import { PageStrategy } from "./PageInterface/PageStrategies";
-
 export class InternalServerErrorStrategy implements PageStrategy {
   render(appElement: HTMLElement): void {
     const template = Handlebars.compile(ErrorPage);
