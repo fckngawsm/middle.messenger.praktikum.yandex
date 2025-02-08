@@ -10,6 +10,10 @@ const button = {
   id: "login-button",
 };
 
+const buttonLink = {
+  href: "/chat",
+};
+
 const link = {
   id: "register-link",
   href: "/sign-up",
@@ -21,6 +25,6 @@ export class LoginStrategy implements PageStrategy {
   render(appElement: HTMLElement): void {
     const template = Handlebars.compile(LoginPage);
 
-    appElement.innerHTML = template({ button, link });
+    appElement.innerHTML = template({ button, link, buttonLink });
   }
 }
