@@ -20,3 +20,6 @@
 2. `npm run dev` - Запуск в режиме разработки
 3. `npm run build` - Сборка проекта
 
+## Netlify
+https://chatik-ya.netlify.app/
+
