@@ -11,7 +11,7 @@ const button = {
 };
 
 const buttonLink = {
-  href: "/chat",
+  href: "/messenger",
 };
 
 const link = {

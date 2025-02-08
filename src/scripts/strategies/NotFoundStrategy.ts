@@ -8,7 +8,7 @@ export class NotFoundStrategy implements PageStrategy {
 
     appElement.innerHTML = template({
       id: "not-found",
-      href: "/chat",
+      href: "/messenger",
       linkText: "Назад к чатам",
       errorTitle: "404",
       errorDescription: "Не туда попали",

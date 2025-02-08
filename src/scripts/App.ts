@@ -27,10 +27,10 @@ export class App {
   private getStrategyFromUrl(): PageStrategy {
     const path = window.location.pathname;
 
-    if (path === "/chat") return new ChatStrategy();
+    if (path === "/messenger") return new ChatStrategy();
     if (path === "/sign-up") return new RegisterStrategy();
     if (path === "/sign-in" || path === "/") return new LoginStrategy();
-    if (path === "/my-profile") return new ProfileStrategy();
+    if (path === "/settings") return new ProfileStrategy();
 
     return new NotFoundStrategy();
   }
