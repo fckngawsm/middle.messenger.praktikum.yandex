@@ -1,3 +1,4 @@
-export default `<div class="container container__profile">
+export default `
+<div class="container container__profile">
     {{> @partial-block }}
 </div>`;

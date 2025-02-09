@@ -1,5 +1,4 @@
 import Handlebars from "handlebars";
-// TODO: создать index.ts файл с импортами
 import ChatHeader from "../features/Chat/ChatHeader";
 import ChatItem from "../features/Chat/ChatItem";
 import ChatList from "../features/Chat/ChatList";

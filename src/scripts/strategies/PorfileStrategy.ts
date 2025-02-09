@@ -6,7 +6,7 @@ import { PageStrategy } from "./PageInterface/PageStrategies";
 const button = {
   class: "button link",
   type: "button",
-  form: "login-form",
+  form: "settings-form",
   text: "Сохранить",
   id: "settings-button",
 };

@@ -1,3 +1,4 @@
-export default `<div class="chats">    
+export default `
+<div class="chats">    
     {{> @partial-block }}
 </div>`;
