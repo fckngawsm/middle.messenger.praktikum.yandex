@@ -22,4 +22,3 @@
 
 ## Netlify
 https://chatik-ya.netlify.app/
-
