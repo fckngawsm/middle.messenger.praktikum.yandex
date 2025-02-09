@@ -1,0 +1,32 @@
+.container {
+  height: inherit;
+  width: 100%;
+}
+
+.container__auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container__chats {
+  display: flex;
+}
+
+.container__dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+}
+
+.container__error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.container__profile {
+  display: flex;
+}

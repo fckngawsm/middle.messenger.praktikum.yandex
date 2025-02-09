@@ -1,0 +1,16 @@
+.error__title {
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 40px;
+  text-align: center;
+  margin: 0;
+}
+
+.error__description {
+  margin: 0;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+}

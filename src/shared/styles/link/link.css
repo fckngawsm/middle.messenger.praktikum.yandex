@@ -1,0 +1,21 @@
+.link {
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.link__auth {
+  font-size: 11px;
+  text-align: center;
+  color: var(--purple-color);
+  margin-top: 14px;
+}
+
+.link__error {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  color: var(--purple-color);
+  margin-top: 70px;
+}
