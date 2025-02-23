@@ -12,22 +12,6 @@
     gap: 23px;
     padding: 21px 10px 14px;
 
-    .chat__input {
-      border-radius: 5px;
-      width: 100%;
-      padding: 10px;
-      background: var(--dark-gray-color);
-      box-sizing: border-box;
-      outline: none;
-      border: none;
-      font-size: 12px;
-      line-height: 1;
-
-      &::placeholder {
-        text-align: center;
-      }
-    }
-
     .chat__header-link {
       font-size: 12px;
       font-weight: 500;
@@ -126,5 +110,21 @@
   .chat__list::-webkit-scrollbar {
     width: 0px;
     height: 0px;
+  }
+}
+
+.chat__input {
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  background: var(--dark-gray-color);
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  font-size: 12px;
+  line-height: 1;
+
+  &::placeholder {
+    text-align: center;
   }
 }

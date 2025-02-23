@@ -39,6 +39,8 @@
   flex-direction: column;
   gap: 10px;
   padding: 0;
+  max-height: 90%;
+  overflow: scroll;
 
   .chat__messages-date {
     font-weight: 500;
@@ -86,5 +88,15 @@
     margin-left: 15px;
     display: flex;
     align-items: center;
+  }
+}
+
+.chat__bottom-part {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  .chat__attach-icon {
+    cursor: pointer;
   }
 }

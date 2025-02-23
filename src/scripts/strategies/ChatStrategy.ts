@@ -1,5 +1,7 @@
 import Handlebars from "handlebars";
+import attach from "../../assets/images/attach.svg";
 import caret from "../../assets/images/caret-right.svg";
+import whiteCaret from "../../assets/images/caret-white.svg";
 import check from "../../assets/images/check.svg";
 import dots from "../../assets/images/dots.svg";
 import { ChatPage } from "../../pages";
@@ -13,7 +15,7 @@ const dialogs = Array.from({ length: 15 }, (_, i) => ({
   unreadMessageCount: i % 3 === 0 ? i : 0,
 }));
 
-const messages = Array.from({ length: 10 }, (_, i) => {
+const messages = Array.from({ length: 40 }, (_, i) => {
   const isMyMessage = i % 2 === 0;
   return {
     message: `Привет ${i + 1}`,
@@ -24,12 +26,17 @@ const messages = Array.from({ length: 10 }, (_, i) => {
   };
 });
 
-console.log(messages, "messages");
-
 export class ChatStrategy implements PageStrategy {
   render(appElement: HTMLElement): void {
     const template = Handlebars.compile(ChatPage);
 
-    appElement.innerHTML = template({ dialogs, icon: caret, dots, messages });
+    appElement.innerHTML = template({
+      dialogs,
+      icon: caret,
+      submitIcon: whiteCaret,
+      dots,
+      messages,
+      attach,
+    });
   }
 }

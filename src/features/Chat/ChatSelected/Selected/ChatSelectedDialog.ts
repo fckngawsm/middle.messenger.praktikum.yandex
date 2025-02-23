@@ -10,4 +10,10 @@ export default `
             }}
         {{/each}}
     {{/MessageList}}
- `;
+    {{> Spacer}}
+    <div class="chat__bottom-part">
+        <img class="chat__attach-icon" src="{{attach}}" alt="Прикрепить"/>
+        {{> ChatInput id="chat-input" placeholder="Сообщение" name="message"}}
+        {{> RoundButton id="chat-link" icon=submitIcon}}
+    </div>
+`;
