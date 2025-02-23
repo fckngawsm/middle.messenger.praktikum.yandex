@@ -71,6 +71,7 @@
   display: flex;
   font-weight: 500;
   font-size: 12px;
+  align-items: center;
   line-height: 1.2;
 
 
@@ -82,5 +83,8 @@
     font-weight: 500;
     font-size: 9px;
     line-height: 1;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
   }
 }

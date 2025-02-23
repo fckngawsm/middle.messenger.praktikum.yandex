@@ -1,7 +1,7 @@
 export default `
+    {{> ChatSelectedHeader name="Кирилл"}}
     {{#> MessageList}}
         {{#each messages}}
-        {{log messages}}
             {{> MessageItem 
                 message=this.message 
                 date=this.date 
