@@ -59,6 +59,10 @@
     max-width: 402px;
     width: fit-content;
     border-radius: 10px;
+
+    .message__check {
+      margin-right: 4px;
+    }
   }
 
   .message__item-my_statement {
