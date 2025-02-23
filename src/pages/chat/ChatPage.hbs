@@ -13,5 +13,7 @@
             {{/each}}
         </div>
     {{/ChatList}}
-    {{> ChatSelectDialog}}
+    {{#> SelectedChatContainer}}
+        {{> ChatSelectedDialog}}    
+    {{/SelectedChatContainer}}
 {{/ChatsContainer}}

@@ -1,8 +1,10 @@
 import Handlebars from "handlebars";
-import ChatHeader from "../features/Chat/ChatHeader";
-import ChatItem from "../features/Chat/ChatItem";
-import ChatList from "../features/Chat/ChatList";
-import ChatSelectDialog from "../features/Chat/ChatSelectDialog";
+import ChatHeader from "../features/Chat/ChatList/ChatHeader";
+import ChatItem from "../features/Chat/ChatList/ChatItem";
+import ChatList from "../features/Chat/ChatList/ChatList";
+import ChatSelectDialog from "../features/Chat/ChatSelected/ChatSelectDialog";
+import ChatSelectedDialog from "../features/Chat/ChatSelected/ChatSelectedDialog";
+import ChatSelectedHeader from "../features/Chat/ChatSelected/ChatSelectedHeader";
 import ProfileNavigationButton from "../features/Profile/ProfileNavigationButton";
 import ProfileSettings from "../features/Profile/ProfileSettings";
 import Avatar from "../shared/components/Avatar/Avatar";
@@ -18,6 +20,7 @@ import AuthContainer from "../shared/containers/AuthContainer";
 import ChatsContainer from "../shared/containers/ChatsContainer";
 import ErrorContainer from "../shared/containers/ErrorContainer";
 import ProfileContainer from "../shared/containers/ProfileContainer";
+import SelectedChatContainer from "../shared/containers/SelectedChatContainer";
 
 export const registerPartial = () => {
   // components
@@ -31,9 +34,11 @@ export const registerPartial = () => {
   Handlebars.registerPartial("Link", Link);
   Handlebars.registerPartial("ChatList", ChatList);
   Handlebars.registerPartial("ChatHeader", ChatHeader);
+  Handlebars.registerPartial("ChatSelectDialog", ChatSelectDialog);
+  Handlebars.registerPartial("ChatSelectedDialog", ChatSelectedDialog);
+  Handlebars.registerPartial("ChatSelectedHeader", ChatSelectedHeader);
   Handlebars.registerPartial("ChatItem", ChatItem);
   Handlebars.registerPartial("Avatar", Avatar);
-  Handlebars.registerPartial("ChatSelectDialog", ChatSelectDialog);
   Handlebars.registerPartial(
     "ProfileNavigationButton",
     ProfileNavigationButton
@@ -44,4 +49,5 @@ export const registerPartial = () => {
   Handlebars.registerPartial("ErrorContainer", ErrorContainer);
   Handlebars.registerPartial("ChatsContainer", ChatsContainer);
   Handlebars.registerPartial("ProfileContainer", ProfileContainer);
+  Handlebars.registerPartial("SelectedChatContainer", SelectedChatContainer);
 };
