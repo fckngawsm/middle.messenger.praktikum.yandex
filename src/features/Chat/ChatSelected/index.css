@@ -1,0 +1,86 @@
+.chat__select-dialog {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  color: var(--gray-color);
+}
+
+.chat__selected-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--dark-gray-color);
+  padding-bottom: 10px;
+
+  div {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .chat__selected-header-name {
+      font-family: Inter;
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 1;
+      margin: 0;
+      color: --var(light-black-color);
+    }
+  }
+
+  .chat__selected-header-dots {
+    cursor: pointer;
+  }
+}
+
+.chat__messages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+
+  .chat__messages-date {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 30px;
+    color: var(--gray-color);
+  }
+
+  .message__item {
+    list-style-type: none;
+    background-color: var(--message-gray-color);
+    cursor: pointer;
+    max-width: 402px;
+    width: fit-content;
+    border-radius: 10px;
+  }
+
+  .message__item-my_statement {
+    background-color: var(--light-blue-color);
+    align-self: flex-end;
+  }
+}
+
+.message__text {
+  margin: 0;
+  padding: 11px;
+  display: flex;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.2;
+
+
+  .message__time {
+    margin: 0;
+    align-self: flex-end;
+    color: var(--gray-color);
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 9px;
+    line-height: 1;
+  }
+}

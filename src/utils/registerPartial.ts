@@ -5,6 +5,8 @@ import ChatList from "../features/Chat/ChatParticipants/ChatParticipantList";
 import ChatSelectDialog from "../features/Chat/ChatSelected/Select/ChatSelectDialog";
 import ChatSelectedDialog from "../features/Chat/ChatSelected/Selected/ChatSelectedDialog";
 import ChatSelectedHeader from "../features/Chat/ChatSelected/Selected/ChatSelectedHeader";
+import MessageItem from "../features/Chat/ChatSelected/Selected/MessageItem";
+import MessageList from "../features/Chat/ChatSelected/Selected/MessageList";
 import ProfileNavigationButton from "../features/Profile/ProfileNavigationButton";
 import ProfileSettings from "../features/Profile/ProfileSettings";
 import Avatar from "../shared/components/Avatar/Avatar";
@@ -32,11 +34,15 @@ export const registerPartial = () => {
   Handlebars.registerPartial("ChatInput", ChatInput);
   Handlebars.registerPartial("Spacer", Spacer);
   Handlebars.registerPartial("Link", Link);
+  // chat
   Handlebars.registerPartial("ChatList", ChatList);
   Handlebars.registerPartial("ChatHeader", ChatHeader);
   Handlebars.registerPartial("ChatSelectDialog", ChatSelectDialog);
   Handlebars.registerPartial("ChatSelectedDialog", ChatSelectedDialog);
   Handlebars.registerPartial("ChatSelectedHeader", ChatSelectedHeader);
+  Handlebars.registerPartial("MessageList", MessageList);
+  Handlebars.registerPartial("MessageItem", MessageItem);
+  //
   Handlebars.registerPartial("ChatItem", ChatItem);
   Handlebars.registerPartial("Avatar", Avatar);
   Handlebars.registerPartial(
