@@ -1,4 +1,5 @@
-import { EventBus } from "../../services/EventBus";
+import { EventBus } from "./EventBus";
+import { ProxyProps } from "./ProxyProps";
 
 export interface BlockProps {
   [key: string]: any;
@@ -21,9 +22,9 @@ export abstract class Block<P extends BlockProps = {}> {
   constructor(tagName: string = "div", props: P = {} as P) {
     this._meta = { tagName, props };
     this._eventBus = new EventBus();
-    this.props = this._makePropsProxy(props);
-    this._registerEvents(this._eventBus);
     this._eventBus.emit(Block.EVENTS.INIT);
+    this.props = new ProxyProps(props, this._eventBus).get();
+    this._registerEvents(this._eventBus);
   }
 
   private _registerEvents(eventBus: EventBus): void {
@@ -87,25 +88,6 @@ export abstract class Block<P extends BlockProps = {}> {
 
   public getContent(): HTMLElement | null {
     return this.element;
-  }
-
-  private _makePropsProxy(props: P): P {
-    const self = this;
-    return new Proxy(props, {
-      get(target, prop: string) {
-        const value = target[prop as keyof P];
-        return typeof value === "function" ? value.bind(target) : value;
-      },
-      set(target, prop: string, value): boolean {
-        target[prop as keyof P] = value;
-        // Запускаем обновление компонента
-        self._eventBus.emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
-        return true;
-      },
-      deleteProperty() {
-        throw new Error("Нет доступа");
-      },
-    });
   }
 
   private _createDocumentElement(tagName: string): HTMLElement {
