@@ -9,20 +9,20 @@ import MessageItem from "../features/Chat/ChatSelected/Selected/MessageItem";
 import MessageList from "../features/Chat/ChatSelected/Selected/MessageList";
 import ProfileNavigationButton from "../features/Profile/ProfileNavigationButton";
 import ProfileSettings from "../features/Profile/ProfileSettings";
-import Avatar from "../shared/components/Avatar/Avatar";
-import Button from "../shared/components/Buttons/Button";
-import RoundButton from "../shared/components/Buttons/RoundButton";
-import Form from "../shared/components/Form/Form";
-import FormWrapper from "../shared/components/FormWrapper";
-import ChatInput from "../shared/components/Inputs/ChatInput";
-import Input from "../shared/components/Inputs/Input";
-import Link from "../shared/components/Link";
-import Spacer from "../shared/components/Spacer";
 import AuthContainer from "../shared/containers/AuthContainer";
 import ChatsContainer from "../shared/containers/ChatsContainer";
 import ErrorContainer from "../shared/containers/ErrorContainer";
 import ProfileContainer from "../shared/containers/ProfileContainer";
 import SelectedChatContainer from "../shared/containers/SelectedChatContainer";
+import Avatar from "../shared/ui/Avatar/Avatar";
+import Button from "../shared/ui/Buttons/Button";
+import RoundButton from "../shared/ui/Buttons/RoundButton";
+import Form from "../shared/ui/Form/Form";
+import FormWrapper from "../shared/ui/FormWrapper";
+import ChatInput from "../shared/ui/Inputs/ChatInput";
+import Input from "../shared/ui/Inputs/Input";
+import Link from "../shared/ui/Link";
+import Spacer from "../shared/ui/Spacer";
 
 export const registerPartial = () => {
   // components
