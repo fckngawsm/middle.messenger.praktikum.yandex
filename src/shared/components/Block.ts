@@ -20,11 +20,11 @@ export abstract class Block<P extends BlockProps = {}> {
   private _eventBus: EventBus;
 
   constructor(tagName: string = "div", props: P = {} as P) {
-    this._meta = { tagName, props };
     this._eventBus = new EventBus();
+    this.props = new ProxyProps(props, this._eventBus).get();
+    this._meta = { tagName, props };
     this._registerEvents(this._eventBus);
     this._eventBus.emit(Block.EVENTS.INIT);
-    this.props = new ProxyProps(props, this._eventBus).get();
   }
 
   private _registerEvents(eventBus: EventBus): void {
@@ -34,9 +34,14 @@ export abstract class Block<P extends BlockProps = {}> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
+  private _createDocumentElement(tagName: string): HTMLElement {
+    return document.createElement(tagName);
+  }
+
   protected _createResources(): void {
     const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
+    console.log(this._element, "thisle");
   }
 
   protected init(): void {
@@ -78,20 +83,20 @@ export abstract class Block<P extends BlockProps = {}> {
   }
 
   protected _render(): void {
-    const block = this.render();
     if (this._element) {
-      this._element.innerHTML = block;
+      this._element.textContent = this.props.text || "";
+      if (this.props.id) this._element.setAttribute("id", this.props.id);
+      if (this.props.class)
+        this._element.setAttribute("class", this.props.class);
+      if (this.props.type) this._element.setAttribute("type", this.props.type);
+      if (this.props.form) this._element.setAttribute("form", this.props.form);
     }
   }
 
-  protected abstract render(): string;
+  // protected abstract render(): string;
 
   public getContent(): HTMLElement | null {
     return this.element;
-  }
-
-  private _createDocumentElement(tagName: string): HTMLElement {
-    return document.createElement(tagName);
   }
 
   public show(): void {

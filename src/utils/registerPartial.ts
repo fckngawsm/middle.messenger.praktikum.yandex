@@ -15,7 +15,7 @@ import ErrorContainer from "../shared/containers/ErrorContainer";
 import ProfileContainer from "../shared/containers/ProfileContainer";
 import SelectedChatContainer from "../shared/containers/SelectedChatContainer";
 import Avatar from "../shared/ui/Avatar/Avatar";
-import Button from "../shared/ui/Buttons/Button";
+// import Button from "../shared/ui/Buttons/Button";
 import RoundButton from "../shared/ui/Buttons/RoundButton";
 import Form from "../shared/ui/Form/Form";
 import FormWrapper from "../shared/ui/FormWrapper";
@@ -28,7 +28,7 @@ export const registerPartial = () => {
   // components
   Handlebars.registerPartial("FormWrapper", FormWrapper);
   Handlebars.registerPartial("Form", Form);
-  Handlebars.registerPartial("Button", Button);
+  // Handlebars.registerPartial("Button", Button);
   Handlebars.registerPartial("RoundButton", RoundButton);
   Handlebars.registerPartial("Input", Input);
   Handlebars.registerPartial("ChatInput", ChatInput);

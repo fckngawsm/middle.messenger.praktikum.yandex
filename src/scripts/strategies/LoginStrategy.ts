@@ -1,14 +1,7 @@
 import Handlebars from "handlebars";
 import { LoginPage } from "../../pages";
+import { Button } from "../../shared/ui/Buttons/Button";
 import { PageStrategy } from "./PageInterface/PageStrategies";
-
-const button = {
-  class: "button link",
-  type: "button",
-  form: "login-form",
-  text: "Авторизоваться",
-  id: "login-button",
-};
 
 const buttonLink = {
   href: "/messenger",
@@ -21,10 +14,27 @@ const link = {
   class: "link__auth",
 };
 
+const loginButton = new Button({
+  id: "login-button",
+  class: "button link",
+  type: "submit",
+  form: "login-form",
+  text: "Авторизоваться",
+  events: {
+    click: (event) => {
+      event.preventDefault();
+      console.log("Кнопка нажата!");
+    },
+  },
+});
+
 export class LoginStrategy implements PageStrategy {
   render(appElement: HTMLElement): void {
     const template = Handlebars.compile(LoginPage);
-
-    appElement.innerHTML = template({ button, link, buttonLink });
+    appElement.innerHTML = template({
+      loginButton: loginButton.getContent()?.outerHTML,
+      link,
+      buttonLink,
+    });
   }
 }
