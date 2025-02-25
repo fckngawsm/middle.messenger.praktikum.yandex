@@ -9,10 +9,10 @@
 @import url(./error/error.css);
 @import url(./link/link.css);
 
-@import url(../components/Avatar/avatar.css);
-@import url(../components/Form/form.css);
-@import url(../components/Buttons/button.css);
-@import url(../components/Inputs/input.css);
+@import url(../ui/Avatar/avatar.css);
+@import url(../ui/Form/form.css);
+@import url(../ui/Buttons/button.css);
+@import url(../ui/Inputs/input.css);
 
 @import url(../../features/Chat/chat.css);
 @import url(../../features/Profile/profile.css);

@@ -7,8 +7,8 @@
       {{/Form}}
       {{> Spacer}}
       <div class="button__group">
-          <a href="{{buttonLink.href}}" class="{{button.class}}" id="{{button.id}}">
-            {{button.text}}
+          <a href="{{buttonLink.href}}">
+            {{> Button class=button.class type=button.type form=button.form text=button.text id=button.id}}
           </a>
           {{> Link class=link.class id=link.id href=link.href linkText=link.linkText}}
       </div>

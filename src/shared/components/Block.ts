@@ -22,9 +22,9 @@ export abstract class Block<P extends BlockProps = {}> {
   constructor(tagName: string = "div", props: P = {} as P) {
     this._meta = { tagName, props };
     this._eventBus = new EventBus();
+    this._registerEvents(this._eventBus);
     this._eventBus.emit(Block.EVENTS.INIT);
     this.props = new ProxyProps(props, this._eventBus).get();
-    this._registerEvents(this._eventBus);
   }
 
   private _registerEvents(eventBus: EventBus): void {
