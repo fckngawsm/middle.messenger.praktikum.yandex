@@ -14,7 +14,7 @@ const loginButton = new Button({
     type: "submit",
     form: "login-form",
   },
-  children: "Авторизоваться",
+  text: "Авторизоваться",
   onClick: (event: Event) => {
     console.log("CLICK");
     event.preventDefault();

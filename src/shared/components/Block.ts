@@ -42,7 +42,7 @@ export class Block {
     const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
       if (this._element) {
-        console.log("true");
+        console.log(this.element, "thus element");
         this._element.addEventListener(eventName, events[eventName]);
       }
     });
@@ -193,6 +193,7 @@ export class Block {
     if (this._element && newElement) {
       this._element.replaceWith(newElement);
     }
+
     this._element = newElement;
     this._addEvents();
     this.addAttributes();

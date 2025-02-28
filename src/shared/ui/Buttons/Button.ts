@@ -7,7 +7,7 @@ interface ButtonProps {
     type?: "button" | "submit" | "reset";
     form?: string;
   };
-  children: string;
+  text: string;
   onClick: (e: Event) => void;
 }
 
