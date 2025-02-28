@@ -1,7 +1,9 @@
 import { Block } from "../components/Block";
 
 interface FormWrapperProps {
-  class: string;
+  attr: {
+    className: string;
+  };
 }
 
 export class FormWrapper extends Block {
@@ -11,7 +13,7 @@ export class FormWrapper extends Block {
 
   protected render(): string {
     return `
-      <div class="form__wrapper ${this.props.class}">
+      <div class="form__wrapper ${this.props.attr.className}">
             ${this.children}
         </div>;
     `;

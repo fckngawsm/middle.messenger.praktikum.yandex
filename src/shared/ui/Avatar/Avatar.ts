@@ -1,19 +1,22 @@
 import { Block } from "../../components/Block";
 
-export default `<img class="avatar {{class}}" src={{userAvatar}} alt="Аватарка"/>`;
-
 interface AvatarProps {
-  class: string;
-  avatarUrl: string;
-  alt: string;
+  attr: {
+    avatarUrl: string;
+    className: string;
+    alt: string;
+  };
 }
+
 export class Avatar extends Block {
   constructor(props: AvatarProps) {
     super(props);
   }
+
   protected render(): string {
+    const { className, avatarUrl, alt } = this.props.attr;
     return `
-        <img class='avatar ${this.props.class}' src=${this.props.class} alt=${this.props.alt}/>
+        <img class="avatar ${className}" src="${avatarUrl}" alt="${alt}" />
       `;
   }
 }

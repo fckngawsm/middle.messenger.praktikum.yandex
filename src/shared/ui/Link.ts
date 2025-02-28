@@ -12,28 +12,25 @@ export default `
 `;
 
 interface LinkProps {
-  id: number;
-  class: string;
-  to: string;
+  attr: {
+    id: number;
+    className: string;
+    to: string;
+    iconSrc?: string;
+  };
   linkText?: string;
-  icon?: string;
 }
 export class Link extends Block {
   constructor(props: LinkProps) {
     super(props);
   }
   protected render(): string {
+    const { id, className, to, iconSrc } = this.props.attr;
     return `
-        <a id=${this.props.id} class="link ${this.props.class}" href=${
-      this.props.to
-    }>
-            {{#if linkText}}
-                {{linkText}}
-            {{/if}}
+        <a id=${id} class="link ${className}" href=${to}>
             ${this.props.linkText && this.props.linkText}
             ${
-              this.props.icon &&
-              `<img src=${this.props.icon} alt="Иконка" class="link__icon"/>`
+              iconSrc && `<img src=${iconSrc} alt="Иконка" class="link__icon"/>`
             }
         </a>
       `;

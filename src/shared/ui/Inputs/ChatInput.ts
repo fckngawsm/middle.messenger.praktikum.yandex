@@ -6,8 +6,9 @@ export class ChatInput extends Block {
     super(props);
   }
   protected render(): string {
+    const { id, placeholder, name } = this.props.attr;
     return `
-        <input class="chat__input" type="text" id=${this.props.id} placeholder=${this.props.placeholder} name=${this.props.name}>
+        <input class="chat__input" type="text" id=${id} placeholder=${placeholder} name=${name}>
       `;
   }
 }

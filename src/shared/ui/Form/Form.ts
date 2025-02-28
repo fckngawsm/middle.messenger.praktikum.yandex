@@ -7,7 +7,9 @@ export default `
 `;
 
 interface FormProps {
-  id: number;
+  attr: {
+    id: number;
+  };
 }
 
 export class Form extends Block {
@@ -17,9 +19,9 @@ export class Form extends Block {
 
   protected render(): string {
     return `
-            <form class="form" id=${this.props.id} autocomplete="off">
-                ${this.children}
-            </form>
+      <form class="form" id=${this.props.attr.id} autocomplete="off">
+        ${this.children}
+      </form>
       `;
   }
 }

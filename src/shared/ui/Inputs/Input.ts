@@ -35,10 +35,8 @@ export class Input extends Block {
           name="${name || ""}" 
           ${required ? "required" : ""}
         >
-        ${
-          label ? `<label class="form__label" for="${id}">${label}</label>` : ""
-        }
-        ${helperText ? `<p class="form__helper-text">${helperText}</p>` : ""}
+        ${label && `<label class="form__label" for="${id}">${label}</label>`}
+        ${helperText && `<p class="form__helper-text">${helperText}</p>`}
       </div>
     `;
   }
