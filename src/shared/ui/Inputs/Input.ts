@@ -1,16 +1,8 @@
 import { Block } from "../../components/Block";
+import { BaseInputAttributes } from "../../types/BaseInput";
 
 interface InputProps {
-  attr: {
-    id?: string;
-    groupClassName?: string;
-    inputClassName?: string;
-    placeholder?: string;
-    type?: HTMLInputElement["type"];
-    name?: string;
-    required?: boolean;
-    formId?: string;
-  };
+  attr: BaseInputAttributes;
   label?: string;
   helperText?: string;
 }
