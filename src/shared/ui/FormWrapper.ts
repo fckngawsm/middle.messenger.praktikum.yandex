@@ -1,10 +1,5 @@
 import { Block } from "../components/Block";
 
-export default `
-<div class="form__wrapper {{class}}">
-    {{> @partial-block }}
-</div>`;
-
 interface FormWrapperProps {
   class: string;
 }
