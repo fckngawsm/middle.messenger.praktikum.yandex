@@ -1,51 +1,41 @@
 import { Block } from "../../components/Block";
 
 interface ButtonProps {
-  id?: string;
-  class?: string;
-  type?: "button" | "submit" | "reset";
-  form?: string;
-  text: string;
-  events?: {
-    click?: (event: Event) => void;
+  attr: {
+    id?: string;
+    className?: string;
+    type?: "button" | "submit" | "reset";
+    form?: string;
   };
+  children: string;
+  onClick: (e: Event) => void;
 }
 
-export class Button extends Block<ButtonProps> {
+export class Button extends Block {
   constructor(props: ButtonProps) {
-    super("button", props);
+    super({
+      ...props,
+      events: {
+        click: (e: Event) => {
+          props.onClick(e);
+        },
+      },
+    });
   }
 
-  protected componentDidMount(): void {
-    this._addEvents();
-  }
+  protected render(): string {
+    const { attr, children } = this.props;
+    const { id, className = "", type = "button", form } = attr;
 
-  protected componentDidUpdate(): boolean {
-    this._removeEvents();
-    this._addEvents();
-    return true;
+    return `
+      <button 
+        id="${id || ""}" 
+        class="${className}" 
+        type="${type}"
+        ${form ? `form="${form}"` : ""}
+      >
+        ${children}
+      </button>
+    `;
   }
-
-  private _addEvents(): void {
-    if (this.props.events?.click && this.element) {
-      this.element.addEventListener("click", this.props.events.click);
-    }
-  }
-
-  private _removeEvents(): void {
-    if (this.props.events?.click && this.element) {
-      this.element.removeEventListener("click", this.props.events.click);
-    }
-  }
-
-  //   protected render(): string {
-  //     return `
-  //       <button id="${this.props?.id || ""}"
-  //               class="${this.props?.class || ""}"
-  //               type="${this.props?.type || "button"}"
-  //               form="${this.props?.form || ""}">
-  //                 ${this.props?.text}
-  //       </button>
-  //     `;
-  //   }
 }

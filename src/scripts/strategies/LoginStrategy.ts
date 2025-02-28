@@ -7,6 +7,21 @@ const buttonLink = {
   href: "/messenger",
 };
 
+const loginButton = new Button({
+  attr: {
+    id: "login-button",
+    className: "button link",
+    type: "submit",
+    form: "login-form",
+  },
+  children: "Авторизоваться",
+  onClick: (event: Event) => {
+    console.log("CLICK");
+    event.preventDefault();
+    event.stopPropagation();
+  },
+});
+
 const link = {
   id: "register-link",
   href: "/sign-up",
@@ -14,25 +29,12 @@ const link = {
   class: "link__auth",
 };
 
-const loginButton = new Button({
-  id: "login-button",
-  class: "button link",
-  type: "submit",
-  form: "login-form",
-  text: "Авторизоваться",
-  events: {
-    click: (event) => {
-      event.preventDefault();
-      console.log("Кнопка нажата!");
-    },
-  },
-});
-
 export class LoginStrategy implements PageStrategy {
   render(appElement: HTMLElement): void {
     const template = Handlebars.compile(LoginPage);
+    const loginButtonHtml = loginButton.getContent().outerHTML;
     appElement.innerHTML = template({
-      loginButton: loginButton.getContent()?.outerHTML,
+      loginButton: loginButtonHtml,
       link,
       buttonLink,
     });
