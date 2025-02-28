@@ -1,3 +1,3 @@
 export interface PageStrategy {
-  render(appElement: HTMLElement): void;
+  renderPage(appElement: HTMLElement): void;
 }

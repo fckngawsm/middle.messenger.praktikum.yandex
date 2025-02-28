@@ -27,7 +27,7 @@ const messages = Array.from({ length: 40 }, (_, i) => {
 });
 
 export class ChatStrategy implements PageStrategy {
-  render(appElement: HTMLElement): void {
+  renderPage(appElement: HTMLElement): void {
     const template = Handlebars.compile(ChatPage);
 
     appElement.innerHTML = template({

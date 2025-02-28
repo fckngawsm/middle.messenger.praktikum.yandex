@@ -11,7 +11,7 @@ const button = {
   id: "settings-button",
 };
 export class ProfileStrategy implements PageStrategy {
-  render(appElement: HTMLElement): void {
+  renderPage(appElement: HTMLElement): void {
     const template = Handlebars.compile(Profile);
 
     appElement.innerHTML = template({ icon, button });

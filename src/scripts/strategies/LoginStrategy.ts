@@ -1,5 +1,5 @@
-import Handlebars from "handlebars";
 import { LoginPage } from "../../pages";
+import { Block } from "../../shared/components/Block";
 import { Button } from "../../shared/ui/Buttons/Button";
 import { PageStrategy } from "./PageInterface/PageStrategies";
 
@@ -29,14 +29,17 @@ const link = {
   class: "link__auth",
 };
 
-export class LoginStrategy implements PageStrategy {
-  render(appElement: HTMLElement): void {
-    const template = Handlebars.compile(LoginPage);
-    const loginButtonHtml = loginButton.getContent().outerHTML;
-    appElement.innerHTML = template({
-      loginButton: loginButtonHtml,
-      link,
-      buttonLink,
-    });
+export class LoginStrategy extends Block implements PageStrategy {
+  constructor() {
+    super({ loginButton, link, buttonLink });
+  }
+
+  protected render(): string {
+    return LoginPage;
+  }
+
+  public renderPage(appElement: HTMLElement): void {
+    appElement.innerHTML = "";
+    appElement.appendChild(this.getContent());
   }
 }

@@ -21,7 +21,7 @@ export class App {
 
   render() {
     if (this.appElement) {
-      this.currentStrategy.render(this.appElement);
+      this.currentStrategy.renderPage(this.appElement);
     }
   }
 

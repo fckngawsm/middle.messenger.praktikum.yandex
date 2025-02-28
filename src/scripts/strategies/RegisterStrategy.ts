@@ -17,7 +17,7 @@ const link = {
 };
 
 export class RegisterStrategy implements PageStrategy {
-  render(appElement: HTMLElement): void {
+  renderPage(appElement: HTMLElement): void {
     const template = Handlebars.compile(RegisterPage);
 
     appElement.innerHTML = template({ button, link });

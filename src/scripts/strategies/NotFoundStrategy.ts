@@ -3,7 +3,7 @@ import { ErrorPage } from "../../pages";
 import { PageStrategy } from "./PageInterface/PageStrategies";
 
 export class NotFoundStrategy implements PageStrategy {
-  render(appElement: HTMLElement): void {
+  renderPage(appElement: HTMLElement): void {
     const template = Handlebars.compile(ErrorPage);
 
     appElement.innerHTML = template({
