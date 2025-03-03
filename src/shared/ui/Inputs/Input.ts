@@ -5,11 +5,17 @@ interface InputProps {
   attr: BaseInputAttributes;
   label?: string;
   helperText?: string;
+  onBlur: (e: Event) => void;
 }
 
 export class Input extends Block {
   constructor(props: InputProps) {
-    super(props);
+    super({
+      ...props,
+      events: {
+        blur: (e: Event) => props.onBlur(e),
+      },
+    });
   }
 
   protected render(): string {
@@ -18,7 +24,9 @@ export class Input extends Block {
     const { required, label, helperText } = this.props;
 
     return `
-      <div class="form__input-group ${groupClassName || ""}">
+      <div data-type="${name || ""}" class="form__input-group ${
+      groupClassName || ""
+    }">
         <input 
           class="form__input ${inputClassName || ""}" 
           placeholder="${placeholder || ""}" 
@@ -28,7 +36,7 @@ export class Input extends Block {
           ${required ? "required" : ""}
         >
         ${label && `<label class="form__label" for="${id}">${label}</label>`}
-        ${helperText && `<p class="form__helper-text">${helperText}</p>`}
+        <p class="form__helper-text">${helperText}</p>
       </div>
     `;
   }
