@@ -2,8 +2,9 @@ import { Block } from "../../components/Block";
 
 interface FormProps {
   attr: {
-    id: number;
+    id: string | number;
   };
+  children?: any;
 }
 
 export class Form extends Block {

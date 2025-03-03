@@ -24,7 +24,7 @@ export class Button extends Block {
   }
 
   protected render(): string {
-    const { attr, children } = this.props;
+    const { attr, text } = this.props;
     const { id, className = "", type = "button", form } = attr;
 
     return `
@@ -34,7 +34,7 @@ export class Button extends Block {
         type="${type}"
         ${form ? `form="${form}"` : ""}
       >
-        ${children}
+        ${text}
       </button>
     `;
   }

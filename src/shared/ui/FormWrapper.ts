@@ -2,8 +2,9 @@ import { Block } from "../components/Block";
 
 interface FormWrapperProps {
   attr: {
-    className: string;
+    className?: string;
   };
+  children?: any;
 }
 
 export class FormWrapper extends Block {

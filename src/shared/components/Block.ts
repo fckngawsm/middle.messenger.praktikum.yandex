@@ -125,14 +125,6 @@ export class Block {
     });
   }
 
-  protected setAttributes(attr: any): void {
-    Object.entries(attr).forEach(([key, value]) => {
-      if (this._element) {
-        this._element.setAttribute(key, value as string);
-      }
-    });
-  }
-
   public setProps = (nextProps: BlockProps): void => {
     if (!nextProps) {
       return;

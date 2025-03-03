@@ -13,17 +13,9 @@ export class Input extends Block {
   }
 
   protected render(): string {
-    const {
-      groupClassName,
-      inputClassName,
-      placeholder,
-      type,
-      id,
-      name,
-      required,
-      label,
-      helperText,
-    } = this.props.attr;
+    const { groupClassName, inputClassName, placeholder, type, id, name } =
+      this.props.attr;
+    const { required, label, helperText } = this.props;
 
     return `
       <div class="form__input-group ${groupClassName || ""}">

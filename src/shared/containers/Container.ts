@@ -4,6 +4,7 @@ interface ContainerProps {
   attr: {
     className: string;
   };
+  children?: any;
 }
 
 export class Container extends Block {
