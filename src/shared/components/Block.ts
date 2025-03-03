@@ -1,4 +1,6 @@
 import Handlebars from "handlebars";
+import { ContextStrategy } from "../../scripts/validator/ContextStrategy";
+import { StrategyType } from "../../scripts/validator/StrategyType";
 import { EventBus } from "./EventBus";
 
 interface BlockProps {
@@ -23,10 +25,11 @@ export class Block {
 
   protected lists: Record<string, any[]>;
 
+  protected contextStrategy: ContextStrategy;
+
   protected eventBus: () => EventBus;
 
   constructor(propsWithChildren: BlockProps = {}) {
-    console.log(propsWithChildren, "propsWithChildren");
     const eventBus = new EventBus();
     const { props, children, lists } =
       this._getChildrenPropsAndProps(propsWithChildren);
@@ -34,6 +37,7 @@ export class Block {
     this.children = children;
     this.lists = this._makePropsProxy({ ...lists });
     this.eventBus = () => eventBus;
+    this.contextStrategy = new ContextStrategy();
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
   }
@@ -42,8 +46,14 @@ export class Block {
     const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
       if (this._element) {
-        console.log(this.element, "thus element");
         this._element.addEventListener(eventName, events[eventName]);
+        // Для инпутов у которых родитель div
+        if (eventName === "blur" && this._element.firstElementChild) {
+          this._element.firstElementChild.addEventListener(
+            eventName,
+            events[eventName]
+          );
+        }
       }
     });
   }
@@ -88,7 +98,6 @@ export class Block {
     oldProps: BlockProps,
     newProps: BlockProps
   ): boolean {
-    console.log(oldProps, newProps);
     return true;
   }
 
@@ -225,6 +234,10 @@ export class Block {
 
   private _createDocumentElement(tagName: string): HTMLTemplateElement {
     return document.createElement(tagName) as HTMLTemplateElement;
+  }
+
+  public validateField(fieldType: StrategyType, value: string): boolean {
+    return this.contextStrategy.validate(fieldType, value);
   }
 
   public show(): void {
