@@ -4,7 +4,7 @@ import { Button } from "../../shared/ui/Buttons/Button";
 import { Input } from "../../shared/ui/Inputs/Input";
 import { Link } from "../../shared/ui/Link";
 import { Spacer } from "../../shared/ui/Spacer";
-import { PageStrategy } from "./PageInterface/PageStrategies";
+import { PageStrategy } from "./PageStrategies";
 
 export class LoginStrategy extends Block implements PageStrategy {
   constructor() {
@@ -18,6 +18,10 @@ export class LoginStrategy extends Block implements PageStrategy {
         },
         helperText: "Неверный логин",
         label: "Логин",
+        onBlur: (e: Event) => {
+          const input = e.target as HTMLInputElement;
+          this.validateField("login", input.value);
+        },
       }),
       PasswordInput: new Input({
         attr: {
@@ -28,6 +32,10 @@ export class LoginStrategy extends Block implements PageStrategy {
         },
         helperText: "",
         label: "Пароль",
+        onBlur: (e: Event) => {
+          const input = e.target as HTMLInputElement;
+          this.validateField("password", input.value);
+        },
       }),
       LoginButton: new Button({
         attr: {

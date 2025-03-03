@@ -1,7 +1,7 @@
 import Handlebars from "handlebars";
 import icon from "../../assets/images/left-arrow.svg";
 import { Profile } from "../../pages";
-import { PageStrategy } from "./PageInterface/PageStrategies";
+import { PageStrategy } from "./PageStrategies";
 
 const button = {
   class: "button link",

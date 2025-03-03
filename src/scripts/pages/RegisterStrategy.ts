@@ -4,7 +4,7 @@ import { Button } from "../../shared/ui/Buttons/Button";
 import { Input } from "../../shared/ui/Inputs/Input";
 import { Link } from "../../shared/ui/Link";
 import { Spacer } from "../../shared/ui/Spacer";
-import { PageStrategy } from "./PageInterface/PageStrategies";
+import { PageStrategy } from "./PageStrategies";
 
 export class RegisterStrategy extends Block implements PageStrategy {
   constructor() {
@@ -18,6 +18,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Неверный email",
         label: "Почта",
+        onBlur: (e: Event) => console.log(312321312),
       }),
       LoginInput: new Input({
         attr: {
@@ -28,6 +29,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Неверный логин",
         label: "Логин",
+        onBlur: (e: Event) => console.log(312321312),
       }),
       FirstNameInput: new Input({
         attr: {
@@ -38,6 +40,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Неверное имя",
         label: "Имя",
+        onBlur: (e: Event) => console.log(312321312),
       }),
       SecondNameInput: new Input({
         attr: {
@@ -48,6 +51,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Неверная фамилия",
         label: "Фамилия",
+        onBlur: (e: Event) => console.log(312321312),
       }),
       PhoneInput: new Input({
         attr: {
@@ -58,6 +62,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Неверный номер телефона",
         label: "Телефон",
+        onBlur: (e: Event) => console.log(312321312),
       }),
       PasswordInput: new Input({
         attr: {
@@ -68,6 +73,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Пароль слишком короткий",
         label: "Пароль",
+        onBlur: (e: Event) => console.log(312321312),
       }),
       PasswordRepeatInput: new Input({
         attr: {
@@ -78,6 +84,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Пароли не совпадают",
         label: "Пароль (ещё раз)",
+        onBlur: (e: Event) => console.log(312321312),
       }),
       RegisterButton: new Button({
         attr: {

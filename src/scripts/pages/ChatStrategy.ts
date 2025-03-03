@@ -5,7 +5,7 @@ import whiteCaret from "../../assets/images/caret-white.svg";
 import check from "../../assets/images/check.svg";
 import dots from "../../assets/images/dots.svg";
 import { ChatPage } from "../../pages";
-import { PageStrategy } from "./PageInterface/PageStrategies";
+import { PageStrategy } from "./PageStrategies";
 
 const dialogs = Array.from({ length: 15 }, (_, i) => ({
   userAvatar: `https://i.pravatar.cc/40?img=${i + 1}`,
