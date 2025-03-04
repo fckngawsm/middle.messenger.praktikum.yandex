@@ -3,6 +3,11 @@ import caret from "@assets/images/caret-right.svg";
 import whiteCaret from "@assets/images/caret-white.svg";
 import check from "@assets/images/check.svg";
 import dots from "@assets/images/dots.svg";
+import { ChatItem } from "@features/Chat/ChatParticipants/ChatParticipantItem";
+import { ChatSelectedDialog } from "@features/Chat/ChatSelected/Selected/ChatSelectedDialog";
+import { Block } from "@shared/blocks/Block";
+import { ChatInput } from "@shared/components/Inputs/ChatInput";
+import { Link } from "@shared/components/Link/Link";
 import { ChatPage } from "@templates/chat";
 import Handlebars from "handlebars";
 import { PageStrategy } from "./PageStrategies";
@@ -26,7 +31,35 @@ const messages = Array.from({ length: 40 }, (_, i) => {
   };
 });
 
-export class ChatStrategy implements PageStrategy {
+export class ChatStrategy extends Block implements PageStrategy {
+  constructor() {
+    super({
+      ProfileLink: new Link({
+        attr: {
+          className: "chat__header-link",
+          id: "chat-link",
+          to: "/settings",
+        },
+        linkText: "Профиль",
+      }),
+      ChatInput: new ChatInput({
+        attr: {
+          id: "chat-input",
+          placeholder: "Поиск",
+          name: "сhat-search",
+        },
+      }),
+      ChatItems: dialogs.map((dialog) => new ChatItem(dialog)),
+      ChatSelectDialog: new ChatSelectedDialog({
+        selectedUserName: "Кирилл",
+      }),
+    });
+  }
+
+  protected render(): string {
+    return ChatPage;
+  }
+
   renderPage(appElement: HTMLElement): void {
     const template = Handlebars.compile(ChatPage);
 

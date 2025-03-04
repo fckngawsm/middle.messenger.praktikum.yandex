@@ -1,13 +1,38 @@
-export default `
-    <li class="message__item {{class}}">
-        <p class="message__text">
-            {{message}}
-            <span class="message__time">
-                {{#if isMyMessage}}
-                    <img class="message__check" src="{{check}}" />
-                {{/if}}
-                {{date}}
-            </span>
-        </p>
-    </li>
-`;
+import { Block } from "@shared/blocks/Block";
+
+interface MessageItemProps {
+  attr: {
+    className?: string;
+  };
+  message: string;
+  messageDate: string;
+  isMyMessage: boolean;
+  checkIcon: string;
+}
+
+export class MessageItem extends Block {
+  constructor(props: MessageItemProps) {
+    super({ ...props });
+  }
+
+  protected render(): string {
+    const { className = "" } = this.props.attr || {};
+    const { message, messageDate, isMyMessage, checkIcon } = this.props;
+
+    return `
+        <li class="message__item ${className}">
+            <p class="message__text">
+                ${message}
+                <span class="message__time">
+                    ${
+                      isMyMessage
+                        ? `<img class="message__check" src="${checkIcon}" alt="Прочитано" />`
+                        : ""
+                    } 
+                    ${messageDate}
+                </span>
+            </p>
+        </li>
+    `;
+  }
+}

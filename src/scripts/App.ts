@@ -5,9 +5,6 @@ import { NotFoundStrategy } from "../domains/pages/NotFoundStrategy";
 import { PageStrategy } from "../domains/pages/PageStrategies";
 import { ProfileStrategy } from "../domains/pages/ProfileStrategy";
 import { RegisterStrategy } from "../domains/pages/RegisterStrategy";
-import { registerPartial } from "../utils/registerPartial";
-
-registerPartial();
 
 export class App {
   private appElement: HTMLElement | null;

@@ -1,19 +1,22 @@
-{{#> ChatsContainer}}
-    {{#> ChatList}}
-        {{> ChatHeader}}
-        <div class="chat__list">
-            {{#each dialogs}}
-                {{> ChatItem 
-                    userAvatar=this.userAvatar 
-                    userName=this.userName 
-                    lastMessage=this.lastMessage 
-                    lastMessageTime=this.lastMessageTime 
-                    unreadMessageCount=this.unreadMessageCount 
-                }}
-            {{/each}}
-        </div>
-    {{/ChatList}}
-    {{#> SelectedChatContainer}}
-        {{> ChatSelectedDialog submitIcon=submitIcon}}    
-    {{/SelectedChatContainer}}
-{{/ChatsContainer}}
+<div class="container container__chat">
+  <div class="chats">
+    <div class="chat__header">
+      {{{ProfileLink}}}
+      {{{ChatInput}}}
+    </div>
+    <div class="chat__list">
+      {{#each ChatItems}}
+        {{{ChatItem
+          userAvatar=this.userAvatar
+          userName=this.userName
+          lastMessage=this.lastMessage
+          lastMessageTime=this.lastMessageTime
+          unreadMessageCount=this.unreadMessageCount
+        }}}
+      {{/each}}
+    </div>
+  </div>
+  <div class="container container__selected-chat">
+    {{{ChatSelectedDialog}}}
+  </div>
+</div>

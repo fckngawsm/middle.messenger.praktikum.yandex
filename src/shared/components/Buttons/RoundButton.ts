@@ -2,8 +2,8 @@ import { Block } from "@shared/blocks/Block";
 
 interface RoundButtonProps {
   attr: {
-    id: number;
-    to: string;
+    id: number | string;
+    to?: string;
     linkText?: string;
     icon?: string;
     iconAlt?: string;
