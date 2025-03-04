@@ -22,3 +22,12 @@
 
 ## Netlify
 https://chatik-ya.netlify.app/
+
+
+## TODO:
+
+1. Алиасы для импортов
+2. Имитация запросов
+3. ESLint
+4. Stylelint
+5. Сабмит форм
