@@ -1,9 +1,9 @@
-import { Block } from "../../shared/blocks/Block";
-import { Button } from "../../shared/components/Buttons/Button";
-import { Input } from "../../shared/components/Inputs/Input";
-import { Link } from "../../shared/components/Link/Link";
-import { Spacer } from "../../shared/components/Spacer/Spacer";
-import { RegisterPage } from "../../templates";
+import { Block } from "@shared/blocks/Block";
+import { Button } from "@shared/components/Buttons/Button";
+import { Input } from "@shared/components/Inputs/Input";
+import { Link } from "@shared/components/Link/Link";
+import { Spacer } from "@shared/components/Spacer/Spacer";
+import { RegisterPage } from "@templates/auth";
 import { PageStrategy } from "./PageStrategies";
 
 export class RegisterStrategy extends Block implements PageStrategy {

@@ -5,6 +5,7 @@
     "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
+    "types": ["node"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -21,7 +22,17 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+
+    /* Aliases */
+    "baseUrl": "./src",
+    "paths": {
+      "@assets/*": ["assets/*"],
+      "@domains/*": ["domains/*"],
+      "@features/*": ["features/*"],
+      "@shared/*": ["shared/*"],
+      "@templates/*": ["templates/*"]
+    }
   },
   "include": ["src"]
 }

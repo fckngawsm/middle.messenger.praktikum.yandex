@@ -1,5 +1,5 @@
-import { Block } from "../../blocks/Block";
-import { BaseInputAttributes } from "../../types/BaseInput";
+import { Block } from "@shared/blocks/Block";
+import { BaseInputAttributes } from "@shared/types/BaseInput";
 
 export class ChatInput extends Block {
   constructor(props: BaseInputAttributes) {

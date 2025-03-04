@@ -1,6 +1,6 @@
+import icon from "@assets/images/left-arrow.svg";
+import { Profile } from "@templates/profile";
 import Handlebars from "handlebars";
-import icon from "../../assets/images/left-arrow.svg";
-import { Profile } from "../../templates";
 import { PageStrategy } from "./PageStrategies";
 
 const button = {

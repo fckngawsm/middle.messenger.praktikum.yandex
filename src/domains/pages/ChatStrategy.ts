@@ -1,10 +1,10 @@
+import attach from "@assets/images/attach.svg";
+import caret from "@assets/images/caret-right.svg";
+import whiteCaret from "@assets/images/caret-white.svg";
+import check from "@assets/images/check.svg";
+import dots from "@assets/images/dots.svg";
+import { ChatPage } from "@templates/chat";
 import Handlebars from "handlebars";
-import attach from "../../assets/images/attach.svg";
-import caret from "../../assets/images/caret-right.svg";
-import whiteCaret from "../../assets/images/caret-white.svg";
-import check from "../../assets/images/check.svg";
-import dots from "../../assets/images/dots.svg";
-import { ChatPage } from "../../templates";
 import { PageStrategy } from "./PageStrategies";
 
 const dialogs = Array.from({ length: 15 }, (_, i) => ({

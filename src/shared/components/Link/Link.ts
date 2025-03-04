@@ -1,5 +1,4 @@
-import { Block } from "../../blocks/Block";
-
+import { Block } from "@shared/blocks/Block";
 interface LinkProps {
   attr: {
     id: number | string;

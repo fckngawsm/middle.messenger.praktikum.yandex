@@ -1,5 +1,5 @@
+import { ErrorPage } from "@templates/error";
 import Handlebars from "handlebars";
-import { ErrorPage } from "../../templates";
 import { PageStrategy } from "./PageStrategies";
 
 export class NotFoundStrategy implements PageStrategy {

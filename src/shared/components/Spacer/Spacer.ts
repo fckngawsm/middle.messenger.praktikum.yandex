@@ -1,4 +1,4 @@
-import { Block } from "../../blocks/Block";
+import { Block } from "@shared/blocks/Block";
 
 export class Spacer extends Block {
   constructor() {
