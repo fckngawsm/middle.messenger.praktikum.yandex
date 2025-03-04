@@ -1,8 +1,7 @@
 import Handlebars from "handlebars";
-import { ErrorPage } from "../../pages";
+import { ErrorPage } from "../../templates";
 import { PageStrategy } from "./PageStrategies";
-
-export class NotFoundStrategy implements PageStrategy {
+export class InternalServerErrorStrategy implements PageStrategy {
   renderPage(appElement: HTMLElement): void {
     const template = Handlebars.compile(ErrorPage);
 
@@ -10,8 +9,8 @@ export class NotFoundStrategy implements PageStrategy {
       id: "not-found",
       href: "/messenger",
       linkText: "Назад к чатам",
-      errorTitle: "404",
-      errorDescription: "Не туда попали",
+      errorTitle: "500",
+      errorDescription: "Мы уже фиксим",
       class: "link__error",
     });
   }

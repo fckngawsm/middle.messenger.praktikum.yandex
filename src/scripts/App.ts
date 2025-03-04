@@ -1,11 +1,11 @@
+import { ChatStrategy } from "../domains/pages/ChatStrategy";
+import { InternalServerErrorStrategy } from "../domains/pages/InternalServerErrorStrategy";
+import { LoginStrategy } from "../domains/pages/LoginStrategy";
+import { NotFoundStrategy } from "../domains/pages/NotFoundStrategy";
+import { PageStrategy } from "../domains/pages/PageStrategies";
+import { ProfileStrategy } from "../domains/pages/ProfileStrategy";
+import { RegisterStrategy } from "../domains/pages/RegisterStrategy";
 import { registerPartial } from "../utils/registerPartial";
-import { ChatStrategy } from "./pages/ChatStrategy";
-import { InternalServerErrorStrategy } from "./pages/InternalServerErrorStrategy";
-import { LoginStrategy } from "./pages/LoginStrategy";
-import { NotFoundStrategy } from "./pages/NotFoundStrategy";
-import { PageStrategy } from "./pages/PageStrategies";
-import { ProfileStrategy } from "./pages/ProfileStrategy";
-import { RegisterStrategy } from "./pages/RegisterStrategy";
 
 registerPartial();
 

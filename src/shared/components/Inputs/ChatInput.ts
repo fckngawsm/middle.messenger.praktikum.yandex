@@ -1,4 +1,4 @@
-import { Block } from "../../components/Block";
+import { Block } from "../../blocks/Block";
 import { BaseInputAttributes } from "../../types/BaseInput";
 
 export class ChatInput extends Block {

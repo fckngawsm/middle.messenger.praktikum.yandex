@@ -1,4 +1,4 @@
-import { Block } from "../../components/Block";
+import { Block } from "../../blocks/Block";
 
 interface AvatarProps {
   attr: {

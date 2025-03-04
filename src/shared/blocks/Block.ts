@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
-import { ContextStrategy } from "../../scripts/validator/ContextStrategy";
-import { StrategyType } from "../../scripts/validator/StrategyType";
+import { ContextStrategy } from "../../domains/validation/ContextStrategy";
+import { StrategyType } from "../../domains/validation/StrategyType";
 import { EventBus } from "./EventBus";
 
 interface BlockProps {
