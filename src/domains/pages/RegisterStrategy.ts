@@ -18,7 +18,10 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Неверный email",
         label: "Почта",
-        onBlur: (e: Event) => console.log(312321312),
+        onBlur: (e: Event) => {
+          const input = e.target as HTMLInputElement;
+          this.validateField("email", input.value);
+        },
       }),
       LoginInput: new Input({
         attr: {
@@ -29,7 +32,10 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Неверный логин",
         label: "Логин",
-        onBlur: (e: Event) => console.log(312321312),
+        onBlur: (e: Event) => {
+          const input = e.target as HTMLInputElement;
+          this.validateField("login", input.value);
+        },
       }),
       FirstNameInput: new Input({
         attr: {
@@ -40,7 +46,10 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Неверное имя",
         label: "Имя",
-        onBlur: (e: Event) => console.log(312321312),
+        onBlur: (e: Event) => {
+          const input = e.target as HTMLInputElement;
+          this.validateField("name", input.value);
+        },
       }),
       SecondNameInput: new Input({
         attr: {
@@ -51,7 +60,10 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Неверная фамилия",
         label: "Фамилия",
-        onBlur: (e: Event) => console.log(312321312),
+        onBlur: (e: Event) => {
+          const input = e.target as HTMLInputElement;
+          this.validateField("name", input.value);
+        },
       }),
       PhoneInput: new Input({
         attr: {
@@ -62,7 +74,10 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Неверный номер телефона",
         label: "Телефон",
-        onBlur: (e: Event) => console.log(312321312),
+        onBlur: (e: Event) => {
+          const input = e.target as HTMLInputElement;
+          this.validateField("phone", input.value);
+        },
       }),
       PasswordInput: new Input({
         attr: {
@@ -73,7 +88,10 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Пароль слишком короткий",
         label: "Пароль",
-        onBlur: (e: Event) => console.log(312321312),
+        onBlur: (e: Event) => {
+          const input = e.target as HTMLInputElement;
+          this.validateField("password", input.value);
+        },
       }),
       PasswordRepeatInput: new Input({
         attr: {
@@ -84,7 +102,10 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         helperText: "Пароли не совпадают",
         label: "Пароль (ещё раз)",
-        onBlur: (e: Event) => console.log(312321312),
+        onBlur: (e: Event) => {
+          const input = e.target as HTMLInputElement;
+          this.validateField("password", input.value);
+        },
       }),
       RegisterButton: new Button({
         attr: {
