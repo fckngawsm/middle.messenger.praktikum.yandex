@@ -5,7 +5,8 @@
       {{{ChatInput}}}
     </div>
     <div class="chat__list">
-      {{#each ChatItems}}
+      {{{log dialogs}}}
+      {{#each dialogs}}
         {{{ChatItem
           userAvatar=this.userAvatar
           userName=this.userName
