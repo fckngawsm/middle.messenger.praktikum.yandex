@@ -1,8 +1,7 @@
+import { ChatHeader } from "@features/Chat/ChatParticipants/ChatHeader";
 import { ChatItem } from "@features/Chat/ChatParticipants/ChatItem";
 import { ChatSelectedDialog } from "@features/Chat/ChatSelected/Selected/ChatSelectedDialog";
 import { Block } from "@shared/blocks/Block";
-import { ChatInput } from "@shared/components/Inputs/ChatInput";
-import { Link } from "@shared/components/Link/Link";
 import { ChatPage } from "@templates/chat";
 import { PageStrategy } from "./PageStrategies";
 
@@ -29,21 +28,7 @@ export class ChatStrategy extends Block implements PageStrategy {
           return chatItem.getContent().outerHTML;
         }),
       },
-      ProfileLink: new Link({
-        attr: {
-          className: "chat__header-link",
-          id: "chat-link",
-          to: "/settings",
-        },
-        linkText: "Профиль",
-      }),
-      ChatInput: new ChatInput({
-        attr: {
-          id: "chat-input",
-          placeholder: "Поиск",
-          name: "сhat-search",
-        },
-      }),
+      ChatHeader: new ChatHeader(),
       ChatSelectedDialog: new ChatSelectedDialog({
         selectedUserName: "Кирилл",
       }),

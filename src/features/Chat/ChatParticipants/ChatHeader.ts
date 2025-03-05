@@ -9,10 +9,10 @@ export class ChatHeader extends Block {
       Link: new Link({
         linkText: "Профиль",
         attr: {
+          iconSrc: caretRight,
           className: "chat__header-link",
           id: "chat-link",
           to: "/settings",
-          iconSrc: caretRight,
         },
       }),
       ChatInput: new ChatInput({

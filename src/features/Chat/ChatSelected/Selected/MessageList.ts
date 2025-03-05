@@ -40,7 +40,6 @@ export class MessageList extends Block {
       <ul class="chat__messages">
         <h2 class="chat__messages-date">${date}</h2>
         {{#each lists.messages}}
-        {{log this}}
           {{{this}}}
         {{/each}}
       </ul>

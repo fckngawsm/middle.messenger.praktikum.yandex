@@ -45,8 +45,6 @@ export class ContextStrategy {
   }
 
   private setFormElements(type: StrategyType): void {
-    console.log(type, "type");
-
     this.currentInputGroup = document.querySelector(
       `.form__input-group[data-type="${type}"]`
     );

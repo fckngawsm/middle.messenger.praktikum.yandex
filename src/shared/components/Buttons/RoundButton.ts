@@ -17,7 +17,6 @@ export class RoundButton extends Block {
 
   protected render(): string {
     const { id, to, linkText = "", icon = "", iconAlt = "" } = this.props.attr;
-    console.log(icon, "icon");
     return `
         <a id=${id} href=${to} class="button__type-round">
             ${linkText && linkText}
