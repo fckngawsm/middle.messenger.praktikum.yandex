@@ -46,9 +46,9 @@ export class LoginStrategy extends Block implements PageStrategy {
         },
         text: "Авторизоваться",
         onClick: (event: Event) => {
-          console.log("CLICK");
           event.preventDefault();
           event.stopPropagation();
+          window.location.href = "/messenger";
         },
       }),
       Spacer: new Spacer(),
