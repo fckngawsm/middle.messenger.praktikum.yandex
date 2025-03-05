@@ -12,7 +12,7 @@ interface MessageItemProps {
 
 export class MessageItem extends Block {
   constructor(props: MessageItemProps) {
-    super({ ...props });
+    super(props);
   }
 
   protected render(): string {

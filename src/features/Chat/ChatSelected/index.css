@@ -1,3 +1,10 @@
+.chat__general-wrapper {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
 .chat__select-dialog {
   font-size: 12px;
   font-weight: 500;

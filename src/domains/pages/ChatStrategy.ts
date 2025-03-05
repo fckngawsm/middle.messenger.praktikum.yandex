@@ -1,4 +1,4 @@
-import check from "@assets/images/check.svg";
+import { ChatItem } from "@features/Chat/ChatParticipants/ChatItem";
 import { ChatSelectedDialog } from "@features/Chat/ChatSelected/Selected/ChatSelectedDialog";
 import { Block } from "@shared/blocks/Block";
 import { ChatInput } from "@shared/components/Inputs/ChatInput";
@@ -14,21 +14,21 @@ const dialogs = Array.from({ length: 15 }, (_, i) => ({
   unreadMessageCount: i % 3 === 0 ? i : 0,
 }));
 
-const messages = Array.from({ length: 40 }, (_, i) => {
-  const isMyMessage = i % 2 === 0;
-  return {
-    message: `Привет ${i + 1}`,
-    date: new Date().toLocaleTimeString(),
-    check,
-    isMyMessage,
-    class: isMyMessage && "message__item-my_statement",
-  };
-});
-
 export class ChatStrategy extends Block implements PageStrategy {
   constructor() {
     super({
-      dialogs,
+      lists: {
+        dialogs: dialogs.map((dialog) => {
+          const chatItem = new ChatItem({
+            userAvatar: dialog.userAvatar,
+            userName: dialog.userName,
+            lastMessage: dialog.lastMessage,
+            lastMessageTime: dialog.lastMessageTime,
+            unreadMessageCount: dialog.unreadMessageCount,
+          });
+          return chatItem.getContent().outerHTML;
+        }),
+      },
       ProfileLink: new Link({
         attr: {
           className: "chat__header-link",
@@ -44,7 +44,7 @@ export class ChatStrategy extends Block implements PageStrategy {
           name: "сhat-search",
         },
       }),
-      ChatSelectDialog: new ChatSelectedDialog({
+      ChatSelectedDialog: new ChatSelectedDialog({
         selectedUserName: "Кирилл",
       }),
     });

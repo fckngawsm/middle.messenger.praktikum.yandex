@@ -1,19 +1,12 @@
-<div class="container container__chat">
+<div class="container container__chats">
   <div class="chats">
     <div class="chat__header">
       {{{ProfileLink}}}
       {{{ChatInput}}}
     </div>
     <div class="chat__list">
-      {{{log dialogs}}}
-      {{#each dialogs}}
-        {{{ChatItem
-          userAvatar=this.userAvatar
-          userName=this.userName
-          lastMessage=this.lastMessage
-          lastMessageTime=this.lastMessageTime
-          unreadMessageCount=this.unreadMessageCount
-        }}}
+      {{#each lists.dialogs}}
+        {{{this}}}
       {{/each}}
     </div>
   </div>

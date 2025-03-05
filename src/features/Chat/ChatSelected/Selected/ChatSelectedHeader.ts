@@ -13,7 +13,8 @@ export class ChatSelectedHeader extends Block {
       Avatar: new Avatar({
         attr: {
           className: "selected-user__avatar",
-          avatarUrl: "",
+          avatarUrl:
+            "https://img.freepik.com/premium-vector/female-user-profile-avatar-is-woman-character-screen-saver-with-emotions_505620-617.jpg",
           alt: "Аватар",
         },
       }),

@@ -1,7 +1,7 @@
 import { Block } from "@shared/blocks/Block";
 import { Avatar } from "@shared/components/Avatar/Avatar";
 
-interface ChatItemProps {
+export interface ChatItemProps {
   userAvatar: string;
   userName: string;
   lastMessage: string;
