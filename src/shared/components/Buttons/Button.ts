@@ -25,7 +25,7 @@ export class Button extends Block {
 
   protected render(): string {
     const { attr, text } = this.props;
-    const { id, className = "", type = "button", form } = attr;
+    const { id, className = "", type = "button", form = "" } = attr;
 
     return `
       <button 

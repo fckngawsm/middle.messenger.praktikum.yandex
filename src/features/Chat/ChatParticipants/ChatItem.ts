@@ -24,8 +24,12 @@ export class ChatItem extends Block {
   }
 
   protected render(): string {
-    const { userName, lastMessage, lastMessageTime, unreadMessageCount } =
-      this.props;
+    const {
+      userName,
+      lastMessage,
+      lastMessageTime,
+      unreadMessageCount = 0,
+    } = this.props;
 
     return `
       <div class="chat__item">  

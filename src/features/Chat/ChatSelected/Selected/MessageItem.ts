@@ -17,7 +17,7 @@ export class MessageItem extends Block {
 
   protected render(): string {
     const { className = "" } = this.props.attr || {};
-    const { message, messageDate, isMyMessage, checkIcon } = this.props;
+    const { message, messageDate, isMyMessage = false, checkIcon } = this.props;
 
     return `
         <li class="message__item ${className}">

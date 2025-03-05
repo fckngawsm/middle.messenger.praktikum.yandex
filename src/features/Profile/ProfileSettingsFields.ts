@@ -26,7 +26,7 @@ export class ProfileSettingsFields extends Block {
   }
 
   protected render(): string {
-    const { fieldName } = this.props;
+    const { fieldName = "" } = this.props;
     return `
         <div class="profile__settings-fields">
           <p class="profile__settings-field">${fieldName}</p>

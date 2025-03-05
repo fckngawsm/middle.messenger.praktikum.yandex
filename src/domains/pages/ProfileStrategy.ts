@@ -1,19 +1,23 @@
-import icon from "@assets/images/left-arrow.svg";
-import { Profile } from "@templates/profile";
-import Handlebars from "handlebars";
+import { ProfileNavigationButton } from "@features/Profile/ProfileNavigationButton";
+import { ProfileSettings } from "@features/Profile/ProfileSettings";
+import { Block } from "@shared/blocks/Block";
+import { ProfilePage } from "@templates/profile";
 import { PageStrategy } from "./PageStrategies";
 
-const button = {
-  class: "button link",
-  type: "button",
-  form: "settings-form",
-  text: "Сохранить",
-  id: "settings-button",
-};
-export class ProfileStrategy implements PageStrategy {
-  renderPage(appElement: HTMLElement): void {
-    const template = Handlebars.compile(Profile);
+export class ProfileStrategy extends Block implements PageStrategy {
+  constructor() {
+    super({
+      ProfileNavigationButton: new ProfileNavigationButton(),
+      ProfileSettings: new ProfileSettings(),
+    });
+  }
 
-    appElement.innerHTML = template({ icon, button });
+  protected render(): string {
+    return ProfilePage;
+  }
+
+  public renderPage(appElement: HTMLElement): void {
+    appElement.innerHTML = "";
+    appElement.appendChild(this.getContent());
   }
 }
