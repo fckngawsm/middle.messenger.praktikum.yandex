@@ -6,6 +6,7 @@ interface InputProps {
   label?: string;
   helperText?: string;
   onBlur: (e: Event) => void;
+  onFocus: (e: Event) => void;
 }
 
 export class Input extends Block {
@@ -14,6 +15,7 @@ export class Input extends Block {
       ...props,
       events: {
         blur: (e: Event) => props.onBlur(e),
+        focus: (e: Event) => props.onFocus(e),
       },
     });
   }

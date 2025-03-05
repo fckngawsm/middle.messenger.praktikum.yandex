@@ -47,8 +47,10 @@ export class Block {
     Object.keys(events).forEach((eventName) => {
       if (this._element) {
         this._element.addEventListener(eventName, events[eventName]);
-        // Для инпутов у которых родитель div
-        if (eventName === "blur" && this._element.firstElementChild) {
+        if (
+          ["blur", "focus"].includes(eventName) &&
+          this._element.firstElementChild
+        ) {
           this._element.firstElementChild.addEventListener(
             eventName,
             events[eventName]

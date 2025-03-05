@@ -7,6 +7,9 @@ import { LoginPage } from "@templates/auth/index";
 import { PageStrategy } from "./PageStrategies";
 
 export class LoginStrategy extends Block implements PageStrategy {
+  private isLoginFocused: boolean = false; // Флаг для отслеживания фокуса на поле логина
+  private isPasswordFocused: boolean = false;
+
   constructor() {
     super({
       LoginInput: new Input({
@@ -20,7 +23,13 @@ export class LoginStrategy extends Block implements PageStrategy {
         label: "Логин",
         onBlur: (e: Event) => {
           const input = e.target as HTMLInputElement;
-          this.validateField("login", input.value);
+          if (this.isLoginFocused) {
+            this.validateField("login", input.value);
+          }
+        },
+        onFocus: (e: Event) => {
+          this.isLoginFocused = true;
+          console.log(this.isLoginFocused);
         },
       }),
       PasswordInput: new Input({
@@ -34,7 +43,12 @@ export class LoginStrategy extends Block implements PageStrategy {
         label: "Пароль",
         onBlur: (e: Event) => {
           const input = e.target as HTMLInputElement;
-          this.validateField("password", input.value);
+          if (this.isPasswordFocused) {
+            this.validateField("password", input.value);
+          }
+        },
+        onFocus: (e: Event) => {
+          this.isPasswordFocused = true;
         },
       }),
       LoginButton: new Button({
