@@ -126,9 +126,16 @@ export class Block {
 
   protected addAttributes(): void {
     const { attr = {} } = this.props;
+    // Иначе будут добавляться аттрибуты по типу className и так далее
+    const allowedAttributes = Object.keys(
+      HTMLElement.prototype
+    ) as (keyof HTMLElement)[];
 
     Object.entries(attr).forEach(([key, value]) => {
-      if (this._element) {
+      if (
+        this._element &&
+        allowedAttributes.includes(key as keyof HTMLElement)
+      ) {
         this._element.setAttribute(key, value as string);
       }
     });
