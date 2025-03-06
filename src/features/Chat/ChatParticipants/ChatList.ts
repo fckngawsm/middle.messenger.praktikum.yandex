@@ -9,7 +9,7 @@ interface ChatListProps {
 export class ChatList extends Block {
   constructor(props: ChatListProps) {
     super({
-      chatItems: props.dialogs.map((props) => new ChatItem(props)),
+      chatItems: props.dialogs.map((dialogProps) => new ChatItem(dialogProps)),
     });
   }
 

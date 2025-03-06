@@ -19,6 +19,7 @@ export class EventBus {
     this.events[event] = this.events[event].filter((l) => l !== listener);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public emit(event: string, ...args: any[]) {
     const currentEvent = this.events[event];
     if (!currentEvent) {
