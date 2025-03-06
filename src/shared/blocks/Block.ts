@@ -249,6 +249,29 @@ export class Block {
     return this.contextStrategy.validate(fieldType, value);
   }
 
+  private handleValidateFormOnSubmit(formId: string): boolean {
+    const form = document.getElementById(formId) as HTMLFormElement;
+    let isValid = true;
+    if (!form) {
+      console.error("Форма не найдена");
+      return false;
+    }
+
+    const inputs = form.querySelectorAll("input");
+
+    inputs.forEach((input) => {
+      const fieldType = input.getAttribute("name") as StrategyType;
+      const value = input.value.trim();
+
+      if (!this.validateField(fieldType, value)) {
+        isValid = false;
+        input.classList.add("error");
+      }
+    });
+
+    return isValid;
+  }
+
   protected handleFormSubmit(
     event: Event,
     formId: string,
@@ -257,11 +280,17 @@ export class Block {
     event.preventDefault();
     event.stopPropagation();
 
+    if (!this.handleValidateFormOnSubmit(formId)) {
+      console.error("Форма содержит ошибки");
+      return;
+    }
+
     const form = document.getElementById(formId) as HTMLFormElement;
     if (!form) {
       console.error("Форма не найдена");
       return;
     }
+
     const formData = new FormData(form);
     const formValues: Record<string, string> = {};
 

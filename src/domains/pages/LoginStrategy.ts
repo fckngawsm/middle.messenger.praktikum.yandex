@@ -39,7 +39,7 @@ export class LoginStrategy extends Block implements PageStrategy {
           name: "password",
           required: true,
         },
-        helperText: "",
+        helperText: "Проверьте пароль",
         label: "Пароль",
         onBlur: (e: Event) => {
           const input = e.target as HTMLInputElement;

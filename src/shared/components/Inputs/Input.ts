@@ -42,6 +42,7 @@ export class Input extends Block {
           id="${id || ""}" 
           name="${name || ""}" 
           ${required ? "required" : ""}
+          autocomplete="new-password"
         >
         ${label && `<label class="form__label" for="${id}">${label}</label>`}
         <p class="form__helper-text">${helperText}</p>
