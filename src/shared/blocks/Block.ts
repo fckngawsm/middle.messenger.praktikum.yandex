@@ -249,6 +249,28 @@ export class Block {
     return this.contextStrategy.validate(fieldType, value);
   }
 
+  protected handleFormSubmit(
+    event: Event,
+    formId: string,
+    callback?: (data: Record<string, string>) => void
+  ): void {
+    event.preventDefault();
+
+    const form = document.getElementById(formId) as HTMLFormElement;
+    if (!form) {
+      console.error("Форма не найдена");
+      return;
+    }
+    const formData = new FormData(form);
+    const formValues: Record<string, string> = {};
+
+    formData.forEach((value, key) => {
+      formValues[key] = value as string;
+    });
+
+    callback?.(formValues);
+  }
+
   public show(): void {
     const content = this.getContent();
     if (content) {

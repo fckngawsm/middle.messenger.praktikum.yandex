@@ -7,7 +7,7 @@ import { LoginPage } from "@templates/auth/index";
 import { PageStrategy } from "./PageStrategies";
 
 export class LoginStrategy extends Block implements PageStrategy {
-  private isLoginFocused: boolean = false; // Флаг для отслеживания фокуса на поле логина
+  private isLoginFocused: boolean = false;
   private isPasswordFocused: boolean = false;
 
   constructor() {
@@ -62,7 +62,7 @@ export class LoginStrategy extends Block implements PageStrategy {
         onClick: (event: Event) => {
           event.preventDefault();
           event.stopPropagation();
-          window.location.href = "/messenger";
+          this.handleFormSubmit(event, "login-form", this.onLogin);
         },
       }),
       Spacer: new Spacer(),
@@ -75,6 +75,13 @@ export class LoginStrategy extends Block implements PageStrategy {
         linkText: "Нет аккаунта?",
       }),
     });
+  }
+
+  private onLogin(data: Record<string, string>): void {
+    console.log("Отправка формы логина с данными:", data);
+    setTimeout(() => {
+      window.location.href = "/messenger";
+    }, 3000);
   }
 
   protected render(): string {
