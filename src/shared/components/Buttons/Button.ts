@@ -6,6 +6,7 @@ interface ButtonProps {
     className?: string;
     type?: "button" | "submit" | "reset";
     form?: string;
+    disabled?: boolean;
   };
   text: string;
   onClick: (e: Event) => void;
@@ -25,13 +26,20 @@ export class Button extends Block {
 
   protected render(): string {
     const { attr, text } = this.props;
-    const { id, className = "", type = "button", form = "" } = attr;
+    const {
+      id,
+      className = "",
+      type = "button",
+      form = "",
+      disabled = false,
+    } = attr;
 
     return `
       <button 
         id="${id || ""}" 
         class="${className}" 
         type="${type}"
+        ${disabled ? disabled : ""}
         ${form ? `form="${form}"` : ""}
       >
         ${text}

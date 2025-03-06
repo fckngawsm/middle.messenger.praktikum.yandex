@@ -281,8 +281,7 @@ export class Block {
     event.stopPropagation();
 
     if (!this.handleValidateFormOnSubmit(formId)) {
-      console.error("Форма содержит ошибки");
-      return;
+      throw new Error("Проверьте корректность данных");
     }
 
     const form = document.getElementById(formId) as HTMLFormElement;
