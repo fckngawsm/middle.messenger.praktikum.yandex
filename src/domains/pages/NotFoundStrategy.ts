@@ -1,18 +1,26 @@
-import { ErrorPage } from "@templates/error";
-import Handlebars from "handlebars";
+import { Error } from "@features/Error/Error";
+import { Block } from "@shared/blocks/Block";
 import { PageStrategy } from "./PageStrategies";
 
-export class NotFoundStrategy implements PageStrategy {
-  renderPage(appElement: HTMLElement): void {
-    const template = Handlebars.compile(ErrorPage);
-
-    appElement.innerHTML = template({
-      id: "not-found",
-      href: "/messenger",
-      linkText: "Назад к чатам",
-      errorTitle: "404",
-      errorDescription: "Не туда попали",
-      class: "link__error",
+export class NotFoundStrategy extends Block implements PageStrategy {
+  constructor() {
+    super({
+      Error: new Error({
+        errorDescription: "Не туда попали",
+        id: "not-found",
+        linkText: "Назад к чатам",
+        errorTitle: "404",
+        linkClassName: "link__error",
+      }),
     });
+  }
+
+  protected render(): string {
+    return "{{{Error}}}";
+  }
+
+  public renderPage(appElement: HTMLElement): void {
+    appElement.innerHTML = "";
+    appElement.appendChild(this.getContent());
   }
 }

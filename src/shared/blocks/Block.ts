@@ -1,8 +1,10 @@
 import { ContextStrategy } from "@domains/validation/ContextStrategy";
 import { StrategyType } from "@domains/validation/StrategyType";
+import Handlebars from "handlebars";
 import { EventBus } from "./EventBus";
 
 interface BlockProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
@@ -20,9 +22,11 @@ export class Block {
 
   protected props: BlockProps;
 
-  protected children: Record<string, Block>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  protected children: Record<string, any>;
 
-  protected lists: Record<string, Block[]>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  protected lists: Record<string, any>;
 
   protected contextStrategy: ContextStrategy;
 
@@ -97,11 +101,11 @@ export class Block {
   private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
     children: Record<string, Block>;
     props: BlockProps;
-    lists: Record<string, any[]>;
+    lists: Record<string, Block[]>;
   } {
     const children: Record<string, Block> = {};
     const props: BlockProps = {};
-    const lists: Record<string, any[]> = {};
+    const lists: Record<string, Block[]> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
@@ -109,7 +113,6 @@ export class Block {
       } else if (Array.isArray(value)) {
         lists[key] = value;
       } else {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         props[key] = value;
       }
     });
@@ -119,7 +122,6 @@ export class Block {
 
   protected addAttributes(): void {
     const { attr = {} } = this.props;
-    // Иначе будут добавляться аттрибуты по типу className и так далее
     const allowedAttributes = Object.keys(
       HTMLElement.prototype
     ) as (keyof HTMLElement)[];
@@ -134,28 +136,28 @@ export class Block {
     });
   }
 
-  public setProps = (nextProps: BlockProps): void => {
+  public setProps(nextProps: BlockProps): void {
     if (!nextProps) {
       return;
     }
 
     Object.assign(this.props, nextProps);
-  };
+  }
 
-  public setLists = (nextList: Record<string, any[]>): void => {
+  public setLists(nextList: Record<string, Block[]>): void {
     if (!nextList) {
       return;
     }
 
     Object.assign(this.lists, nextList);
-  };
+  }
 
   get element(): HTMLElement | null {
     return this._element;
   }
 
   private _render(): void {
-    const propsAndStubs = { ...this.props };
+    const propsAndStubs: Record<string, string> = { ...this.props };
     const tmpId = Math.floor(100000 + Math.random() * 900000);
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
@@ -175,9 +177,10 @@ export class Block {
       }
     });
 
-    Object.entries(this.lists).forEach(([, child]) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    Object.entries(this.lists).forEach(([_, child]) => {
       const listCont = this._createDocumentElement("template");
-      child.forEach((item) => {
+      child.forEach((item: unknown) => {
         if (item instanceof Block) {
           listCont.content.append(item.getContent());
         } else {
@@ -204,6 +207,14 @@ export class Block {
     return "";
   }
 
+  protected componentDidUpdate(
+    oldProps: BlockProps,
+    newProps: BlockProps
+  ): boolean {
+    console.log(oldProps, newProps);
+    return true;
+  }
+
   public getContent(): HTMLElement {
     if (!this._element) {
       throw new Error("Element is not created");
@@ -211,16 +222,18 @@ export class Block {
     return this._element;
   }
 
-  private _makePropsProxy(props: any): any {
+  private _makePropsProxy(
+    props: Record<string, unknown>
+  ): Record<string, unknown> {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
     return new Proxy(props, {
-      get(target: any, prop: string) {
+      get(target: Record<string, unknown>, prop: string) {
         const value = target[prop];
         return typeof value === "function" ? value.bind(target) : value;
       },
-      set(target: any, prop: string, value: any) {
+      set(target: Record<string, unknown>, prop: string, value: unknown) {
         const oldTarget = { ...target };
         target[prop] = value;
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);

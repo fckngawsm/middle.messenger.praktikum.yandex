@@ -24,6 +24,7 @@
     "no-param-reassign": "off",
     "class-methods-use-this": "off",
     "@typescript-eslint/no-empty-object-type": "off",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "no-useless-constructor": "off"
   }
 }
