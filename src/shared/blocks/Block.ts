@@ -1,6 +1,5 @@
 import { ContextStrategy } from "@domains/validation/ContextStrategy";
 import { StrategyType } from "@domains/validation/StrategyType";
-import Handlebars from "handlebars";
 import { EventBus } from "./EventBus";
 
 interface BlockProps {
@@ -23,7 +22,7 @@ export class Block {
 
   protected children: Record<string, Block>;
 
-  protected lists: Record<string, any[]>;
+  protected lists: Record<string, Block[]>;
 
   protected contextStrategy: ContextStrategy;
 
@@ -93,14 +92,6 @@ export class Block {
       return;
     }
     this._render();
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected componentDidUpdate(
-    oldProps: BlockProps,
-    newProps: BlockProps
-  ): boolean {
-    return true;
   }
 
   private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {

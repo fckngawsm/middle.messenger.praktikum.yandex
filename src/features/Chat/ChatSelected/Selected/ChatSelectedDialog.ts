@@ -38,6 +38,7 @@ export class ChatSelectedDialog extends Block {
       }),
     });
   }
+
   protected render(): string {
     return `
       <div class="chat__general-wrapper">

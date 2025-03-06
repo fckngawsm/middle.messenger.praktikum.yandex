@@ -8,6 +8,7 @@ import { PageStrategy } from "./PageStrategies";
 
 export class LoginStrategy extends Block implements PageStrategy {
   private isLoginFocused: boolean = false;
+
   private isPasswordFocused: boolean = false;
 
   constructor() {
@@ -27,10 +28,6 @@ export class LoginStrategy extends Block implements PageStrategy {
             this.validateField("login", input.value);
           }
         },
-        onFocus: (e: Event) => {
-          this.isLoginFocused = true;
-          console.log(this.isLoginFocused);
-        },
       }),
       PasswordInput: new Input({
         attr: {
@@ -46,9 +43,6 @@ export class LoginStrategy extends Block implements PageStrategy {
           if (this.isPasswordFocused) {
             this.validateField("password", input.value);
           }
-        },
-        onFocus: (e: Event) => {
-          this.isPasswordFocused = true;
         },
       }),
       LoginButton: new Button({

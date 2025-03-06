@@ -8,6 +8,7 @@ import { RegisterStrategy } from "../domains/pages/RegisterStrategy";
 
 export class App {
   private appElement: HTMLElement | null;
+
   private currentStrategy: PageStrategy;
 
   constructor() {

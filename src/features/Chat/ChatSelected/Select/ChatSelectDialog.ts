@@ -1,9 +1,6 @@
 import { Block } from "@shared/blocks/Block";
 
 export class ChatSelectDialog extends Block {
-  constructor() {
-    super();
-  }
   protected render(): string {
     return ` 
         <div class="container__dialog">    

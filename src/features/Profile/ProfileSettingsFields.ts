@@ -20,7 +20,7 @@ export class ProfileSettingsFields extends Block {
           placeholder: props.placeholder,
           required: props.required,
         },
-        onBlur: (e: Event) => console.log("blur input avatar"),
+        onBlur: () => console.log("blur input avatar"),
       }),
     });
   }

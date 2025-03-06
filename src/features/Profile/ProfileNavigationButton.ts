@@ -15,6 +15,7 @@ export class ProfileNavigationButton extends Block {
       }),
     });
   }
+
   protected render(): string {
     return `
         <div class="profile__navigation">

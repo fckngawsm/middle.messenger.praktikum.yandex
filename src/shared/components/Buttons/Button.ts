@@ -39,7 +39,7 @@ export class Button extends Block {
         id="${id || ""}" 
         class="${className}" 
         type="${type}"
-        ${disabled ? disabled : ""}
+        ${disabled || ""}
         ${form ? `form="${form}"` : ""}
       >
         ${text}

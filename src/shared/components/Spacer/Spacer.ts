@@ -4,7 +4,8 @@ export class Spacer extends Block {
   constructor() {
     super({});
   }
+
   protected render(): string {
-    return `<div class="spacer"/></div>`;
+    return "<div class=\"spacer\"></div>";
   }
 }

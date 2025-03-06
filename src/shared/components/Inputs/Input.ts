@@ -6,7 +6,7 @@ interface InputProps {
   label?: string;
   helperText?: string;
   onBlur: (e: Event) => void;
-  onFocus: (e: Event) => void;
+  onFocus?: (e: Event) => void;
 }
 
 export class Input extends Block {

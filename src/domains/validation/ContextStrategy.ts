@@ -9,8 +9,11 @@ import { Validator } from "./ValidatorInterface";
 
 export class ContextStrategy {
   private strategies: Record<string, Validator>;
+
   private currentInputGroup: HTMLElement | null = null;
+
   private currentHelperText: HTMLElement | null | undefined = undefined;
+
   private currentInput: HTMLElement | null | undefined = undefined;
 
   constructor() {
@@ -50,10 +53,9 @@ export class ContextStrategy {
     );
 
     if (this.currentInputGroup) {
-      // @ts-ignore TODO:
       this.currentHelperText =
         this.currentInputGroup.querySelector(".form__helper-text");
-      // @ts-ignore TODO:
+
       this.currentInput = this.currentInputGroup.querySelector(".form__input");
     }
   }

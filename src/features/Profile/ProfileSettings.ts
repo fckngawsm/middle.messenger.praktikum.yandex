@@ -85,7 +85,7 @@ export class ProfileSettings extends Block {
           id: "settings-button",
         },
         text: "Сохранить",
-        onClick: (e: Event) => console.log("submit!"),
+        onClick: () => console.log("submit!"),
       }),
     });
   }
