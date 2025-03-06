@@ -255,6 +255,7 @@ export class Block {
     callback?: (data: Record<string, string>) => void
   ): void {
     event.preventDefault();
+    event.stopPropagation();
 
     const form = document.getElementById(formId) as HTMLFormElement;
     if (!form) {

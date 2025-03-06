@@ -60,8 +60,6 @@ export class LoginStrategy extends Block implements PageStrategy {
         },
         text: "Авторизоваться",
         onClick: (event: Event) => {
-          event.preventDefault();
-          event.stopPropagation();
           this.handleFormSubmit(event, "login-form", this.onLogin);
         },
       }),
