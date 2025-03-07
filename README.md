@@ -29,5 +29,8 @@
 3. **Стили**: PostCSS
 4. **Линтеры**: StyleLint, ESLint
 
+## Что можно улучшить
+1. Более понятный и коректный helperText при валидации
+
 ## Netlify
 https://chatik-ya.netlify.app/
