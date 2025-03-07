@@ -1,7 +1,7 @@
 import attach from "@assets/images/attach.svg";
 import submitIcon from "@assets/images/caret-white.svg";
 import { Block } from "@shared/blocks/Block";
-import { RoundButton } from "@shared/components/Buttons/RoundButton";
+import { RoundSubmitButton } from "@shared/components/Buttons/RoundSubmitButton";
 import { ChatInput } from "@shared/components/Inputs/ChatInput";
 import { Spacer } from "@shared/components/Spacer/Spacer";
 import {
@@ -30,13 +30,21 @@ export class ChatSelectedDialog extends Block {
           name: "message",
         },
       }),
-      RoundButton: new RoundButton({
+      RoundButton: new RoundSubmitButton({
         attr: {
           id: "chat-link",
+          form: "message-form",
           icon: submitIcon,
+        },
+        onClick: (event: Event) => {
+          this.handleFormSubmit(event, "message-form", this.onSendMessage);
         },
       }),
     });
+  }
+
+  private onSendMessage(data: Record<string, string>): void {
+    console.log("Отправка формы сообщения с данными:", data);
   }
 
   protected render(): string {
@@ -45,11 +53,11 @@ export class ChatSelectedDialog extends Block {
           {{{ChatSelectedHeader}}}
           {{{MessageList}}}
           {{{Spacer}}}
-          <div class="chat__bottom-part">
+          <form class="chat__bottom-part" id="message-form">
               <img class="chat__attach-icon" src=${attach} alt="Прикрепить"/>
               {{{ChatInput}}}
               {{{RoundButton}}}
-          </div> 
+          </form> 
       </div>
       `;
   }
