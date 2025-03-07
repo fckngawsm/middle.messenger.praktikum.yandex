@@ -11,6 +11,15 @@
     "es6": true,
     "node": true
   },
+  "overrides": [
+    {
+      "files": ["postcss.config.js", "vite.config.ts"],
+      "parser": "espree",
+      "env": {
+        "node": true
+      }
+    }
+  ],
   "rules": {
     "import/no-unresolved": "off",
     "import/extensions": "off",
