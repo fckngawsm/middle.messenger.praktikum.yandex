@@ -21,6 +21,7 @@ class RequestService {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
 
+      // eslint-disable-next-line func-names
       xhr.onload = function () {
         resolve(xhr);
       };
