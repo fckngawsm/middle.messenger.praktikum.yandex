@@ -5,14 +5,9 @@ import Handlebars from "handlebars";
 import { EventBus } from "./EventBus";
 
 interface BlockProps {
-  [key: string]:
-    | string
-    | number
-    | boolean
-    | Block
-    | Block[]
-    | Record<string, unknown>
-    | Record<string, (event: Event) => void>;
+  // TODO: не получилось нормально типизировать
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
 interface Children {
@@ -333,19 +328,6 @@ export class Block {
     });
 
     callback?.(formValues);
-  }
-
-  public show(): void {
-    const content = this.getContent();
-    if (content) {
-      content.style.display = "block";
-    }
-  }
-
-  public hide(): void {
-    const content = this.getContent();
-    if (content) {
-      content.style.display = "none";
-    }
+    form.reset();
   }
 }
