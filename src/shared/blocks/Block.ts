@@ -80,9 +80,10 @@ export class Block {
 
   private _removeEvents() {
     const { events = {} } = this.props;
-
     Object.keys(events).forEach((eventName) => {
-      this._element?.removeEventListener(eventName, events[eventName]);
+      if (events[eventName] !== undefined) {
+        this._element?.removeEventListener(eventName, events[eventName]);
+      }
     });
   }
 
