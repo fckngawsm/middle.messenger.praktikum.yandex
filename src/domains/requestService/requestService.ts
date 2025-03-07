@@ -6,14 +6,14 @@ type OptionsWithoutMethod = Omit<Options, "method">;
 class RequestService {
   get(
     url: string,
-    options: OptionsWithoutMethod = {},
+    options: OptionsWithoutMethod = {}
   ): Promise<XMLHttpRequest> {
     return this.request(url, { ...options, method: METHOD.GET });
   }
 
   request(
     url: string,
-    options: Options = { method: METHOD.GET },
+    options: Options = { method: METHOD.GET }
   ): Promise<XMLHttpRequest> {
     const { method, data } = options;
 
@@ -29,10 +29,10 @@ class RequestService {
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
-      if (method === METHOD.GET || !data) {
+      if (method === METHOD.GET || data == null) {
         xhr.send();
       } else {
-        xhr.send(data);
+        xhr.send(data as Document);
       }
     });
   }
