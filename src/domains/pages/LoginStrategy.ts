@@ -1,3 +1,4 @@
+import { StrategyType } from "@domains/validation/StrategyType";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";
 import { Input } from "@shared/components/Inputs/Input";
@@ -7,10 +8,6 @@ import { LoginPage } from "@templates/auth/index";
 import { PageStrategy } from "./PageStrategies";
 
 export class LoginStrategy extends Block implements PageStrategy {
-  private isLoginFocused: boolean = false;
-
-  private isPasswordFocused: boolean = false;
-
   constructor() {
     super({
       LoginInput: new Input({
@@ -24,9 +21,7 @@ export class LoginStrategy extends Block implements PageStrategy {
         label: "Логин",
         onBlur: (e: Event) => {
           const input = e.target as HTMLInputElement;
-          if (this.isLoginFocused) {
-            this.validateField("login", input.value);
-          }
+          this.validateField(input.name as StrategyType, input.value);
         },
       }),
       PasswordInput: new Input({
@@ -40,9 +35,7 @@ export class LoginStrategy extends Block implements PageStrategy {
         label: "Пароль",
         onBlur: (e: Event) => {
           const input = e.target as HTMLInputElement;
-          if (this.isPasswordFocused) {
-            this.validateField("password", input.value);
-          }
+          this.validateField(input.name as StrategyType, input.value);
         },
       }),
       LoginButton: new Button({

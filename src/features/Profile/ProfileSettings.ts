@@ -22,7 +22,7 @@ export class ProfileSettings extends Block {
         required: true,
       }),
       SurnameField: new ProfileSettingsFields({
-        fieldName: "Имя",
+        fieldName: "Фамилия",
         id: "profile-second_name",
         type: "text",
         name: "second_name",
@@ -30,7 +30,7 @@ export class ProfileSettings extends Block {
         required: true,
       }),
       NameInChatField: new ProfileSettingsFields({
-        fieldName: "Логин",
+        fieldName: "Имя в чате",
         id: "profile-display_name",
         type: "text",
         name: "display_name",
@@ -85,9 +85,15 @@ export class ProfileSettings extends Block {
           id: "settings-button",
         },
         text: "Сохранить",
-        onClick: () => console.log("submit!"),
+        onClick: (event: Event) => {
+          this.handleFormSubmit(event, "settings-form", this.onEditProfile);
+        },
       }),
     });
+  }
+
+  private onEditProfile(data: Record<string, string>): void {
+    console.log("Отправка формы логина с данными:", data);
   }
 
   protected render(): string {

@@ -1,3 +1,4 @@
+import { StrategyType } from "@domains/validation/StrategyType";
 import { Block } from "@shared/blocks/Block";
 import { Input } from "@shared/components/Inputs/Input";
 import { BaseInputAttributes } from "@shared/types/BaseInput";
@@ -20,15 +21,18 @@ export class ProfileSettingsFields extends Block {
           placeholder: props.placeholder,
           required: props.required,
         },
-        onBlur: () => console.log("blur input avatar"),
+        onBlur: (e: Event) => {
+          const input = e.target as HTMLInputElement;
+          this.validateField(input.name as StrategyType, input.value);
+        },
       }),
     });
   }
 
   protected render(): string {
-    const { fieldName = "" } = this.props;
+    const { fieldName = "", name = "" } = this.props;
     return `
-        <div class="profile__settings-fields">
+        <div data-type="${name || ""}" class="profile__settings-fields">
           <p class="profile__settings-field">${fieldName}</p>
             {{{AvatarInput}}}
         </div>

@@ -37,5 +37,10 @@
         line-height: 1;
       }
     }
+
+    /* При применении ошибки */
+    .profile__settings-fields.error {
+      border-bottom: 1px solid var(--error-color);
+    }
   }
 }

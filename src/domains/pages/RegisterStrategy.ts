@@ -1,3 +1,4 @@
+import { StrategyType } from "@domains/validation/StrategyType";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";
 import { Input } from "@shared/components/Inputs/Input";
@@ -20,7 +21,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         label: "Почта",
         onBlur: (e: Event) => {
           const input = e.target as HTMLInputElement;
-          this.validateField("email", input.value);
+          this.validateField(input.name as StrategyType, input.value);
         },
       }),
       LoginInput: new Input({
@@ -34,7 +35,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         label: "Логин",
         onBlur: (e: Event) => {
           const input = e.target as HTMLInputElement;
-          this.validateField("login", input.value);
+          this.validateField(input.name as StrategyType, input.value);
         },
       }),
       FirstNameInput: new Input({
@@ -48,7 +49,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         label: "Имя",
         onBlur: (e: Event) => {
           const input = e.target as HTMLInputElement;
-          this.validateField("name", input.value);
+          this.validateField(input.name as StrategyType, input.value);
         },
       }),
       SecondNameInput: new Input({
@@ -62,7 +63,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         label: "Фамилия",
         onBlur: (e: Event) => {
           const input = e.target as HTMLInputElement;
-          this.validateField("name", input.value);
+          this.validateField(input.name as StrategyType, input.value);
         },
       }),
       PhoneInput: new Input({
@@ -76,7 +77,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         label: "Телефон",
         onBlur: (e: Event) => {
           const input = e.target as HTMLInputElement;
-          this.validateField("phone", input.value);
+          this.validateField(input.name as StrategyType, input.value);
         },
       }),
       PasswordInput: new Input({
@@ -90,21 +91,22 @@ export class RegisterStrategy extends Block implements PageStrategy {
         label: "Пароль",
         onBlur: (e: Event) => {
           const input = e.target as HTMLInputElement;
-          this.validateField("password", input.value);
+          this.validateField(input.name as StrategyType, input.value);
+          this.contextStrategy.setOriginalPassword(input.value);
         },
       }),
       PasswordRepeatInput: new Input({
         attr: {
           id: "password-repeat",
           type: "password",
-          name: "password-repeat",
+          name: "password_repeat",
           required: true,
         },
         helperText: "Пароли не совпадают",
         label: "Пароль (ещё раз)",
         onBlur: (e: Event) => {
           const input = e.target as HTMLInputElement;
-          this.validateField("password", input.value);
+          this.validateField(input.name as StrategyType, input.value);
         },
       }),
       RegisterButton: new Button({
@@ -116,9 +118,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         text: "Зарегистрироваться",
         onClick: (event: Event) => {
-          console.log("CLICK");
-          event.preventDefault();
-          event.stopPropagation();
+          this.handleFormSubmit(event, "register-form", this.onRegister);
         },
       }),
       Spacer: new Spacer(),
@@ -131,6 +131,13 @@ export class RegisterStrategy extends Block implements PageStrategy {
         linkText: "Уже есть аккаунт? Войти",
       }),
     });
+  }
+
+  private onRegister(data: Record<string, string>): void {
+    console.log("Отправка формы регистрации с данными:", data);
+    setTimeout(() => {
+      window.location.href = "/messenger";
+    }, 3000);
   }
 
   protected render(): string {

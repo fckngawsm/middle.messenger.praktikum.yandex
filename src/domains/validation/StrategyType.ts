@@ -4,4 +4,5 @@ export type StrategyType =
   | "email"
   | "password"
   | "phone"
-  | "message";
+  | "message"
+  | "password_repeat";

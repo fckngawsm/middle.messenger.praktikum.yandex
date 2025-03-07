@@ -15,7 +15,7 @@ export class Input extends Block {
       ...props,
       events: {
         blur: (e: Event) => props.onBlur(e),
-        focus: (e: Event) => props.onFocus(e),
+        focus: (e: Event) => (props?.onFocus || (() => {}))(e),
       },
     });
   }
@@ -45,7 +45,7 @@ export class Input extends Block {
           autocomplete="new-password"
         >
         ${label && `<label class="form__label" for="${id}">${label}</label>`}
-        <p class="form__helper-text">${helperText}</p>
+        ${helperText ? `<p class="form__helper-text">${helperText}</p>` : ""}
       </div>
     `;
   }

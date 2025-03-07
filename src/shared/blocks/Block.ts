@@ -253,8 +253,7 @@ export class Block {
     return this.contextStrategy.validate(fieldType, value);
   }
 
-  private handleValidateFormOnSubmit(formId: string): boolean {
-    const form = document.getElementById(formId) as HTMLFormElement;
+  private handleValidateFormOnSubmit(form: HTMLFormElement): boolean {
     let isValid = true;
     if (!form) {
       console.error("Форма не найдена");
@@ -269,7 +268,6 @@ export class Block {
 
       if (!this.validateField(fieldType, value)) {
         isValid = false;
-        input.classList.add("error");
       }
     });
 
@@ -284,11 +282,12 @@ export class Block {
     event.preventDefault();
     event.stopPropagation();
 
-    if (!this.handleValidateFormOnSubmit(formId)) {
+    const form = document.getElementById(formId) as HTMLFormElement;
+
+    if (!this.handleValidateFormOnSubmit(form)) {
       throw new Error("Проверьте корректность данных");
     }
 
-    const form = document.getElementById(formId) as HTMLFormElement;
     if (!form) {
       console.error("Форма не найдена");
       return;
