@@ -18,7 +18,7 @@ interface Lists {
   [key: string]: Block[];
 }
 
-export class Block {
+export abstract class Block {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
