@@ -7,14 +7,12 @@
     "skipLibCheck": true,
     "types": ["node"],
 
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
 
-    /* Linting */
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
@@ -24,7 +22,6 @@
     "sourceMap": true,
     "strictNullChecks": true,
 
-    /* Aliases */
     "baseUrl": "./src",
     "paths": {
       "@assets/*": ["assets/*"],
