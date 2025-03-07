@@ -3,7 +3,6 @@
 @import "./theme/theme.css";
 @import "./base/root.css";
 @import "../containers/containers.css";
-@import "./error/error.css";
 @import "../components/Spacer/space.css";
 @import "../components/Link/link.css";
 @import "../components/Avatar/avatar.css";
@@ -12,3 +11,4 @@
 @import "../components/Inputs/input.css";
 @import "../../features/Chat/chat.css";
 @import "../../features/Profile/profile.css";
+@import "../../features/Error/error.css"

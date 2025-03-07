@@ -1,7 +1,7 @@
 import { Block } from "@shared/blocks/Block";
 import { Avatar } from "@shared/components/Avatar/Avatar";
 
-export interface ChatItemProps {
+interface ChatItemProps {
   userAvatar: string;
   userName: string;
   lastMessage: string;
@@ -42,10 +42,10 @@ export class ChatItem extends Block {
               <div class="chat__info-additional">
                   <h4 class="chat__time">${lastMessageTime}</h4>
                   ${
-  unreadMessageCount
-    ? `<h5 class="chat__unread-message-count">${unreadMessageCount}</h5>`
-    : ""
-}
+                    unreadMessageCount
+                      ? `<h5 class="chat__unread-message-count">${unreadMessageCount}</h5>`
+                      : ""
+                  }
               </div>
           </div>
       </div>
