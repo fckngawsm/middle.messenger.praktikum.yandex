@@ -31,5 +31,5 @@
       "@templates/*": ["templates/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "vite.config.ts", "postcss.config.js"]
 }
