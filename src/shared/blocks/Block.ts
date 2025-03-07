@@ -1,11 +1,26 @@
+/* eslint-disable no-use-before-define */
 import { ContextStrategy } from "@domains/validation/ContextStrategy";
 import { StrategyType } from "@domains/validation/StrategyType";
 import Handlebars from "handlebars";
 import { EventBus } from "./EventBus";
 
 interface BlockProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
+  [key: string]:
+    | string
+    | number
+    | boolean
+    | Block
+    | Block[]
+    | Record<string, unknown>
+    | Record<string, (event: Event) => void>;
+}
+
+interface Children {
+  [key: string]: Block;
+}
+
+interface Lists {
+  [key: string]: Block[];
 }
 
 export class Block {
@@ -22,11 +37,9 @@ export class Block {
 
   protected props: BlockProps;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  protected children: Record<string, any>;
+  protected children: Children;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  protected lists: Record<string, any>;
+  protected lists: Lists;
 
   protected contextStrategy: ContextStrategy;
 
@@ -38,7 +51,9 @@ export class Block {
       this._getChildrenPropsAndProps(propsWithChildren);
     this.props = this._makePropsProxy({ ...props });
     this.children = children;
-    this.lists = this._makePropsProxy({ ...lists });
+    // Не получилось типизировать
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.lists = this._makePropsProxy({ ...lists }) as any;
     this.eventBus = () => eventBus;
     this.contextStrategy = new ContextStrategy();
     this._registerEvents(eventBus);
@@ -48,16 +63,21 @@ export class Block {
   private _addEvents(): void {
     const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
-      if (this._element) {
-        this._element.addEventListener(eventName, events[eventName]);
-        if (
-          ["blur", "focus"].includes(eventName) &&
-          this._element.firstElementChild
-        ) {
-          this._element.firstElementChild.addEventListener(
-            eventName,
-            events[eventName]
-          );
+      const eventHandler = (events as Record<string, (event: Event) => void>)[
+        eventName
+      ];
+      if (typeof eventHandler === "function") {
+        if (this._element) {
+          this._element.addEventListener(eventName, eventHandler);
+          if (
+            ["blur", "focus"].includes(eventName) &&
+            this._element.firstElementChild
+          ) {
+            this._element.firstElementChild.addEventListener(
+              eventName,
+              eventHandler
+            );
+          }
         }
       }
     });
@@ -99,13 +119,13 @@ export class Block {
   }
 
   private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
-    children: Record<string, Block>;
+    children: Children;
     props: BlockProps;
-    lists: Record<string, Block[]>;
+    lists: Lists;
   } {
-    const children: Record<string, Block> = {};
+    const children: Children = {};
     const props: BlockProps = {};
-    const lists: Record<string, Block[]> = {};
+    const lists: Lists = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
@@ -144,7 +164,7 @@ export class Block {
     Object.assign(this.props, nextProps);
   }
 
-  public setLists(nextList: Record<string, Block[]>): void {
+  public setLists(nextList: Lists): void {
     if (!nextList) {
       return;
     }
@@ -157,7 +177,10 @@ export class Block {
   }
 
   private _render(): void {
-    const propsAndStubs: Record<string, string> = { ...this.props };
+    const propsAndStubs: Record<
+      string,
+      string | number | boolean | Block | Block[] | Record<string, unknown>
+    > = { ...this.props };
     const tmpId = Math.floor(100000 + Math.random() * 900000);
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
@@ -180,7 +203,7 @@ export class Block {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     Object.entries(this.lists).forEach(([_, child]) => {
       const listCont = this._createDocumentElement("template");
-      child.forEach((item: unknown) => {
+      child.forEach((item: Block | string) => {
         if (item instanceof Block) {
           listCont.content.append(item.getContent());
         } else {
@@ -222,20 +245,29 @@ export class Block {
     return this._element;
   }
 
-  private _makePropsProxy(
-    props: Record<string, unknown>
-  ): Record<string, unknown> {
+  private _makePropsProxy(props: BlockProps): BlockProps {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
     return new Proxy(props, {
-      get(target: Record<string, unknown>, prop: string) {
+      get(target: BlockProps, prop: string) {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+
+        if (typeof value === "function") {
+          return (value as Function).bind(target);
+        }
+
+        return value;
       },
-      set(target: Record<string, unknown>, prop: string, value: unknown) {
+      set(target: BlockProps, prop: string, value: unknown) {
         const oldTarget = { ...target };
-        target[prop] = value;
+        target[prop] = value as
+          | string
+          | number
+          | boolean
+          | Block
+          | Block[]
+          | Record<string, unknown>;
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
       },
