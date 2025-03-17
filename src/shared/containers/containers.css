@@ -30,3 +30,11 @@
 .container__profile {
   display: flex;
 }
+
+.container__selected-chat {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px 11px;
+  max-height: 100vh;
+  box-sizing: border-box;
+}

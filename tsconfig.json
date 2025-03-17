@@ -5,20 +5,31 @@
     "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
+    "types": ["node"],
 
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
 
-    /* Linting */
     "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "sourceMap": true,
+    "strictNullChecks": true,
+
+    "baseUrl": "./src",
+    "paths": {
+      "@assets/*": ["assets/*"],
+      "@domains/*": ["domains/*"],
+      "@features/*": ["features/*"],
+      "@shared/*": ["shared/*"],
+      "@templates/*": ["templates/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src", "vite.config.ts", "postcss.config.js"]
 }

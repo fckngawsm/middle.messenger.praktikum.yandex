@@ -1,16 +1,14 @@
-import { registerPartial } from "../utils/registerPartial";
-import { ChatStrategy } from "./strategies/ChatStrategy";
-import { InternalServerErrorStrategy } from "./strategies/InternalServerErrorStrategy";
-import { LoginStrategy } from "./strategies/LoginStrategy";
-import { NotFoundStrategy } from "./strategies/NotFoundStrategy";
-import { PageStrategy } from "./strategies/PageInterface/PageStrategies";
-import { ProfileStrategy } from "./strategies/PorfileStrategy";
-import { RegisterStrategy } from "./strategies/RegisterStrategy";
-
-registerPartial();
+import { ChatStrategy } from "../domains/pages/ChatStrategy";
+import { InternalServerErrorStrategy } from "../domains/pages/InternalServerErrorStrategy";
+import { LoginStrategy } from "../domains/pages/LoginStrategy";
+import { NotFoundStrategy } from "../domains/pages/NotFoundStrategy";
+import { PageStrategy } from "../domains/pages/PageStrategies";
+import { ProfileStrategy } from "../domains/pages/ProfileStrategy";
+import { RegisterStrategy } from "../domains/pages/RegisterStrategy";
 
 export class App {
   private appElement: HTMLElement | null;
+
   private currentStrategy: PageStrategy;
 
   constructor() {
@@ -21,7 +19,7 @@ export class App {
 
   render() {
     if (this.appElement) {
-      this.currentStrategy.render(this.appElement);
+      this.currentStrategy.renderPage(this.appElement);
     }
   }
 

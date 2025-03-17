@@ -1,18 +1,14 @@
-@import url(./base/normalize.css);
-@import url(../../assets/fonts/inter.css);
-@import url(./theme/theme.css);
-@import url(./base/root.css);
-
-@import url(../containers/containers.css);
-
-@import url(./spacer/space.css);
-@import url(./error/error.css);
-@import url(./link/link.css);
-
-@import url(../components/Avatar/avatar.css);
-@import url(../components/Form/form.css);
-@import url(../components/Buttons/button.css);
-@import url(../components/Inputs/input.css);
-
-@import url(../../features/Chat/chat.css);
-@import url(../../features/Profile/profile.css);
+@import "./base/normalize.css";
+@import "../../assets/fonts/inter.css";
+@import "./theme/theme.css";
+@import "./base/root.css";
+@import "../containers/containers.css";
+@import "../components/Spacer/space.css";
+@import "../components/Link/link.css";
+@import "../components/Avatar/avatar.css";
+@import "../components/Form/form.css";
+@import "../components/Buttons/button.css";
+@import "../components/Inputs/input.css";
+@import "../../features/Chat/chat.css";
+@import "../../features/Profile/profile.css";
+@import "../../features/Error/error.css"

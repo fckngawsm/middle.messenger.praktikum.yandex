@@ -1,0 +1,129 @@
+.chats {
+  width: 25%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--dark-gray-color);
+
+  .chat__header {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+    padding: 21px 10px 14px;
+
+    .chat__header-link {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      align-self: end;
+      color: var(--gray-color);
+    }
+  }
+
+  .chat__list {
+    overflow: scroll;
+
+    .chat__item {
+      padding: 12px;
+      border-top: 1px solid var(--dark-gray-color);
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+
+      .chat__avatar {
+        width: 47px;
+        height: 47px;
+      }
+
+      .chat__info {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        width: 100%;
+
+        .chat__info-user {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+
+          .chat__user-name {
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1;
+            margin: 0;
+          }
+
+          .chat__last-message {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.2;
+            color: var(--gray-color);
+            margin: 0;
+          }
+        }
+
+        .chat__info-additional {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+
+          .chat__time {
+            color: var(--gray-color);
+            font-size: 9px;
+            line-height: 1.4;
+            margin: 0;
+            font-weight: 500;
+          }
+
+          .chat__unread-message-count {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--purple-color);
+            color: var(--white-color);
+            width: 20px;
+            height: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            margin: 0 auto;
+          }
+        }
+      }
+
+      &:hover {
+        background-color: var(--light-blue-color);
+      }
+    }
+
+    .chat__item-active {
+      background-color: var(--light-blue-color);
+    }
+  }
+
+  .chat__list::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+.chat__input {
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  background: var(--dark-gray-color);
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  font-size: 12px;
+  line-height: 1;
+
+  &::placeholder {
+    text-align: center;
+  }
+}

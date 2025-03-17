@@ -1,125 +1,119 @@
-export default `
-  <div class="profile__wrapper">
-    {{#> Form id="settings-form"}}
-      <div class="profile__settings">
-        <div class="profile__settings-fields">
-          <p class="profile__settings-field">Аватар</p>
-          {{> Input 
-            inputClass="form__input-setting" 
-            groupClass="form__input-group-settings" 
-            id="profile-avatar" 
-            type="text" 
-            name="avatar" 
-            placeholder="Аватарка" 
-            required="true" 
-          }}
-        </div>
+import { Block } from "@shared/blocks/Block";
+import { Button } from "@shared/components/Buttons/Button";
+import { ProfileSettingsFields } from "./ProfileSettingsFields";
 
-        <div class="profile__settings-fields">
-          <p class="profile__settings-field">Имя</p>
-          {{> Input 
-            inputClass="form__input-setting" 
-            id="profile-first_name" 
-            type="text" 
-            name="first_name" 
-            required="true" 
-            placeholder="Ваше имя" 
-            groupClass="form__input-group-settings" 
-          }}
-        </div>
+export class ProfileSettings extends Block {
+  constructor() {
+    super({
+      AvatarField: new ProfileSettingsFields({
+        fieldName: "Аватар",
+        id: "profile-avatar",
+        type: "text",
+        name: "avatar",
+        placeholder: "Аватарка",
+        required: true,
+      }),
+      NameField: new ProfileSettingsFields({
+        fieldName: "Имя",
+        id: "profile-first_name",
+        type: "text",
+        name: "first_name",
+        placeholder: "Ваше имя",
+        required: true,
+      }),
+      SurnameField: new ProfileSettingsFields({
+        fieldName: "Фамилия",
+        id: "profile-second_name",
+        type: "text",
+        name: "second_name",
+        placeholder: "Фамилия",
+        required: true,
+      }),
+      NameInChatField: new ProfileSettingsFields({
+        fieldName: "Имя в чате",
+        id: "profile-display_name",
+        type: "text",
+        name: "display_name",
+        placeholder: "Имя в чате",
+        required: true,
+      }),
+      LoginField: new ProfileSettingsFields({
+        fieldName: "Логин",
+        id: "profile-login",
+        type: "text",
+        name: "login",
+        placeholder: "Укажите логин",
+        required: true,
+      }),
+      EmailField: new ProfileSettingsFields({
+        fieldName: "Почта",
+        id: "profile-email",
+        type: "email",
+        name: "email",
+        placeholder: "Укажите почту",
+        required: true,
+      }),
+      PhoneField: new ProfileSettingsFields({
+        fieldName: "Телефон",
+        id: "profile-phone",
+        type: "tel",
+        name: "phone",
+        placeholder: "Укажите телефон",
+        required: true,
+      }),
+      OldPassword: new ProfileSettingsFields({
+        fieldName: "Старый пароль",
+        id: "profile-old-password",
+        type: "password",
+        name: "old_password",
+        placeholder: "Старый пароль",
+        required: true,
+      }),
+      NewPassword: new ProfileSettingsFields({
+        fieldName: "Новый пароль",
+        id: "profile-new-password",
+        type: "password",
+        name: "new_password",
+        placeholder: "Новый пароль",
+        required: true,
+      }),
+      Button: new Button({
+        attr: {
+          className: "button link",
+          type: "button",
+          form: "settings-form",
+          id: "settings-button",
+        },
+        text: "Сохранить",
+        onClick: (event: Event) => {
+          this.handleFormSubmit(event, "settings-form", this.onEditProfile);
+        },
+      }),
+    });
+  }
 
-        <div class="profile__settings-fields">
-          <p class="profile__settings-field">Фамилия</p>
-          {{> Input 
-            inputClass="form__input-setting" 
-            id="profile-second_name" 
-            type="text" 
-            name="second_name" 
-            required="true" 
-            placeholder="Фамилия" 
-            groupClass="form__input-group-settings" 
-          }}
-        </div>
+  private onEditProfile(data: Record<string, string>): void {
+    console.log("Отправка формы логина с данными:", data);
+  }
 
-        <div class="profile__settings-fields">
-          <p class="profile__settings-field">Имя в чате</p>
-          {{> Input 
-            inputClass="form__input-setting" 
-            id="profile-display_name" 
-            type="text" 
-            name="display_name" 
-            required="true" 
-            placeholder="Имя в чате" 
-            groupClass="form__input-group-settings" 
-          }}
-        </div>
-
-        <div class="profile__settings-fields">
-          <p class="profile__settings-field">Логин</p>
-          {{> Input 
-            inputClass="form__input-setting" 
-            id="profile-login" 
-            type="email" 
-            name="text" 
-            required="true" 
-            placeholder="Укажите логин" 
-            groupClass="form__input-group-settings" 
-          }}
-        </div>
-
-        <div class="profile__settings-fields">
-          <p class="profile__settings-field">Почта</p>
-          {{> Input 
-            inputClass="form__input-setting" 
-            id="profile-email" 
-            type="email" 
-            name="email" 
-            required="true" 
-            placeholder="Укажите почту" 
-            groupClass="form__input-group-settings" 
-          }}
-        </div>
-
-        <div class="profile__settings-fields">
-          <p class="profile__settings-field">Телефон</p>
-          {{> Input 
-            inputClass="form__input-setting" 
-            id="profile-phone" 
-            type="tel" 
-            name="phone" 
-            required="true" 
-            placeholder="Укажите телефон" 
-            groupClass="form__input-group-settings" 
-          }}
-        </div>
-
-        <div class="profile__settings-fields">
-          <p class="profile__settings-field">Старый пароль</p>
-          {{> Input 
-            inputClass="form__input-setting" 
-            id="profile-old-password" 
-            type="password" 
-            name="oldPassword" 
-            required="true" 
-            placeholder="Старый пароль" 
-            groupClass="form__input-group-settings" 
-          }}
-        </div>
-
-        <div class="profile__settings-fields">
-          <p class="profile__settings-field">Новый пароль</p>
-          {{> Input 
-            inputClass="form__input-setting" 
-            id="profile-new-password" 
-            type="password" 
-            name="newPassword" 
-            required="true" 
-            placeholder="Новый пароль" 
-            groupClass="form__input-group-settings" 
-          }}
-        </div>
+  protected render(): string {
+    return `
+      <div class="profile__wrapper">
+        <form class="form" id="settings-form">
+          <div class="profile__settings">
+            {{{AvatarField}}}
+            {{{NameField}}}
+            {{{SurnameField}}}
+            {{{NameInChatField}}}
+            {{{LoginField}}}
+            {{{EmailField}}}
+            {{{PhoneField}}}
+            {{{OldPassword}}}
+            {{{NewPassword}}}
+          </div>
+        </form>
+        {{{Button}}}
       </div>
-    {{/Form}}
-    {{> Button class=button.class type=button.type form=button.form text=button.text id=button.id}}
-  </div>
-`;
+    `;
+  }
+}

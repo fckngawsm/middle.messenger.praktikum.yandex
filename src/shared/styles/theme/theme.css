@@ -1,9 +1,11 @@
 :root {
-  --purple-color: rgba(51, 105, 243, 1);
-  --error-color: rgba(255, 47, 47, 1);
-  --gray-color: rgba(153, 153, 153, 1);
-  --light-gray-color: rgba(251, 251, 251, 1);
-  --dark-gray-color: rgba(239, 239, 239, 1);
-  --light-blue-color: rgba(228, 237, 253, 1);
-  --white-color: #ffffff;
+  --purple-color: rgb(51 105 243 / 100%);
+  --error-color: rgb(255 47 47 / 100%);
+  --gray-color: rgb(153 153 153 / 100%);
+  --light-gray-color: rgb(251 251 251 / 100%);
+  --dark-gray-color: rgb(239 239 239 / 100%);
+  --message-gray-color: rgb(248 248 248 / 100%);
+  --light-blue-color: rgb(228 237 253 / 100%);
+  --light-black-color: rgb(30 30 30 / 100%);
+  --white-color: #fff;
 }
