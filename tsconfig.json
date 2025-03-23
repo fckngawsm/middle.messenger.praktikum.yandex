@@ -28,7 +28,8 @@
       "@domains/*": ["domains/*"],
       "@features/*": ["features/*"],
       "@shared/*": ["shared/*"],
-      "@templates/*": ["templates/*"]
+      "@templates/*": ["templates/*"],
+      "@api/*": ["api/*"]
     }
   },
   "include": ["src", "vite.config.ts", "postcss.config.js"]

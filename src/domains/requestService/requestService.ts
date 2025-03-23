@@ -1,4 +1,4 @@
-import { BASE_URL } from "api/api";
+import { BASE_URL } from "@api/api";
 import { METHOD } from "./constants";
 import { Options } from "./types";
 
@@ -26,6 +26,11 @@ export class RequestService {
       const xhr = new XMLHttpRequest();
       xhr.open(method, `${BASE_URL}/${this.prefix}/${endPoint}`);
 
+      // Устанавливаем заголовок, если метод не GET и передаются данные
+      if (method !== METHOD.GET && data) {
+        xhr.setRequestHeader("Content-Type", "application/json"); // Указываем, что данные будут в формате JSON
+      }
+
       // eslint-disable-next-line func-names
       xhr.onload = function () {
         resolve(xhr);
@@ -38,7 +43,7 @@ export class RequestService {
       if (method === METHOD.GET || data == null) {
         xhr.send();
       } else {
-        xhr.send(data as Document);
+        xhr.send(data ? JSON.stringify(data) : null);
       }
     });
   }

@@ -1,3 +1,5 @@
+import { AuthApi } from "@api/auth.api";
+import { RegisterApi } from "@api/types";
 import { StrategyType } from "@domains/validation/StrategyType";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";
@@ -118,7 +120,9 @@ export class RegisterStrategy extends Block implements PageStrategy {
         },
         text: "Зарегистрироваться",
         onClick: (event: Event) => {
-          this.handleFormSubmit(event, "register-form", this.onRegister);
+          this.handleFormSubmit(event, "register-form", (data) => {
+            this.onRegister(data as unknown as RegisterApi);
+          });
         },
       }),
       Spacer: new Spacer(),
@@ -133,11 +137,12 @@ export class RegisterStrategy extends Block implements PageStrategy {
     });
   }
 
-  private onRegister(data: Record<string, string>): void {
-    console.log("Отправка формы регистрации с данными:", data);
-    setTimeout(() => {
-      window.location.href = "/messenger";
-    }, 3000);
+  private async onRegister(data: RegisterApi): Promise<void> {
+    try {
+      await AuthApi.register(data);
+    } catch (error) {
+      console.log(error, "error");
+    }
   }
 
   protected render(): string {

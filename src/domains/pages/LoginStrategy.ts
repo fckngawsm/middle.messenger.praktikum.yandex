@@ -1,3 +1,5 @@
+import { AuthApi } from "@api/auth.api";
+import { LoginApi } from "@api/types";
 import { StrategyType } from "@domains/validation/StrategyType";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";
@@ -47,7 +49,9 @@ export class LoginStrategy extends Block implements PageStrategy {
         },
         text: "Авторизоваться",
         onClick: (event: Event) => {
-          this.handleFormSubmit(event, "login-form", this.onLogin);
+          this.handleFormSubmit(event, "login-form", (data) => {
+            this.onLogin(data as unknown as LoginApi);
+          });
         },
       }),
       Spacer: new Spacer(),
@@ -62,11 +66,12 @@ export class LoginStrategy extends Block implements PageStrategy {
     });
   }
 
-  private onLogin(data: Record<string, string>): void {
-    console.log("Отправка формы логина с данными:", data);
-    setTimeout(() => {
-      window.location.href = "/messenger";
-    }, 3000);
+  private async onLogin(data: LoginApi): Promise<void> {
+    try {
+      await AuthApi.login(data);
+    } catch (error) {
+      console.log(error, "error");
+    }
   }
 
   protected render(): string {

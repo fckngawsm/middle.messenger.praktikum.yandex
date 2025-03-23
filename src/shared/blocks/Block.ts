@@ -311,10 +311,10 @@ export abstract class Block {
     return isValid;
   }
 
-  protected handleFormSubmit(
+  protected handleFormSubmit<T extends Record<string, unknown>>(
     event: Event,
     formId: string,
-    callback?: (data: Record<string, string>) => void
+    callback?: (data: T) => void
   ): void {
     event.preventDefault();
     event.stopPropagation();
@@ -331,10 +331,10 @@ export abstract class Block {
     }
 
     const formData = new FormData(form);
-    const formValues: Record<string, string> = {};
+    const formValues = {} as T; // ✅ TypeScript разрешает
 
     formData.forEach((value, key) => {
-      formValues[key] = value as string;
+      (formValues as Record<string, unknown>)[key] = value as string;
     });
 
     callback?.(formValues);
