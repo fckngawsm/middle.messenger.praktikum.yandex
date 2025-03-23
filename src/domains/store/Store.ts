@@ -1,10 +1,15 @@
 import { EventBus } from "@shared/blocks/EventBus";
 import { Indexed } from "@shared/types/Indexed";
-import { setToObject } from "utils/set";
+import { setToObject } from "@utils/set";
 import { StoreEvents } from "./events";
 
 class Store extends EventBus {
   private state: Indexed = {};
+
+  constructor() {
+    super();
+    console.log(this.state, "state");
+  }
 
   public getState() {
     return this.state;
@@ -17,4 +22,4 @@ class Store extends EventBus {
   }
 }
 
-export default new Store();
+export const store = new Store();

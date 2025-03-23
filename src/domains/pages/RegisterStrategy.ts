@@ -1,4 +1,4 @@
-import { AuthApi } from "@api/auth.api";
+import { AuthApi } from "@api/auth/auth.controller";
 import { RegisterApi } from "@api/types";
 import { Routes } from "@domains/route/routes.enum";
 import { StrategyType } from "@domains/validation/StrategyType";

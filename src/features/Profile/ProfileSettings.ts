@@ -1,3 +1,4 @@
+import { connectToStore, mapUserToProps } from "@hoc/connectToStore";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";
 import { ProfileSettingsFields } from "./ProfileSettingsFields";
@@ -117,3 +118,8 @@ export class ProfileSettings extends Block {
     `;
   }
 }
+
+export const ConnectedProfileSettings = connectToStore(
+  ProfileSettings,
+  mapUserToProps
+);

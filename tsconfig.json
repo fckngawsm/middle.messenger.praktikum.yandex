@@ -29,7 +29,9 @@
       "@features/*": ["features/*"],
       "@shared/*": ["shared/*"],
       "@templates/*": ["templates/*"],
-      "@api/*": ["api/*"]
+      "@api/*": ["api/*"],
+      "@hoc/*": ["hoc/*"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": ["src", "vite.config.ts", "postcss.config.js"]

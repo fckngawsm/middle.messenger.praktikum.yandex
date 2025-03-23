@@ -1,4 +1,4 @@
-import { AuthApi } from "@api/auth.api";
+import { AuthApi } from "@api/auth/auth.controller";
 import { LoginApi } from "@api/types";
 import { router } from "@domains/route/Router";
 import { Routes } from "@domains/route/routes.enum";
