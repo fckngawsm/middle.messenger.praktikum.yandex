@@ -40,6 +40,8 @@ export class RequestService {
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
+      xhr.withCredentials = true;
+
       if (method === METHOD.GET || data == null) {
         xhr.send();
       } else {
