@@ -1,3 +1,6 @@
+import { AuthApi } from "@api/auth/auth.controller";
+import { router } from "@domains/route/Router";
+import { Routes } from "@domains/route/routes";
 import { connectToStore, mapUserToProps } from "@hoc/connectToStore";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";
@@ -90,11 +93,32 @@ export class ProfileSettings extends Block {
           this.handleFormSubmit(event, "settings-form", this.onEditProfile);
         },
       }),
+      LogoutButton: new Button({
+        attr: {
+          className: "button link red",
+          type: "button",
+          form: "settings-form",
+          id: "settings-button",
+        },
+        text: "Выйти",
+        onClick: () => {
+          this.onLogout();
+        },
+      }),
     });
   }
 
   private onEditProfile(data: Record<string, string>): void {
     console.log("Отправка формы логина с данными:", data);
+  }
+
+  private async onLogout() {
+    try {
+      await AuthApi.logout();
+      router.go(Routes.SIGN_IN);
+    } catch (error) {
+      console.log(error, "error");
+    }
   }
 
   protected render(): string {
@@ -113,7 +137,10 @@ export class ProfileSettings extends Block {
             {{{NewPassword}}}
           </div>
         </form>
-        {{{Button}}}
+        <div class="profile__button-group">
+          {{{Button}}}
+          {{{LogoutButton}}}
+        </div>
       </div>
     `;
   }

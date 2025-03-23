@@ -44,3 +44,12 @@
     }
   }
 }
+
+.profile__button-group {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
