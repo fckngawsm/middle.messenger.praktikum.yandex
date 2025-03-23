@@ -1,6 +1,6 @@
 import { AuthApi } from "@api/auth/auth.controller";
 import { RegisterApi } from "@api/types";
-import { Routes } from "@domains/route/routes.enum";
+import { Routes } from "@domains/route/routes";
 import { StrategyType } from "@domains/validation/StrategyType";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";

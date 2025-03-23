@@ -1,7 +1,7 @@
 import { AuthApi } from "@api/auth/auth.controller";
 import { LoginApi } from "@api/types";
 import { router } from "@domains/route/Router";
-import { Routes } from "@domains/route/routes.enum";
+import { Routes } from "@domains/route/routes";
 import { StrategyType } from "@domains/validation/StrategyType";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";

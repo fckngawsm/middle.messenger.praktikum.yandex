@@ -1,5 +1,6 @@
 import { PageStrategy } from "@domains/pages/PageStrategies";
 import { Route } from "./Route";
+import { AVAILABLE_ROUTES, Routes } from "./routes";
 
 class Router {
   private routes: Route[] = [];
@@ -11,7 +12,6 @@ class Router {
   private static __instance: Router;
 
   constructor(rootQuery: string) {
-    console.log(this.routes, "routes");
     if (Router.__instance) {
       // eslint-disable-next-line no-constructor-return
       return Router.__instance;
@@ -39,6 +39,11 @@ class Router {
   }
 
   private _onRoute(pathname: string): void {
+    if (!AVAILABLE_ROUTES.includes(pathname)) {
+      const route = this.getRoute(Routes.NOT_FOUND);
+      route?.render();
+    }
+
     const route = this.getRoute(pathname);
 
     if (this._currentRoute) {

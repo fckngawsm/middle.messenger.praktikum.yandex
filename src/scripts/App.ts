@@ -1,5 +1,5 @@
 import { router } from "@domains/route/Router";
-import { Routes } from "@domains/route/routes.enum";
+import { Routes } from "@domains/route/routes";
 import { ChatStrategy } from "../domains/pages/ChatStrategy";
 import { InternalServerErrorStrategy } from "../domains/pages/InternalServerErrorStrategy";
 import { LoginStrategy } from "../domains/pages/LoginStrategy";
@@ -16,6 +16,7 @@ export class App {
   private setupRoutes(): void {
     router
       .use(Routes.MESSENGER, new ChatStrategy())
+      .use(Routes.HOME, new ChatStrategy())
       .use(Routes.SIGN_UP, new RegisterStrategy())
       .use(Routes.SIGN_IN, new LoginStrategy())
       .use(Routes.SETTINGS, new ProfileStrategy())
