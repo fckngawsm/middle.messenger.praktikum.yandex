@@ -1,5 +1,6 @@
 import { AuthApi } from "@api/auth.api";
 import { RegisterApi } from "@api/types";
+import { Routes } from "@domains/route/routes.enum";
 import { StrategyType } from "@domains/validation/StrategyType";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";
@@ -129,7 +130,7 @@ export class RegisterStrategy extends Block implements PageStrategy {
       Link: new Link({
         attr: {
           id: "login-link",
-          to: "/sign-in",
+          to: Routes.SIGN_IN,
           className: "link__auth",
         },
         linkText: "Уже есть аккаунт? Войти",

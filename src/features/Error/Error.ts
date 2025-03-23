@@ -1,3 +1,4 @@
+import { Routes } from "@domains/route/routes.enum";
 import { Block } from "@shared/blocks/Block";
 import { Link } from "@shared/components/Link/Link";
 
@@ -17,7 +18,7 @@ export class Error extends Block {
         attr: {
           className: props.linkClassName,
           id: props.id,
-          to: "/messenger",
+          to: Routes.MESSENGER,
         },
         linkText: props.linkText,
       }),

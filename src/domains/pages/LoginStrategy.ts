@@ -1,5 +1,7 @@
 import { AuthApi } from "@api/auth.api";
 import { LoginApi } from "@api/types";
+import { router } from "@domains/route/Router";
+import { Routes } from "@domains/route/routes.enum";
 import { StrategyType } from "@domains/validation/StrategyType";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";
@@ -58,7 +60,7 @@ export class LoginStrategy extends Block implements PageStrategy {
       Link: new Link({
         attr: {
           id: "register-link",
-          to: "/sign-up",
+          to: Routes.SIGN_UP,
           className: "link__auth",
         },
         linkText: "Нет аккаунта?",
@@ -69,6 +71,7 @@ export class LoginStrategy extends Block implements PageStrategy {
   private async onLogin(data: LoginApi): Promise<void> {
     try {
       await AuthApi.login(data);
+      router.go(Routes.MESSENGER);
     } catch (error) {
       console.log(error, "error");
     }
