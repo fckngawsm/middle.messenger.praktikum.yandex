@@ -34,7 +34,7 @@ export class Route {
     if (this.pageStrategy) {
       const rootElement = this.getRootElement();
       if (rootElement) {
-        rootElement.innerHTML = ""; // Очищаем содержимое
+        rootElement.innerHTML = "";
         this.pageStrategy.renderPage(rootElement);
       }
     }
