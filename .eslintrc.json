@@ -40,6 +40,7 @@
     "no-console": "off",
     "implicit-arrow-linebreak": "off",
     "lines-between-class-members": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "function-paren-newline": "off"
   }
 }

@@ -1,6 +1,8 @@
 import { AuthApi } from "@api/auth/auth.controller";
 import { RegisterApi } from "@api/types";
+import { router } from "@domains/route/Router";
 import { Routes } from "@domains/route/routes";
+import { store } from "@domains/store/Store";
 import { StrategyType } from "@domains/validation/StrategyType";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";
@@ -140,7 +142,10 @@ export class RegisterStrategy extends Block implements PageStrategy {
 
   private async onRegister(data: RegisterApi): Promise<void> {
     try {
-      await AuthApi.register(data);
+      await AuthApi.register(data).then(() => {
+        router.go(Routes.MESSENGER);
+        store.set("user", data);
+      });
     } catch (error) {
       console.log(error, "error");
     }

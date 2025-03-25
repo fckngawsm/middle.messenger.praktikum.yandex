@@ -70,8 +70,7 @@ export class LoginStrategy extends Block implements PageStrategy {
 
   private async onLogin(data: LoginApi): Promise<void> {
     try {
-      await AuthApi.login(data);
-      router.go(Routes.MESSENGER);
+      await AuthApi.login(data).then(() => router.go(Routes.MESSENGER));
     } catch (error) {
       console.log(error, "error");
     }

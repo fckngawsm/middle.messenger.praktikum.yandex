@@ -1,3 +1,11 @@
+const safeParseJSON = (value: string) => {
+  try {
+    return JSON.parse(value);
+  } catch {
+    return value; // Если не JSON, возвращаем как есть
+  }
+};
+
 export const setToObject = (
   obj: Record<string, unknown>,
   path: string,
@@ -8,7 +16,7 @@ export const setToObject = (
 
   keys.forEach((key, index) => {
     if (index === keys.length - 1) {
-      current[key] = value;
+      current[key] = typeof value === "string" ? safeParseJSON(value) : value;
     } else {
       current[key] = current[key] || {};
       current = current[key] as Record<string, unknown>;

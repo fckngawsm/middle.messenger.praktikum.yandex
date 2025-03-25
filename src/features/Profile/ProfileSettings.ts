@@ -1,4 +1,5 @@
 import { AuthApi } from "@api/auth/auth.controller";
+import { AuthGuard } from "@domains/guards/AuthGuard";
 import { router } from "@domains/route/Router";
 import { Routes } from "@domains/route/routes";
 import { connectToStore, mapUserToProps } from "@hoc/connectToStore";
@@ -114,8 +115,10 @@ export class ProfileSettings extends Block {
 
   private async onLogout() {
     try {
-      await AuthApi.logout();
-      router.go(Routes.SIGN_IN);
+      await AuthApi.logout().then(() => {
+        AuthGuard.onLogout();
+        router.go(Routes.SIGN_IN);
+      });
     } catch (error) {
       console.log(error, "error");
     }

@@ -8,7 +8,6 @@ class Store extends EventBus {
 
   constructor() {
     super();
-    console.log(this.state, "state");
   }
 
   public getState() {

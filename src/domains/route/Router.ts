@@ -1,3 +1,4 @@
+import { AuthGuard } from "@domains/guards/AuthGuard";
 import { PageStrategy } from "@domains/pages/PageStrategies";
 import { Route } from "./Route";
 import { AVAILABLE_ROUTES, Routes } from "./routes";
@@ -9,20 +10,20 @@ class Router {
   private _rootQuery!: string;
 
   // eslint-disable-next-line no-use-before-define
-  private static __instance: Router;
+  private static _instance: Router | null = null;
 
-  constructor(rootQuery: string) {
-    if (Router.__instance) {
-      // eslint-disable-next-line no-constructor-return
-      return Router.__instance;
-    }
-
+  private constructor(rootQuery: string) {
     this.routes = [];
     this.history = window.history;
     this._currentRoute = undefined;
     this._rootQuery = rootQuery;
+  }
 
-    Router.__instance = this;
+  public static getInstance(rootQuery: string): Router {
+    if (!Router._instance) {
+      Router._instance = new Router(rootQuery);
+    }
+    return Router._instance;
   }
 
   use(pathname: string, strategy: PageStrategy): this {
@@ -31,17 +32,26 @@ class Router {
     return this;
   }
 
-  start(): void {
-    window.onpopstate = (event: PopStateEvent) => {
-      this._onRoute((event.currentTarget as Window).location.pathname);
+  async start(): Promise<void> {
+    window.onpopstate = async (event: PopStateEvent) => {
+      await this._onRoute((event.currentTarget as Window).location.pathname);
     };
-    this._onRoute(window.location.pathname);
+    await this._onRoute(window.location.pathname);
   }
 
-  private _onRoute(pathname: string): void {
+  private async _onRoute(pathname: string): Promise<void> {
     if (!AVAILABLE_ROUTES.includes(pathname)) {
       const route = this.getRoute(Routes.NOT_FOUND);
       route?.render();
+      return;
+    }
+
+    if (!AuthGuard.isPublicRoute(pathname)) {
+      const isAuthenticated = await AuthGuard.checkAuth();
+      if (!isAuthenticated) {
+        AuthGuard.redirectToLogin();
+        return;
+      }
     }
 
     const route = this.getRoute(pathname);
@@ -54,9 +64,9 @@ class Router {
     route?.render();
   }
 
-  go(pathname: string): void {
+  async go(pathname: string): Promise<void> {
     this.history.pushState({}, "", pathname);
-    this._onRoute(pathname);
+    await this._onRoute(pathname);
   }
 
   back(): void {
@@ -72,4 +82,4 @@ class Router {
   }
 }
 
-export const router = new Router(".main");
+export const router = Router.getInstance(".main");
