@@ -31,3 +31,11 @@ export interface UpdateUserPasswordApi {
 export interface UpdateUserAvatarApi {
   avatar: FormData;
 }
+
+export interface CreateChatApi {
+  title: string;
+}
+
+export interface DeleteChatApi {
+  chatId: number;
+}

@@ -1,0 +1,21 @@
+import { ApiRequest, CreateChatApi, DeleteChatApi } from "@api/types";
+import { METHOD } from "@domains/requestService/constants";
+import { RequestService } from "@domains/requestService/requestService";
+import { Chat } from "@shared/types/Chat";
+
+const chatsAPIInstance = new RequestService("chats");
+
+export class ChatApi {
+  static getChats: ApiRequest<Chat[]> = () => chatsAPIInstance.get("");
+  static createChat: ApiRequest<CreateChatApi> = (data) =>
+    chatsAPIInstance.request("", {
+      method: METHOD.POST,
+      data,
+    });
+
+  static deleteChat: ApiRequest<DeleteChatApi> = (data) =>
+    chatsAPIInstance.request("", {
+      method: METHOD.DELETE,
+      data,
+    });
+}
