@@ -1,9 +1,5 @@
 import { AuthApi } from "@api/auth/auth.controller";
-import {
-  UpdateUserApi,
-  UpdateUserAvatarApi,
-  UpdateUserPasswordApi,
-} from "@api/types";
+import { UpdateUserApi, UpdateUserPasswordApi } from "@api/types";
 import { UserApi } from "@api/user/user.controller";
 import { router } from "@domains/route/Router";
 import { Routes } from "@domains/route/routes";
@@ -200,19 +196,6 @@ export class ProfileSettings extends Block {
     }
   }
 
-  private async updateAvatar(): Promise<void> {
-    if (this.avatarFile) {
-      const formData = new FormData();
-      formData.append("avatar", this.avatarFile);
-      console.log(formData, "formData");
-
-      await UserApi.updateUserAvatar(
-        formData as unknown as UpdateUserAvatarApi
-      );
-      this.avatarFile = null;
-    }
-  }
-
   private async onEditProfile(data: Record<string, string>): Promise<void> {
     try {
       const userData: UpdateUserApi = {
@@ -229,7 +212,10 @@ export class ProfileSettings extends Block {
         this.updatePassword(data.old_password, data.new_password),
       ]);
 
-      console.log("success");
+      store.set("user", {
+        ...(store.getState().user as User),
+        ...userData,
+      });
     } catch (error) {
       console.log(error, "error");
     }

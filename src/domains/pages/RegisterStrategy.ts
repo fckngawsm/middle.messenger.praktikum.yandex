@@ -142,10 +142,11 @@ export class RegisterStrategy extends Block implements PageStrategy {
 
   private async onRegister(data: RegisterApi): Promise<void> {
     try {
-      await AuthApi.register(data).then(() => {
+      const response = await AuthApi.register(data);
+      if (response.status === 200) {
         router.go(Routes.MESSENGER);
         store.set("user", data);
-      });
+      }
     } catch (error) {
       console.log(error, "error");
     }

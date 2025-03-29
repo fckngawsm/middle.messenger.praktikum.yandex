@@ -1,9 +1,10 @@
 import { UpdateUserAvatarApi } from "@api/types";
 import { UserApi } from "@api/user/user.controller";
-import defaultAvatar from "@assets/images/default-avatar.avif";
+import { store } from "@domains/store/Store";
 import { Block } from "@shared/blocks/Block";
 import { Avatar } from "@shared/components/Avatar/Avatar";
 import { Input } from "@shared/components/Inputs/Input";
+import { User } from "@shared/types/User";
 
 interface ProfileSettingAvatarProps {
   value?: string;
@@ -16,7 +17,7 @@ export class ProfileSettingAvatar extends Block {
     super({
       Avatar: new Avatar({
         attr: {
-          avatarUrl: props.value || defaultAvatar,
+          avatarUrl: props.value,
           alt: "Аватар",
           className: "profile__avatar",
         },
@@ -45,18 +46,21 @@ export class ProfileSettingAvatar extends Block {
               };
               reader.readAsDataURL(file);
 
-              // Отправляем файл на сервер
               try {
                 const formData = new FormData();
                 formData.append("avatar", file);
                 const response = await UserApi.updateUserAvatar(
                   formData as unknown as UpdateUserAvatarApi
                 );
-                console.log("Аватар успешно обновлен", response);
+
+                const userData = JSON.parse(response.response) as User;
+                if (userData.avatar) {
+                  this.setValue(userData.avatar);
+                  store.set("user", userData);
+                  console.log("Аватар успешно обновлен");
+                }
               } catch (error) {
                 console.error("Ошибка при обновлении аватара:", error);
-                // Возвращаем предыдущее значение в случае ошибки
-                this.setValue(props.value || defaultAvatar);
               }
             }
           },
@@ -70,7 +74,7 @@ export class ProfileSettingAvatar extends Block {
     avatarComponent.setProps({
       attr: {
         ...avatarComponent.getProps().attr,
-        avatarUrl: value || defaultAvatar,
+        avatarUrl: value,
       },
     });
   }
