@@ -28,6 +28,7 @@ export class Input extends Block {
       type = "",
       id = "",
       name = "",
+      value = "",
     } = this.props.attr;
     const { required = false, label = "", helperText = "" } = this.props;
 
@@ -43,6 +44,7 @@ export class Input extends Block {
           name="${name || ""}" 
           ${required ? "required" : ""}
           autocomplete="new-password"
+          value="${value || ""}"
         >
         ${label && `<label class="form__label" for="${id}">${label}</label>`}
         ${helperText ? `<p class="form__helper-text">${helperText}</p>` : ""}

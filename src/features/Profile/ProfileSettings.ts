@@ -1,15 +1,21 @@
 import { AuthApi } from "@api/auth/auth.controller";
-import { AuthGuard } from "@domains/guards/AuthGuard";
 import { router } from "@domains/route/Router";
 import { Routes } from "@domains/route/routes";
-import { connectToStore, mapUserToProps } from "@hoc/connectToStore";
+import { connectWith } from "@hoc/connectWith";
+import { mapUserToProps } from "@hoc/utils";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";
+import { User } from "@shared/types/User";
 import { ProfileSettingsFields } from "./ProfileSettingsFields";
 
+interface ProfileSettingsProps {
+  user: Partial<User> | null;
+}
+
 export class ProfileSettings extends Block {
-  constructor() {
+  constructor(props: ProfileSettingsProps) {
     super({
+      ...props,
       AvatarField: new ProfileSettingsFields({
         fieldName: "Аватар",
         id: "profile-avatar",
@@ -109,14 +115,67 @@ export class ProfileSettings extends Block {
     });
   }
 
+  componentDidMount() {
+    super.componentDidMount();
+    this.loadData(this.props.user as Record<string, unknown>);
+  }
+
+  componentDidUpdate(
+    oldProps: ProfileSettingsProps,
+    newProps: ProfileSettingsProps
+  ) {
+    if (oldProps.user !== newProps.user) {
+      this.loadData(newProps.user as Record<string, unknown>);
+    }
+    return true;
+  }
+
+  loadData(source: Record<string, unknown>) {
+    if (!source || Object.keys(source).length === 0) {
+      console.log("Нет данных для загрузки");
+      return;
+    }
+
+    const {
+      AvatarField,
+      NameField,
+      SurnameField,
+      NameInChatField,
+      LoginField,
+      EmailField,
+      PhoneField,
+    } = this.children;
+
+    (AvatarField as ProfileSettingsFields).setValue(
+      (source.avatar as string) || ""
+    );
+    (NameField as ProfileSettingsFields).setValue(
+      (source.first_name as string) || ""
+    );
+    (SurnameField as ProfileSettingsFields).setValue(
+      (source.second_name as string) || ""
+    );
+    (EmailField as ProfileSettingsFields).setValue(
+      (source.email as string) || ""
+    );
+    (PhoneField as ProfileSettingsFields).setValue(
+      (source.phone as string) || ""
+    );
+    (LoginField as ProfileSettingsFields).setValue(
+      (source.login as string) || ""
+    );
+    (NameInChatField as ProfileSettingsFields).setValue(
+      (source.display_name as string) || ""
+    );
+  }
+
   private onEditProfile(data: Record<string, string>): void {
-    console.log("Отправка формы логина с данными:", data);
+    console.log("Отправка формы профиля с данными:", data);
   }
 
   private async onLogout() {
     try {
       await AuthApi.logout().then(() => {
-        AuthGuard.onLogout();
         router.go(Routes.SIGN_IN);
       });
     } catch (error) {
@@ -149,7 +208,6 @@ export class ProfileSettings extends Block {
   }
 }
 
-export const ConnectedProfileSettings = connectToStore(
-  ProfileSettings,
-  mapUserToProps
-);
+const withUser = connectWith(mapUserToProps);
+
+export const ProfileSettingsWithUser = withUser(ProfileSettings);

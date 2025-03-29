@@ -7,4 +7,5 @@ export interface BaseInputAttributes {
   name?: string;
   required?: boolean;
   formId?: string;
+  value?: string;
 }

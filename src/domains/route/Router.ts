@@ -1,5 +1,6 @@
-import { AuthGuard } from "@domains/guards/AuthGuard";
+import { AuthApi } from "@api/auth/auth.controller";
 import { PageStrategy } from "@domains/pages/PageStrategies";
+import { store } from "@domains/store/Store";
 import { Route } from "./Route";
 import { AVAILABLE_ROUTES, Routes } from "./routes";
 
@@ -33,10 +34,20 @@ class Router {
   }
 
   async start(): Promise<void> {
-    window.onpopstate = async (event: PopStateEvent) => {
-      await this._onRoute((event.currentTarget as Window).location.pathname);
+    window.onpopstate = (event: PopStateEvent) => {
+      this._onRoute((event.currentTarget as Window).location.pathname);
     };
-    await this._onRoute(window.location.pathname);
+
+    try {
+      const { response } = await AuthApi.getMe();
+      if (response) {
+        store.set("user", response);
+      }
+    } catch (error) {
+      console.log(error, "error");
+    }
+
+    this._onRoute(window.location.pathname);
   }
 
   private async _onRoute(pathname: string): Promise<void> {
@@ -46,10 +57,18 @@ class Router {
       return;
     }
 
-    if (!AuthGuard.isPublicRoute(pathname)) {
-      const isAuthenticated = await AuthGuard.checkAuth();
-      if (!isAuthenticated) {
-        AuthGuard.redirectToLogin();
+    // Проверяем авторизацию для защищенных маршрутов
+    if (pathname !== Routes.SIGN_IN && pathname !== Routes.SIGN_UP) {
+      try {
+        const { response } = await AuthApi.getMe();
+        if (!response) {
+          this.go(Routes.SIGN_IN);
+          return;
+        }
+        store.set("user", response);
+      } catch (error) {
+        console.log(error, "error");
+        this.go(Routes.SIGN_IN);
         return;
       }
     }
@@ -64,9 +83,9 @@ class Router {
     route?.render();
   }
 
-  async go(pathname: string): Promise<void> {
+  go(pathname: string): void {
     this.history.pushState({}, "", pathname);
-    await this._onRoute(pathname);
+    this._onRoute(pathname);
   }
 
   back(): void {

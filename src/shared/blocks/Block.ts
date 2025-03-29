@@ -168,6 +168,10 @@ export abstract class Block {
     Object.assign(this.props, nextProps);
   }
 
+  public getProps(): BlockProps {
+    return this.props;
+  }
+
   public setLists(nextList: Lists): void {
     if (!nextList) {
       return;
@@ -236,10 +240,11 @@ export abstract class Block {
   }
 
   protected componentDidUpdate(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     oldProps: BlockProps,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     newProps: BlockProps
   ): boolean {
-    console.log(oldProps, newProps);
     return true;
   }
 

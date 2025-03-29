@@ -2,6 +2,7 @@ import { AuthApi } from "@api/auth/auth.controller";
 import { router } from "@domains/route/Router";
 import { Routes } from "@domains/route/routes";
 import { store } from "@domains/store/Store";
+import { User } from "@shared/types/User";
 
 export class AuthGuard {
   private static isAuthenticated: boolean | null = null;
@@ -20,11 +21,15 @@ export class AuthGuard {
     if (this.isAuthenticated !== null) {
       return this.isAuthenticated;
     }
+
     try {
       const { response, status } = await AuthApi.getMe();
       this.isAuthenticated = status === 200;
-      store.set("user", response);
-      console.log(store.getState(), "store");
+
+      if (this.isAuthenticated && response) {
+        store.set("user", response as User);
+      }
+
       return this.isAuthenticated;
     } catch (error) {
       console.error("Ошибка при проверке аутентификации:", error);
@@ -39,5 +44,6 @@ export class AuthGuard {
 
   static onLogout(): void {
     this.isAuthenticated = null;
+    store.set("user", null);
   }
 }
