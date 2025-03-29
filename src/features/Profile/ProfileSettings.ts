@@ -1,28 +1,59 @@
 import { AuthApi } from "@api/auth/auth.controller";
+import {
+  UpdateUserApi,
+  UpdateUserAvatarApi,
+  UpdateUserPasswordApi,
+} from "@api/types";
+import { UserApi } from "@api/user/user.controller";
 import { router } from "@domains/route/Router";
 import { Routes } from "@domains/route/routes";
+import { store } from "@domains/store/Store";
 import { connectWith } from "@hoc/connectWith";
 import { mapUserToProps } from "@hoc/utils";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";
 import { User } from "@shared/types/User";
+import { isPrimitiveEqual } from "@utils/isPrimitiveEqual";
+import { ProfileSettingAvatar } from "./ProfileSettingAvatar";
 import { ProfileSettingsFields } from "./ProfileSettingsFields";
+import { updateProfileFields } from "./utils";
 
 interface ProfileSettingsProps {
   user: Partial<User> | null;
 }
 
 export class ProfileSettings extends Block {
+  private avatarFile: File | null = null;
+
   constructor(props: ProfileSettingsProps) {
     super({
       ...props,
-      AvatarField: new ProfileSettingsFields({
-        fieldName: "Аватар",
-        id: "profile-avatar",
-        type: "text",
-        name: "avatar",
-        placeholder: "Аватарка",
-        required: true,
+      AvatarField: new ProfileSettingAvatar({
+        value: props.user?.avatar,
+        onAvatarClick: () => {
+          const input = this.element?.querySelector(
+            "input[type='file']"
+          ) as HTMLInputElement;
+          if (input) {
+            input.click();
+          }
+        },
+        onAvatarChange: (event: Event) => {
+          const input = event.target as HTMLInputElement;
+          if (input.files && input.files[0]) {
+            const [file] = input.files;
+            this.avatarFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              const avatarComponent = this.children
+                .AvatarField as ProfileSettingAvatar;
+              if (e.target?.result) {
+                avatarComponent.setValue(e.target.result as string);
+              }
+            };
+            reader.readAsDataURL(this.avatarFile);
+          }
+        },
       }),
       NameField: new ProfileSettingsFields({
         fieldName: "Имя",
@@ -78,7 +109,7 @@ export class ProfileSettings extends Block {
         type: "password",
         name: "old_password",
         placeholder: "Старый пароль",
-        required: true,
+        required: false,
       }),
       NewPassword: new ProfileSettingsFields({
         fieldName: "Новый пароль",
@@ -86,7 +117,7 @@ export class ProfileSettings extends Block {
         type: "password",
         name: "new_password",
         placeholder: "Новый пароль",
-        required: true,
+        required: false,
       }),
       Button: new Button({
         attr: {
@@ -97,7 +128,11 @@ export class ProfileSettings extends Block {
         },
         text: "Сохранить",
         onClick: (event: Event) => {
-          this.handleFormSubmit(event, "settings-form", this.onEditProfile);
+          this.handleFormSubmit(
+            event,
+            "settings-form",
+            this.onEditProfile.bind(this)
+          );
         },
       }),
       LogoutButton: new Button({
@@ -115,62 +150,89 @@ export class ProfileSettings extends Block {
     });
   }
 
-  componentDidMount() {
-    super.componentDidMount();
-    this.loadData(this.props.user as Record<string, unknown>);
+  componentDidMount(): void {
+    if (this.props.user) {
+      updateProfileFields(
+        this.props.user as Record<string, unknown>,
+        this.children
+      );
+    }
   }
 
   componentDidUpdate(
     oldProps: ProfileSettingsProps,
     newProps: ProfileSettingsProps
-  ) {
-    if (oldProps.user !== newProps.user) {
-      this.loadData(newProps.user as Record<string, unknown>);
+  ): boolean {
+    if (!isPrimitiveEqual(oldProps.user as string, newProps.user as string)) {
+      if (newProps.user) {
+        updateProfileFields(
+          newProps.user as Record<string, unknown>,
+          this.children
+        );
+      }
     }
     return true;
   }
 
-  loadData(source: Record<string, unknown>) {
-    if (!source || Object.keys(source).length === 0) {
-      console.log("Нет данных для загрузки");
-      return;
+  private async updateUserData(userData: UpdateUserApi): Promise<void> {
+    const currentUser = store.getState().user as User;
+    if (!currentUser) return;
+
+    const hasUserChanges = Object.entries(userData).some(
+      ([key, value]) => value !== currentUser[key as keyof User]
+    );
+
+    if (hasUserChanges) {
+      await UserApi.updateUser(userData);
     }
-
-    const {
-      AvatarField,
-      NameField,
-      SurnameField,
-      NameInChatField,
-      LoginField,
-      EmailField,
-      PhoneField,
-    } = this.children;
-
-    (AvatarField as ProfileSettingsFields).setValue(
-      (source.avatar as string) || ""
-    );
-    (NameField as ProfileSettingsFields).setValue(
-      (source.first_name as string) || ""
-    );
-    (SurnameField as ProfileSettingsFields).setValue(
-      (source.second_name as string) || ""
-    );
-    (EmailField as ProfileSettingsFields).setValue(
-      (source.email as string) || ""
-    );
-    (PhoneField as ProfileSettingsFields).setValue(
-      (source.phone as string) || ""
-    );
-    (LoginField as ProfileSettingsFields).setValue(
-      (source.login as string) || ""
-    );
-    (NameInChatField as ProfileSettingsFields).setValue(
-      (source.display_name as string) || ""
-    );
   }
 
-  private onEditProfile(data: Record<string, string>): void {
-    console.log("Отправка формы профиля с данными:", data);
+  private async updatePassword(
+    oldPassword: string,
+    newPassword: string
+  ): Promise<void> {
+    if (oldPassword && newPassword) {
+      const updateUserPassword: UpdateUserPasswordApi = {
+        oldPassword,
+        newPassword,
+      };
+      await UserApi.updateUserPassword(updateUserPassword);
+    }
+  }
+
+  private async updateAvatar(): Promise<void> {
+    if (this.avatarFile) {
+      const formData = new FormData();
+      formData.append("avatar", this.avatarFile);
+      console.log(formData, "formData");
+
+      await UserApi.updateUserAvatar(
+        formData as unknown as UpdateUserAvatarApi
+      );
+      this.avatarFile = null;
+    }
+  }
+
+  private async onEditProfile(data: Record<string, string>): Promise<void> {
+    try {
+      const userData: UpdateUserApi = {
+        first_name: data.first_name,
+        second_name: data.second_name,
+        display_name: data.display_name,
+        login: data.login,
+        email: data.email,
+        phone: data.phone,
+      };
+
+      await Promise.all([
+        this.updateUserData(userData),
+        this.updatePassword(data.old_password, data.new_password),
+      ]);
+
+      console.log("success");
+    } catch (error) {
+      console.log(error, "error");
+    }
   }
 
   private async onLogout() {
@@ -187,8 +249,8 @@ export class ProfileSettings extends Block {
     return `
       <div class="profile__wrapper">
         <form class="form" id="settings-form">
+          {{{AvatarField}}}
           <div class="profile__settings">
-            {{{AvatarField}}}
             {{{NameField}}}
             {{{SurnameField}}}
             {{{NameInChatField}}}

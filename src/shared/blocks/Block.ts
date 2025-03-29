@@ -336,7 +336,7 @@ export abstract class Block {
     }
 
     const formData = new FormData(form);
-    const formValues = {} as T; // ✅ TypeScript разрешает
+    const formValues = {} as T;
 
     formData.forEach((value, key) => {
       (formValues as Record<string, unknown>)[key] = value as string;

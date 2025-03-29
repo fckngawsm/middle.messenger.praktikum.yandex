@@ -8,9 +8,14 @@ export class RepeatPasswordStrategy implements Validator {
   }
 
   validate(value: string): boolean {
-    if (!this.originalPassword) {
-      throw new Error("Original password is not set.");
+    try {
+      if (!this.originalPassword) {
+        throw new Error("Original password is not set.");
+      }
+      return value === this.originalPassword;
+    } catch (error) {
+      console.error("Ошибка валидации повторного пароля:", error);
+      return false;
     }
-    return value === this.originalPassword;
   }
 }

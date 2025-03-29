@@ -1,5 +1,4 @@
-import { BASE_URL } from "@api/api";
-import { METHOD } from "./constants";
+import { BASE_URL, METHOD } from "./constants";
 import { Options } from "./types";
 
 type OptionsWithoutMethod = Omit<Options, "method">;
@@ -26,9 +25,8 @@ export class RequestService {
       const xhr = new XMLHttpRequest();
       xhr.open(method, `${BASE_URL}/${this.prefix}/${endPoint}`);
 
-      // Устанавливаем заголовок, если метод не GET и передаются данные
-      if (method !== METHOD.GET && data) {
-        xhr.setRequestHeader("Content-Type", "application/json"); // Указываем, что данные будут в формате JSON
+      if (method !== METHOD.GET && data && !(data instanceof FormData)) {
+        xhr.setRequestHeader("Content-Type", "application/json");
       }
 
       // eslint-disable-next-line func-names
@@ -45,7 +43,7 @@ export class RequestService {
       if (method === METHOD.GET || data == null) {
         xhr.send();
       } else {
-        xhr.send(data ? JSON.stringify(data) : null);
+        xhr.send(data instanceof FormData ? data : JSON.stringify(data));
       }
     });
   }

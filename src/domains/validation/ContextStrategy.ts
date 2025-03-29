@@ -11,31 +11,24 @@ import { Validator } from "./ValidatorInterface";
 
 export class ContextStrategy {
   private strategies: Record<string, Validator>;
-
   private currentInputGroup: HTMLElement | null = null;
-
   private currentHelperText: HTMLElement | null = null;
-
   private currentInput: HTMLElement | null = null;
-
   private profileSettingsFields: HTMLElement | null = null;
-
   private originalPassword: string | null = null;
+  private originalData: Record<string, string> = {};
 
   constructor() {
     this.strategies = {
       first_name: new NameStrategy(),
       second_name: new NameStrategy(),
       display_name: new NameStrategy(),
-
       login: new LoginStrategy(),
       email: new EmailStrategy(),
-
       password: new PasswordStrategy(),
       old_password: new PasswordStrategy(),
       new_password: new PasswordStrategy(),
       password_repeat: new RepeatPasswordStrategy(),
-
       phone: new PhoneStrategy(),
       message: new MessageStrategy(),
       avatar: new AvatarStrategy(),
