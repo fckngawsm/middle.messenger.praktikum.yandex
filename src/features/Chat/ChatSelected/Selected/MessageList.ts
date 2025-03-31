@@ -3,7 +3,7 @@ import { Block } from "@shared/blocks/Block";
 import { MessageItem } from "./MessageItem";
 
 interface MessageListProps {
-  date: string;
+  chatId: number;
 }
 
 const messages = Array.from({ length: 15 }, (_, i) => ({

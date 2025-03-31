@@ -1,48 +1,37 @@
 import { ChatApi } from "@api/chats/chats.controller";
 import { ChatHeader } from "@features/Chat/ChatParticipants/ChatHeader";
 import { ChatListContacts } from "@features/Chat/ChatParticipants/ChatListContacts";
+import { ChatSelectDialog } from "@features/Chat/ChatSelected/Select/ChatSelectDialog";
 import { ChatSelectedDialog } from "@features/Chat/ChatSelected/Selected/ChatSelectedDialog";
 import { Block } from "@shared/blocks/Block";
+import { Chat } from "@shared/types/Chat";
 import { ChatPage } from "@templates/chat";
 import { PageStrategy } from "./PageStrategies";
 
-interface Chat {
-  id: number;
-  title: string;
-  avatar?: string;
-  last_message?: {
-    content: string;
-    time: string;
-  };
-  unread_count: number;
-}
-
 export class ChatStrategy extends Block implements PageStrategy {
-  private selectedChat: Chat | null = null;
-  private chatSelectedDialog: ChatSelectedDialog;
-
   constructor() {
     super({
+      selectedChat: null,
+      className: "container",
       ChatHeader: new ChatHeader(),
       ChatSelectedDialog: new ChatSelectedDialog({
-        selectedUserName: "Выберите чат",
+        chat: undefined,
       }),
+      ChatSelectDialog: new ChatSelectDialog(),
       ChatListContacts: new ChatListContacts({
         chats: [],
         onChatSelect: (chat) => this.handleChatSelect(chat),
       }),
     });
-
-    this.chatSelectedDialog = this.props
-      .ChatSelectedDialog as ChatSelectedDialog;
     this.getChats();
   }
 
   private handleChatSelect(chat: Chat) {
-    console.log("Выбран чат:", chat);
-    this.selectedChat = chat;
-    this.chatSelectedDialog.setProps({
-      selectedUserName: chat.title,
+    this.setProps({
+      selectedChat: chat,
+    });
+    this.children.ChatSelectedDialog.setProps({
+      chat,
     });
     this.getChats();
   }

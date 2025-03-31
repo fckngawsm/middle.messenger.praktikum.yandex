@@ -4,23 +4,24 @@ import { Block } from "@shared/blocks/Block";
 import { RoundSubmitButton } from "@shared/components/Buttons/RoundSubmitButton";
 import { ChatInput } from "@shared/components/Inputs/ChatInput";
 import { Spacer } from "@shared/components/Spacer/Spacer";
-import {
-  ChatSelectedHeader,
-  ChatSelectedHeaderProps,
-} from "./ChatSelectedHeader";
+import { Chat } from "@shared/types/Chat";
+import isEqual from "@utils/isEqual";
+import { ChatSelectedHeader } from "./ChatSelectedHeader";
 import { MessageList } from "./MessageList";
 
-interface ChatSelectDialogProps extends ChatSelectedHeaderProps {}
+interface ChatSelectDialogProps {
+  chat?: Chat;
+}
 
 export class ChatSelectedDialog extends Block {
   constructor(props: ChatSelectDialogProps) {
     super({
       ...props,
       ChatSelectedHeader: new ChatSelectedHeader({
-        selectedUserName: props.selectedUserName,
+        chat: props?.chat || ({} as Chat),
       }),
       MessageList: new MessageList({
-        date: "8 марта",
+        chatId: 0,
       }),
       Spacer: new Spacer(),
       ChatInput: new ChatInput({
@@ -41,6 +42,21 @@ export class ChatSelectedDialog extends Block {
         },
       }),
     });
+  }
+
+  componentDidUpdate(
+    oldProps: ChatSelectDialogProps,
+    newProps: ChatSelectDialogProps
+  ) {
+    if (!isEqual(oldProps, newProps)) {
+      this.children.ChatSelectedHeader.setProps({
+        chat: newProps.chat || ({} as Chat),
+      });
+      this.children.MessageList.setProps({
+        chatId: newProps.chat?.id || 0,
+      });
+    }
+    return true;
   }
 
   private onSendMessage(data: Record<string, string>): void {

@@ -1,9 +1,10 @@
 import dots from "@assets/images/dots.svg";
 import { Block } from "@shared/blocks/Block";
 import { Avatar } from "@shared/components/Avatar/Avatar";
+import { Chat } from "@shared/types/Chat";
 
 export interface ChatSelectedHeaderProps {
-  selectedUserName: string;
+  chat: Chat;
 }
 
 export class ChatSelectedHeader extends Block {
@@ -22,12 +23,13 @@ export class ChatSelectedHeader extends Block {
   }
 
   protected render(): string {
-    const { selectedUserName } = this.props;
+    const { chat } = this.props;
+
     return `
         <div class="chat__selected-header">
             <div>
                 {{{Avatar}}}
-                <h2 class="chat__selected-header-name">${selectedUserName}</h2>
+                <h2 class="chat__selected-header-name">${chat.title}</h2>
             </div>
             <img class="chat__selected-header-dots" src=${dots} alt="Точки"/>
         </div>

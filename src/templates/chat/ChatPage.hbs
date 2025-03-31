@@ -3,7 +3,11 @@
     {{{ChatHeader}}}
     {{{ChatListContacts}}}
   </div>
-  <div class="container container__selected-chat">
-    {{{ChatSelectedDialog}}}
-  </div>
+  {{#if selectedChat}}
+    <div class="container container__selected-chat">
+      {{{ChatSelectedDialog}}}
+    </div>
+  {{else}}
+    {{{ChatSelectDialog}}}
+  {{/if}}
 </div>

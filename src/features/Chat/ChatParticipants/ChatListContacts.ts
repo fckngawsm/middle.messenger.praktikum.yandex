@@ -1,16 +1,6 @@
 import { Block } from "@shared/blocks/Block";
+import { Chat } from "@shared/types/Chat";
 import { ChatItem } from "./ChatItem";
-
-interface Chat {
-  id: number;
-  title: string;
-  avatar?: string;
-  last_message?: {
-    content: string;
-    time: string;
-  };
-  unread_count: number;
-}
 
 interface ChatListContactsProps {
   chats: Chat[];
