@@ -132,10 +132,10 @@ export abstract class Block {
     const lists: Lists = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      if (value instanceof Block) {
-        children[key] = value;
-      } else if (Array.isArray(value)) {
+      if (Array.isArray(value)) {
         lists[key] = value;
+      } else if (value instanceof Block) {
+        children[key] = value;
       } else {
         props[key] = value;
       }
@@ -188,20 +188,34 @@ export abstract class Block {
     this._removeEvents();
     const propsAndStubs: Record<
       string,
-      string | number | boolean | Block | Block[] | Record<string, unknown>
+      | string
+      | number
+      | boolean
+      | Block
+      | Block[]
+      | Record<string, unknown>
+      | Array<{ _id: number; content: string }>
     > = { ...this.props };
-    const tmpId = Math.floor(100000 + Math.random() * 900000);
+
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
 
-    Object.entries(this.lists).forEach(([key]) => {
-      propsAndStubs[key] = `<div data-id="__l_${tmpId}"></div>`;
+    // Обрабатываем списки
+    Object.entries(this.lists).forEach(([key, list]) => {
+      // Создаем массив объектов с заглушками для Handlebars
+      propsAndStubs[key] = list.map((item: Block) => ({
+        _id: item._id,
+        content: `<div data-id="${item._id}"></div>`,
+      }));
     });
 
     const fragment = this._createDocumentElement("template");
-    fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
+    const template = this.render();
 
+    fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
+
+    // Заменяем заглушки для обычных дочерних элементов
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
       if (stub) {
@@ -209,20 +223,14 @@ export abstract class Block {
       }
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    Object.entries(this.lists).forEach(([_, child]) => {
-      const listCont = this._createDocumentElement("template");
-      child.forEach((item: Block | string) => {
-        if (item instanceof Block) {
-          listCont.content.append(item.getContent());
-        } else {
-          listCont.content.append(`${item}`);
+    // Заменяем заглушки для элементов списков
+    Object.entries(this.lists).forEach(([key, list]) => {
+      list.forEach((item: Block) => {
+        const stub = fragment.content.querySelector(`[data-id="${item._id}"]`);
+        if (stub) {
+          stub.replaceWith(item.getContent());
         }
       });
-      const stub = fragment.content.querySelector(`[data-id="__l_${tmpId}"]`);
-      if (stub) {
-        stub.replaceWith(listCont.content);
-      }
     });
 
     const newElement = fragment.content.firstElementChild as HTMLElement;
