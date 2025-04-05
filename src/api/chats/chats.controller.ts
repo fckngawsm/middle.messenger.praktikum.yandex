@@ -7,6 +7,10 @@ const chatsAPIInstance = new RequestService("chats");
 
 export class ChatApi {
   static getChats: ApiRequest<Chat[]> = () => chatsAPIInstance.get("");
+  static getChatToken: ApiRequest<number> = (id) =>
+    chatsAPIInstance.request(`/token/${id}`, {
+      method: METHOD.POST,
+    });
   static createChat: ApiRequest<CreateChatApi> = (data) =>
     chatsAPIInstance.request("", {
       method: METHOD.POST,

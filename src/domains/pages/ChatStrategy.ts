@@ -1,4 +1,6 @@
 import { ChatApi } from "@api/chats/chats.controller";
+import { SocketManager } from "@domains/socket/socketManager";
+import { store } from "@domains/store/Store";
 import { ChatHeader } from "@features/Chat/ChatParticipants/ChatHeader";
 import { ChatListContacts } from "@features/Chat/ChatParticipants/ChatListContacts";
 import { ChatSelectDialog } from "@features/Chat/ChatSelected/Select/ChatSelectDialog";
@@ -9,6 +11,8 @@ import { ChatPage } from "@templates/chat";
 import { PageStrategy } from "./PageStrategies";
 
 export class ChatStrategy extends Block implements PageStrategy {
+  private socketManager: SocketManager | null = null;
+
   constructor() {
     super({
       selectedChat: null,
@@ -16,6 +20,12 @@ export class ChatStrategy extends Block implements PageStrategy {
       ChatHeader: new ChatHeader(),
       ChatSelectedDialog: new ChatSelectedDialog({
         chat: undefined,
+        messages: [],
+        events: {
+          submit: (data: Record<string, string>) => {
+            this.handleSubmitMessage(data);
+          },
+        },
       }),
       ChatSelectDialog: new ChatSelectDialog(),
       ChatListContacts: new ChatListContacts({
@@ -26,14 +36,51 @@ export class ChatStrategy extends Block implements PageStrategy {
     this.getChats();
   }
 
-  private handleChatSelect(chat: Chat) {
-    this.setProps({
-      selectedChat: chat,
+  private async connectToChat(chat: Chat) {
+    const { user } = store.getState() as { user: { id: number } };
+    const token = await ChatApi.getChatToken(chat.id);
+    const tokenData = JSON.parse(token.response);
+    const tokenValue = tokenData.token;
+
+    this.socketManager = new SocketManager(
+      `wss://ya-praktikum.tech/ws/chats/${user.id}/${chat.id}/${tokenValue}`
+    );
+
+    this.socketManager.on("open", () => {
+      this.socketManager?.send({
+        content: "0",
+        type: "get old",
+      });
     });
-    this.children.ChatSelectedDialog.setProps({
-      chat,
+
+    this.socketManager.on("message", (messages) => {
+      this.children.ChatSelectedDialog.setProps({
+        chat,
+        messages,
+      });
     });
-    this.getChats();
+  }
+
+  private async handleChatSelect(chat: Chat) {
+    try {
+      await this.connectToChat(chat);
+
+      this.setProps({
+        selectedChat: chat,
+      });
+
+      this.children.ChatSelectedDialog.setProps({
+        chat,
+      });
+    } catch (error) {
+      console.error("Ошибка при выборе чата:", error);
+    }
+  }
+
+  private handleSubmitMessage(data: Record<string, string>) {
+    this.socketManager?.sendMessage({
+      content: data.message,
+    });
   }
 
   private async getChats() {
@@ -47,10 +94,6 @@ export class ChatStrategy extends Block implements PageStrategy {
     } catch (error) {
       console.error("Ошибка при получении чатов:", error);
     }
-  }
-
-  componentDidMount() {
-    this.getChats();
   }
 
   protected render(): string {

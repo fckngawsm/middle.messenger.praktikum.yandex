@@ -5,12 +5,17 @@ import { RoundSubmitButton } from "@shared/components/Buttons/RoundSubmitButton"
 import { ChatInput } from "@shared/components/Inputs/ChatInput";
 import { Spacer } from "@shared/components/Spacer/Spacer";
 import { Chat } from "@shared/types/Chat";
+import { Message } from "@shared/types/Message";
 import isEqual from "@utils/isEqual";
 import { ChatSelectedHeader } from "./ChatSelectedHeader";
 import { MessageList } from "./MessageList";
 
 interface ChatSelectDialogProps {
   chat?: Chat;
+  events?: {
+    submit: (data: Record<string, string>) => void;
+  };
+  [key: string]: unknown;
 }
 
 export class ChatSelectedDialog extends Block {
@@ -21,7 +26,8 @@ export class ChatSelectedDialog extends Block {
         chat: props?.chat || ({} as Chat),
       }),
       MessageList: new MessageList({
-        chatId: 0,
+        chatId: props?.chat?.id || 0,
+        messages: props?.messages as Message[],
       }),
       Spacer: new Spacer(),
       ChatInput: new ChatInput({
@@ -38,7 +44,11 @@ export class ChatSelectedDialog extends Block {
           icon: submitIcon,
         },
         onClick: (event: Event) => {
-          this.handleFormSubmit(event, "message-form", this.onSendMessage);
+          this.handleFormSubmit(
+            event,
+            "message-form",
+            this.props.events?.submit
+          );
         },
       }),
     });
@@ -55,12 +65,11 @@ export class ChatSelectedDialog extends Block {
       this.children.MessageList.setProps({
         chatId: newProps.chat?.id || 0,
       });
+      this.children.MessageList.setProps({
+        messages: newProps.messages as Message[],
+      });
     }
     return true;
-  }
-
-  private onSendMessage(data: Record<string, string>): void {
-    console.log("Отправка формы сообщения с данными:", data);
   }
 
   protected render(): string {
@@ -75,6 +84,6 @@ export class ChatSelectedDialog extends Block {
               {{{RoundButton}}}
           </form> 
       </div>
-      `;
+    `;
   }
 }
