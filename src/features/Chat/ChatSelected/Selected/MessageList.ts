@@ -3,6 +3,7 @@ import { store } from "@domains/store/Store";
 import { Block } from "@shared/blocks/Block";
 import { Message } from "@shared/types/Message";
 import { User } from "@shared/types/User";
+import { convertDate } from "@utils/convertDate";
 import { MessageItem } from "./MessageItem";
 
 interface MessageListProps {
@@ -27,7 +28,7 @@ export class MessageList extends Block {
     const isMyMessage = msg.user_id === user?.id;
     return new MessageItem({
       message: msg.content,
-      messageDate: msg.time,
+      messageDate: convertDate(msg.time),
       checkIcon,
       isMyMessage,
       attr: {

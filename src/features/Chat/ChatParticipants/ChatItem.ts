@@ -1,5 +1,6 @@
 import { Block } from "@shared/blocks/Block";
 import { Avatar } from "@shared/components/Avatar/Avatar";
+import { convertDate } from "@utils/convertDate";
 
 interface ChatItemProps {
   userAvatar: string;
@@ -52,7 +53,7 @@ export class ChatItem extends Block {
                   <h3 class="chat__last-message">${lastMessage}</h3>
               </div>
               <div class="chat__info-additional">
-                  <h4 class="chat__time">${lastMessageTime}</h4>
+                  <h4 class="chat__time">${convertDate(lastMessageTime)}</h4>
                   ${
                     unreadMessageCount
                       ? `<h5 class="chat__unread-message-count">${unreadMessageCount}</h5>`

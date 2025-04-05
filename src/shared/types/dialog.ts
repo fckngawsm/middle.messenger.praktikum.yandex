@@ -4,4 +4,5 @@ export interface Dialog {
   lastMessage: string;
   lastMessageTime: string;
   unreadMessageCount: number;
+  chatId: number;
 }
