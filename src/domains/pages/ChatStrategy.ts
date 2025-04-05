@@ -23,7 +23,7 @@ export class ChatStrategy extends Block implements PageStrategy {
         messages: [],
         events: {
           submit: (data: Record<string, string>) => {
-            this.handleSubmitMessage(data);
+            this.handleSubmitMessage(data.message);
           },
         },
       }),
@@ -37,10 +37,21 @@ export class ChatStrategy extends Block implements PageStrategy {
   }
 
   private async connectToChat(chat: Chat) {
+    // Закрываем старое соединение
+    if (this.socketManager) {
+      this.socketManager.close();
+    }
+
     const { user } = store.getState() as { user: { id: number } };
     const token = await ChatApi.getChatToken(chat.id);
     const tokenData = JSON.parse(token.response);
     const tokenValue = tokenData.token;
+
+    // Очищаем сообщения перед созданием нового соединения
+    this.children.ChatSelectedDialog.setProps({
+      chat,
+      messages: [],
+    });
 
     this.socketManager = new SocketManager(
       `wss://ya-praktikum.tech/ws/chats/${user.id}/${chat.id}/${tokenValue}`
@@ -54,9 +65,15 @@ export class ChatStrategy extends Block implements PageStrategy {
     });
 
     this.socketManager.on("message", (messages) => {
+      const currentMessages =
+        this.children.ChatSelectedDialog.getProps().messages || [];
+      const updatedMessages = Array.isArray(messages)
+        ? [...currentMessages, ...messages]
+        : [...currentMessages, messages];
+
       this.children.ChatSelectedDialog.setProps({
         chat,
-        messages,
+        messages: updatedMessages,
       });
     });
   }
@@ -77,10 +94,13 @@ export class ChatStrategy extends Block implements PageStrategy {
     }
   }
 
-  private handleSubmitMessage(data: Record<string, string>) {
-    this.socketManager?.sendMessage({
-      content: data.message,
-    });
+  private async handleSubmitMessage(message: string) {
+    if (this.socketManager) {
+      this.socketManager.send({
+        content: message,
+        type: "message",
+      });
+    }
   }
 
   private async getChats() {

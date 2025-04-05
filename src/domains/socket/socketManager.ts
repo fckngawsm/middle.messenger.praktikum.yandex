@@ -19,7 +19,9 @@ export class SocketManager {
 
   private checkHealth(): void {
     setInterval(() => {
-      this.socket.send(JSON.stringify({ type: "ping" }));
+      if (this.socket.readyState === WebSocket.OPEN) {
+        this.socket.send(JSON.stringify({ type: "ping" }));
+      }
     }, 10000);
   }
 
@@ -43,7 +45,7 @@ export class SocketManager {
       const data = JSON.parse(event.data);
       console.log("Получены данные", data);
 
-      if (Array.isArray(data)) {
+      if (event.type === "message") {
         if (this.eventHandlers.message) this.eventHandlers.message(data);
       }
     });
