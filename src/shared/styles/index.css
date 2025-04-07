@@ -12,4 +12,5 @@
 @import "../components/Modal/Modal.css";
 @import "../../features/Chat/chat.css";
 @import "../../features/Profile/profile.css";
-@import "../../features/Error/error.css"
+@import "../../features/Error/error.css";
+@import "../components/IconButton/iconButton.css";
