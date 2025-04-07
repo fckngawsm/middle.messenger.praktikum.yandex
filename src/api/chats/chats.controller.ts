@@ -1,4 +1,9 @@
-import { ApiRequest, CreateChatApi, DeleteChatApi } from "@api/types";
+import {
+  AddUserToChatApi,
+  ApiRequest,
+  CreateChatApi,
+  DeleteChatApi,
+} from "@api/types";
 import { METHOD } from "@domains/requestService/constants";
 import { RequestService } from "@domains/requestService/requestService";
 import { Chat } from "@shared/types/Chat";
@@ -16,10 +21,14 @@ export class ChatApi {
       method: METHOD.POST,
       data,
     });
-
   static deleteChat: ApiRequest<DeleteChatApi> = (data) =>
     chatsAPIInstance.request("", {
       method: METHOD.DELETE,
+      data,
+    });
+  static addUserToChat: ApiRequest<AddUserToChatApi> = (data) =>
+    chatsAPIInstance.request("users", {
+      method: METHOD.PUT,
       data,
     });
 }

@@ -1,4 +1,6 @@
+import { ChatApi } from "@api/chats/chats.controller";
 import dots from "@assets/images/dots.svg";
+import { store } from "@domains/store/Store";
 import { Block } from "@shared/blocks/Block";
 import { Avatar } from "@shared/components/Avatar/Avatar";
 import { IconButton } from "@shared/components/IconButton/IconButton";
@@ -8,6 +10,7 @@ import { AddUserToChatModal } from "./Modal/AddUserToChatModal";
 export interface ChatSelectedHeaderProps {
   chat: Chat;
   isModalOpen?: boolean;
+  onChatDelete?: () => void;
 }
 
 export class ChatSelectedHeader extends Block {
@@ -28,7 +31,9 @@ export class ChatSelectedHeader extends Block {
         onClose: () => {
           this.setProps({ isModalOpen: false });
         },
-        onAddUser: () => {},
+        onDeleteChat: () => {
+          this.onDeleteChat();
+        },
       }),
       IconButton: new IconButton({
         icon: dots,
@@ -39,6 +44,19 @@ export class ChatSelectedHeader extends Block {
       }),
     });
   }
+
+  private onDeleteChat = async () => {
+    try {
+      await ChatApi.deleteChat({ chatId: this.props.chat.id });
+      store.set("selectedChat", null);
+      this.setProps({ isModalOpen: false });
+      if (this.props.onChatDelete) {
+        this.props.onChatDelete();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   protected componentDidUpdate(
     oldProps: ChatSelectedHeaderProps,

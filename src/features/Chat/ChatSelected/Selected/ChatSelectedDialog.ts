@@ -1,3 +1,4 @@
+import { ChatApi } from "@api/chats/chats.controller";
 import attach from "@assets/images/attach.svg";
 import submitIcon from "@assets/images/caret-white.svg";
 import { Block } from "@shared/blocks/Block";
@@ -15,6 +16,7 @@ interface ChatSelectDialogProps {
   events?: {
     submit: (data: Record<string, string>) => void;
   };
+  onChatDelete?: () => void;
   [key: string]: unknown;
 }
 
@@ -24,6 +26,12 @@ export class ChatSelectedDialog extends Block {
       ...props,
       ChatSelectedHeader: new ChatSelectedHeader({
         chat: props?.chat || ({} as Chat),
+        onChatDelete: () => {
+          this.getChats();
+          if (this.props.onChatDelete) {
+            this.props.onChatDelete();
+          }
+        },
       }),
       MessageList: new MessageList({
         chatId: props?.chat?.id || 0,
@@ -52,6 +60,18 @@ export class ChatSelectedDialog extends Block {
         },
       }),
     });
+  }
+
+  private async getChats() {
+    try {
+      const response = await ChatApi.getChats();
+      if (response.status === 200) {
+        const chats = JSON.parse(response.response);
+        this.setProps({ chats });
+      }
+    } catch (error) {
+      console.error("Ошибка при получении списка чатов:", error);
+    }
   }
 
   componentDidUpdate(

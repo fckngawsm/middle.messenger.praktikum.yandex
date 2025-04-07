@@ -5,7 +5,7 @@ import { ChatSelectedHeaderContent } from "./ChatSelectedHeaderContent";
 interface AddUserToChatModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAddUser: (title: string) => void;
+  onDeleteChat: () => void;
 }
 
 export class AddUserToChatModal extends Block {
@@ -17,8 +17,8 @@ export class AddUserToChatModal extends Block {
         isOpen: props.isOpen,
         onClose: props.onClose,
         content: new ChatSelectedHeaderContent({
-          onAddUser: props.onAddUser,
           onClose: props.onClose,
+          onDeleteChat: props.onDeleteChat,
         }),
       }),
     });

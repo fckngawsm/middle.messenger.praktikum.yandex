@@ -15,7 +15,7 @@ export class ChatStrategy extends Block implements PageStrategy {
 
   constructor() {
     super({
-      selectedChat: null,
+      selectedChat: store.getState().selectedChat,
       className: "container",
       ChatHeader: new ChatHeader(),
       ChatSelectedDialog: new ChatSelectedDialog({
@@ -25,6 +25,9 @@ export class ChatStrategy extends Block implements PageStrategy {
           submit: (data: Record<string, string>) => {
             this.handleSubmitMessage(data.message);
           },
+        },
+        onChatDelete: () => {
+          this.getChats();
         },
       }),
       ChatSelectDialog: new ChatSelectDialog(),
@@ -37,7 +40,6 @@ export class ChatStrategy extends Block implements PageStrategy {
   }
 
   private async connectToChat(chat: Chat) {
-    // Закрываем старое соединение
     if (this.socketManager) {
       this.socketManager.close();
     }
@@ -89,6 +91,8 @@ export class ChatStrategy extends Block implements PageStrategy {
       this.children.ChatSelectedDialog.setProps({
         chat,
       });
+
+      store.set("chat", chat);
     } catch (error) {
       console.error("Ошибка при выборе чата:", error);
     }
@@ -106,13 +110,13 @@ export class ChatStrategy extends Block implements PageStrategy {
   private async getChats() {
     try {
       const response = await ChatApi.getChats();
-      const chats = JSON.parse(response.response) as Chat[];
-
-      this.children.ChatListContacts.setProps({
-        chats,
-      });
+      if (response.status === 200) {
+        const chats = JSON.parse(response.response);
+        this.setProps({ chats });
+        this.children.ChatListContacts.setProps({ chats });
+      }
     } catch (error) {
-      console.error("Ошибка при получении чатов:", error);
+      console.error("Ошибка при получении списка чатов:", error);
     }
   }
 
@@ -122,6 +126,6 @@ export class ChatStrategy extends Block implements PageStrategy {
 
   renderPage(appElement: HTMLElement): void {
     appElement.innerHTML = "";
-    appElement.appendChild(this.getContent());
+    appElement.appendChild(this.getContent() as Node);
   }
 }

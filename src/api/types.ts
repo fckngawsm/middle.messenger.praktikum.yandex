@@ -39,3 +39,8 @@ export interface CreateChatApi {
 export interface DeleteChatApi {
   chatId: number;
 }
+
+export interface AddUserToChatApi {
+  users: number[];
+  chatId: number;
+}

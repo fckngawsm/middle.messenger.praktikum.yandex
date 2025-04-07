@@ -27,4 +27,10 @@ export class UserApi {
       method: METHOD.PUT,
       data,
     });
+
+  static getUserByLogin: ApiRequest<string> = (login) =>
+    userAPIInstance.request("search", {
+      method: METHOD.POST,
+      data: { login },
+    });
 }
