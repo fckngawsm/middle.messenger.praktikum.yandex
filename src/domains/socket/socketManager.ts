@@ -43,9 +43,10 @@ export class SocketManager {
 
     this.socket.addEventListener("message", (event) => {
       const data = JSON.parse(event.data);
+
       console.log("Получены данные", data);
 
-      if (event.type === "message") {
+      if (event.type === "message" && data.type !== "pong") {
         if (this.eventHandlers.message) this.eventHandlers.message(data);
       }
     });
