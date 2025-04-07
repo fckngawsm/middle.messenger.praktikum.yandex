@@ -9,6 +9,7 @@
 @import "../components/Form/form.css";
 @import "../components/Buttons/button.css";
 @import "../components/Inputs/input.css";
+@import "../components/Modal/Modal.css";
 @import "../../features/Chat/chat.css";
 @import "../../features/Profile/profile.css";
 @import "../../features/Error/error.css"

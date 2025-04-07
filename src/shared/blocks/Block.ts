@@ -256,9 +256,9 @@ export abstract class Block {
     return true;
   }
 
-  public getContent(): HTMLElement {
+  public getContent(): HTMLElement | null {
     if (!this._element) {
-      throw new Error("Element is not created");
+      return null;
     }
     return this._element;
   }
