@@ -1,46 +1,62 @@
 import checkIcon from "@assets/images/check.svg";
+import { store } from "@domains/store/Store";
 import { Block } from "@shared/blocks/Block";
+import { Message } from "@shared/types/message";
+import { User } from "@shared/types/User";
+import { convertDate } from "@utils/convertDate";
 import { MessageItem } from "./MessageItem";
 
 interface MessageListProps {
-  date: string;
+  chatId: number;
+  messages: Message[];
 }
-
-const messages = Array.from({ length: 15 }, (_, i) => ({
-  message: `Сообщение ${i + 1}`,
-  date: "8 марта",
-  check: checkIcon,
-  isMyMessage: i % 2 === 0,
-}));
 
 export class MessageList extends Block {
   constructor(props: MessageListProps) {
     super({
       ...props,
       lists: {
-        messages: messages.map((msg) => {
-          const chatItem = new MessageItem({
-            message: msg.message,
-            messageDate: msg.date,
-            checkIcon: msg.check,
-            isMyMessage: msg.isMyMessage,
-            attr: {
-              className: msg.isMyMessage ? "message__item-my_statement" : "",
-            },
-          });
-          return chatItem.getContent().outerHTML;
-        }),
+        messageComponents: (props.messages ?? []).map((msg) =>
+          this.createMessageItem(msg)
+        ),
       },
     });
   }
 
+  createMessageItem(msg: Message) {
+    const { user } = store.getState() as { user: User };
+    const isMyMessage = msg.user_id === user?.id;
+    return new MessageItem({
+      message: msg.content,
+      messageDate: convertDate(msg.time),
+      checkIcon,
+      isMyMessage,
+      attr: {
+        className: isMyMessage ? "message__item-my_statement" : "",
+      },
+    });
+  }
+
+  componentDidUpdate(oldProps: MessageListProps, newProps: MessageListProps) {
+    if (oldProps.messages !== newProps.messages) {
+      const newMessageComponents = (newProps.messages ?? []).map((msg) =>
+        this.createMessageItem(msg)
+      );
+
+      this.lists.messageComponents = newMessageComponents;
+      this.setLists({
+        messageComponents: newMessageComponents,
+      });
+    }
+
+    return true;
+  }
+
   protected render(): string {
-    const { date } = this.props;
     return `
       <ul class="chat__messages">
-        <h2 class="chat__messages-date">${date}</h2>
-        {{#each lists.messages}}
-          {{{this}}}
+        {{#each messageComponents}}
+          {{{ content }}}
         {{/each}}
       </ul>
     `;

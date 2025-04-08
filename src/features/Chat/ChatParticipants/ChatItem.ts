@@ -1,5 +1,6 @@
 import { Block } from "@shared/blocks/Block";
 import { Avatar } from "@shared/components/Avatar/Avatar";
+import { convertDate } from "@utils/convertDate";
 
 interface ChatItemProps {
   userAvatar: string;
@@ -7,12 +8,23 @@ interface ChatItemProps {
   lastMessage: string;
   lastMessageTime: string;
   unreadMessageCount: number;
+  isSelected?: boolean;
+  chatId: number;
+  events?: {
+    click?: (event: Event) => void;
+  };
 }
 
 export class ChatItem extends Block {
   constructor(props: ChatItemProps) {
     super({
       ...props,
+      events: {
+        click: (event: Event) => {
+          console.log("Клик по чату:", props.userName);
+          props.events?.click?.(event);
+        },
+      },
       Avatar: new Avatar({
         attr: {
           className: "chat__avatar",
@@ -29,10 +41,11 @@ export class ChatItem extends Block {
       lastMessage,
       lastMessageTime,
       unreadMessageCount = 0,
+      isSelected = false,
     } = this.props;
 
     return `
-      <div class="chat__item">  
+      <div class="chat__item ${isSelected ? "chat__item-active" : ""}">  
           {{{Avatar}}}
           <div class="chat__info">
               <div class="chat__info-user">
@@ -40,7 +53,7 @@ export class ChatItem extends Block {
                   <h3 class="chat__last-message">${lastMessage}</h3>
               </div>
               <div class="chat__info-additional">
-                  <h4 class="chat__time">${lastMessageTime}</h4>
+                  <h4 class="chat__time">${convertDate(lastMessageTime)}</h4>
                   ${
                     unreadMessageCount
                       ? `<h5 class="chat__unread-message-count">${unreadMessageCount}</h5>`

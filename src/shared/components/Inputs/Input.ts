@@ -5,8 +5,9 @@ interface InputProps {
   attr: BaseInputAttributes;
   label?: string;
   helperText?: string;
-  onBlur: (e: Event) => void;
+  onBlur?: (event: Event) => void;
   onFocus?: (e: Event) => void;
+  events?: Record<string, (event: Event) => void>;
 }
 
 export class Input extends Block {
@@ -14,7 +15,8 @@ export class Input extends Block {
     super({
       ...props,
       events: {
-        blur: (e: Event) => props.onBlur(e),
+        ...props.events,
+        blur: props.onBlur,
         focus: (e: Event) => (props?.onFocus || (() => {}))(e),
       },
     });
@@ -28,6 +30,7 @@ export class Input extends Block {
       type = "",
       id = "",
       name = "",
+      value = "",
     } = this.props.attr;
     const { required = false, label = "", helperText = "" } = this.props;
 
@@ -43,6 +46,7 @@ export class Input extends Block {
           name="${name || ""}" 
           ${required ? "required" : ""}
           autocomplete="new-password"
+          value="${value || ""}"
         >
         ${label && `<label class="form__label" for="${id}">${label}</label>`}
         ${helperText ? `<p class="form__helper-text">${helperText}</p>` : ""}

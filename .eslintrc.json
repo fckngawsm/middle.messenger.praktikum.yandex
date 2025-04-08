@@ -38,6 +38,9 @@
     "no-useless-escape": "off",
     "eol-last": ["error", "always"],
     "no-console": "off",
-    "import/no-extraneous-dependencies": "off"
+    "implicit-arrow-linebreak": "off",
+    "lines-between-class-members": "off",
+    "import/no-extraneous-dependencies": "off",
+    "function-paren-newline": "off"
   }
 }

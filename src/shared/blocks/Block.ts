@@ -132,10 +132,10 @@ export abstract class Block {
     const lists: Lists = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      if (value instanceof Block) {
-        children[key] = value;
-      } else if (Array.isArray(value)) {
+      if (Array.isArray(value)) {
         lists[key] = value;
+      } else if (value instanceof Block) {
+        children[key] = value;
       } else {
         props[key] = value;
       }
@@ -168,6 +168,10 @@ export abstract class Block {
     Object.assign(this.props, nextProps);
   }
 
+  public getProps(): BlockProps {
+    return this.props;
+  }
+
   public setLists(nextList: Lists): void {
     if (!nextList) {
       return;
@@ -184,41 +188,48 @@ export abstract class Block {
     this._removeEvents();
     const propsAndStubs: Record<
       string,
-      string | number | boolean | Block | Block[] | Record<string, unknown>
+      | string
+      | number
+      | boolean
+      | Block
+      | Block[]
+      | Record<string, unknown>
+      | Array<{ _id: number; content: string }>
     > = { ...this.props };
-    const tmpId = Math.floor(100000 + Math.random() * 900000);
+
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
 
-    Object.entries(this.lists).forEach(([key]) => {
-      propsAndStubs[key] = `<div data-id="__l_${tmpId}"></div>`;
+    // Обрабатываем списки
+    Object.entries(this.lists).forEach(([key, list]) => {
+      // Создаем массив объектов с заглушками для Handlebars
+      propsAndStubs[key] = list.map((item: Block) => ({
+        _id: item._id,
+        content: `<div data-id="${item._id}"></div>`,
+      }));
     });
 
     const fragment = this._createDocumentElement("template");
-    fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
+    const template = this.render();
+
+    fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
       if (stub) {
-        stub.replaceWith(child.getContent());
+        stub.replaceWith(child.getContent() as Node);
       }
     });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    Object.entries(this.lists).forEach(([_, child]) => {
-      const listCont = this._createDocumentElement("template");
-      child.forEach((item: Block | string) => {
-        if (item instanceof Block) {
-          listCont.content.append(item.getContent());
-        } else {
-          listCont.content.append(`${item}`);
+    Object.entries(this.lists).forEach(([_, list]) => {
+      list.forEach((item: Block) => {
+        const stub = fragment.content.querySelector(`[data-id="${item._id}"]`);
+        if (stub) {
+          stub.replaceWith(item.getContent() as Node);
         }
       });
-      const stub = fragment.content.querySelector(`[data-id="__l_${tmpId}"]`);
-      if (stub) {
-        stub.replaceWith(listCont.content);
-      }
     });
 
     const newElement = fragment.content.firstElementChild as HTMLElement;
@@ -236,16 +247,17 @@ export abstract class Block {
   }
 
   protected componentDidUpdate(
-    oldProps: BlockProps,
-    newProps: BlockProps
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _oldProps: BlockProps,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _newProps: BlockProps
   ): boolean {
-    console.log(oldProps, newProps);
     return true;
   }
 
-  public getContent(): HTMLElement {
+  public getContent(): HTMLElement | null {
     if (!this._element) {
-      throw new Error("Element is not created");
+      return null;
     }
     return this._element;
   }
@@ -311,10 +323,10 @@ export abstract class Block {
     return isValid;
   }
 
-  protected handleFormSubmit(
+  protected handleFormSubmit<T extends Record<string, unknown>>(
     event: Event,
     formId: string,
-    callback?: (data: Record<string, string>) => void
+    callback?: (data: T) => void
   ): void {
     event.preventDefault();
     event.stopPropagation();
@@ -331,10 +343,10 @@ export abstract class Block {
     }
 
     const formData = new FormData(form);
-    const formValues: Record<string, string> = {};
+    const formValues = {} as T;
 
     formData.forEach((value, key) => {
-      formValues[key] = value as string;
+      (formValues as Record<string, unknown>)[key] = value as string;
     });
 
     callback?.(formValues);

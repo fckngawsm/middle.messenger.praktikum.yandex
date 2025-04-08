@@ -127,3 +127,37 @@
     text-align: center;
   }
 }
+
+.chat__list-button_type_add-contact {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.create-chat-form {
+  height: 100%;
+  
+  .cancel-button {
+    background-color: var(--white-color);
+    color: var(--dark-color);
+    border: 1px solid var(--dark-gray-color);
+  }
+}
+
+.button-full-width {
+  max-width: 100%;
+  width: 100%;
+}
+
+.actions-button {
+  margin: 15px 0;
+}

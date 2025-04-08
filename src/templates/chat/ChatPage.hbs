@@ -1,13 +1,13 @@
 <div class="container container__chats">
   <div class="chats">
     {{{ChatHeader}}}
-    <div class="chat__list">
-      {{#each lists.dialogs}}
-        {{{this}}}
-      {{/each}}
+    {{{ChatListContacts}}}
+  </div>
+  {{#if selectedChat}}
+    <div class="container container__selected-chat">
+      {{{ChatSelectedDialog}}}
     </div>
-  </div>
-  <div class="container container__selected-chat">
-    {{{ChatSelectedDialog}}}
-  </div>
+  {{else}}
+    {{{ChatSelectDialog}}}
+  {{/if}}
 </div>

@@ -4,6 +4,11 @@ export class PhoneStrategy implements Validator {
   private regex: RegExp = /^[+]?(\d{10,15})$/;
 
   validate(value: string): boolean {
-    return this.regex.test(value);
+    try {
+      return this.regex.test(value);
+    } catch (error) {
+      console.error("Ошибка валидации телефона:", error);
+      return false;
+    }
   }
 }

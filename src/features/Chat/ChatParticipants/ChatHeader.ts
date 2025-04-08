@@ -1,4 +1,5 @@
 import caretRight from "@assets/images/caret-right.svg";
+import { Routes } from "@domains/route/routes";
 import { Block } from "@shared/blocks/Block";
 import { ChatInput } from "@shared/components/Inputs/ChatInput";
 import { Link } from "@shared/components/Link/Link";
@@ -12,7 +13,7 @@ export class ChatHeader extends Block {
           iconSrc: caretRight,
           className: "chat__header-link",
           id: "chat-link",
-          to: "/settings",
+          to: Routes.SETTINGS,
         },
       }),
       ChatInput: new ChatInput({

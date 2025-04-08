@@ -5,3 +5,5 @@ export enum METHOD {
   PATCH = "PATCH",
   DELETE = "DELETE",
 }
+
+export const BASE_URL = "https://ya-praktikum.tech/api/v2";

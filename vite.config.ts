@@ -13,6 +13,9 @@ export default defineConfig({
       "@features": path.resolve(__dirname, "src/features"),
       "@shared": path.resolve(__dirname, "src/shared"),
       "@templates": path.resolve(__dirname, "src/templates"),
+      "@api": path.resolve(__dirname, "src/api"),
+      "@hoc": path.resolve(__dirname, "src/hoc"),
+      "@utils": path.resolve(__dirname, "src/utils"),
     },
   },
 });

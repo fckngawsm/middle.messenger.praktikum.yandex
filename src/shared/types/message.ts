@@ -1,6 +1,10 @@
 export interface Message {
-  message: string;
-  date: string;
-  check: string;
-  isMyMessage: boolean;
+  chat_id: number;
+  content: string;
+  file: null;
+  id: number;
+  is_read: boolean;
+  time: string;
+  type: string;
+  user_id: number;
 }

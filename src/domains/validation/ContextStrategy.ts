@@ -11,31 +11,24 @@ import { Validator } from "./ValidatorInterface";
 
 export class ContextStrategy {
   private strategies: Record<string, Validator>;
-
   private currentInputGroup: HTMLElement | null = null;
-
   private currentHelperText: HTMLElement | null = null;
-
   private currentInput: HTMLElement | null = null;
-
   private profileSettingsFields: HTMLElement | null = null;
-
   private originalPassword: string | null = null;
+  private originalData: Record<string, string> = {};
 
   constructor() {
     this.strategies = {
       first_name: new NameStrategy(),
       second_name: new NameStrategy(),
       display_name: new NameStrategy(),
-
       login: new LoginStrategy(),
       email: new EmailStrategy(),
-
       password: new PasswordStrategy(),
       old_password: new PasswordStrategy(),
       new_password: new PasswordStrategy(),
       password_repeat: new RepeatPasswordStrategy(),
-
       phone: new PhoneStrategy(),
       message: new MessageStrategy(),
       avatar: new AvatarStrategy(),
@@ -49,6 +42,22 @@ export class ContextStrategy {
   validate(type: StrategyType, value: string): boolean {
     const strategy = this.getStrategy(type);
     this.setFormElements(type);
+
+    const originalValue = this.originalData[type] || "";
+    if (value === originalValue) {
+      this.hideValidationErrors();
+      return true;
+    }
+
+    if (type === "old_password" || type === "new_password") {
+      const oldPassword = this.originalData.old_password || "";
+      const newPassword = this.originalData.new_password || "";
+
+      if (!oldPassword || !newPassword) {
+        this.hideValidationErrors();
+        return true;
+      }
+    }
 
     if (type === "password_repeat" && this.originalPassword) {
       (strategy as RepeatPasswordStrategy).setOriginalPassword(

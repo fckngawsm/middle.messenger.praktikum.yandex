@@ -33,3 +33,7 @@
   border: none;
   outline: none;
 }
+
+.red {
+  background-color: var(--error-color);
+}

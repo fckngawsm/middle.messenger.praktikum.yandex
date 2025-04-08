@@ -1,26 +1,42 @@
+import { ChatApi } from "@api/chats/chats.controller";
 import attach from "@assets/images/attach.svg";
 import submitIcon from "@assets/images/caret-white.svg";
 import { Block } from "@shared/blocks/Block";
 import { RoundSubmitButton } from "@shared/components/Buttons/RoundSubmitButton";
 import { ChatInput } from "@shared/components/Inputs/ChatInput";
 import { Spacer } from "@shared/components/Spacer/Spacer";
-import {
-  ChatSelectedHeader,
-  ChatSelectedHeaderProps,
-} from "./ChatSelectedHeader";
+import { Chat } from "@shared/types/Chat";
+import { Message } from "@shared/types/message";
+import isEqual from "@utils/isEqual";
+import { ChatSelectedHeader } from "./ChatSelectedHeader";
 import { MessageList } from "./MessageList";
 
-interface ChatSelectDialogProps extends ChatSelectedHeaderProps {}
+interface ChatSelectDialogProps {
+  chat?: Chat;
+  events?: {
+    submit: (data: Record<string, string>) => void;
+  };
+  onChatDelete?: () => void;
+  [key: string]: unknown;
+}
 
 export class ChatSelectedDialog extends Block {
   constructor(props: ChatSelectDialogProps) {
     super({
       ...props,
       ChatSelectedHeader: new ChatSelectedHeader({
-        selectedUserName: props.selectedUserName,
+        chat: props?.chat || ({} as Chat),
+        chatUsers: [],
+        onChatDelete: () => {
+          this.getChats();
+          if (this.props.onChatDelete) {
+            this.props.onChatDelete();
+          }
+        },
       }),
       MessageList: new MessageList({
-        date: "8 марта",
+        chatId: props?.chat?.id || 0,
+        messages: props?.messages as Message[],
       }),
       Spacer: new Spacer(),
       ChatInput: new ChatInput({
@@ -37,14 +53,66 @@ export class ChatSelectedDialog extends Block {
           icon: submitIcon,
         },
         onClick: (event: Event) => {
-          this.handleFormSubmit(event, "message-form", this.onSendMessage);
+          this.handleFormSubmit(
+            event,
+            "message-form",
+            this.props.events?.submit
+          );
         },
       }),
     });
+
+    if (props?.chat?.id) {
+      this.getChatUsers(props.chat.id);
+    }
   }
 
-  private onSendMessage(data: Record<string, string>): void {
-    console.log("Отправка формы сообщения с данными:", data);
+  private async getChats() {
+    try {
+      const response = await ChatApi.getChats();
+      if (response.status === 200) {
+        const chats = JSON.parse(response.response);
+        this.setProps({ chats });
+      }
+    } catch (error) {
+      console.error("Ошибка при получении списка чатов:", error);
+    }
+  }
+
+  private async getChatUsers(chatId: number) {
+    try {
+      const response = await ChatApi.getChatUsers({ chatId });
+      const users = JSON.parse(response.response);
+      this.children.ChatSelectedHeader.setProps({
+        chatUsers: users,
+      });
+    } catch (error) {
+      console.error("Ошибка при получении пользователей чата:", error);
+    }
+  }
+
+  componentDidUpdate(
+    oldProps: ChatSelectDialogProps,
+    newProps: ChatSelectDialogProps
+  ) {
+    if (!isEqual(oldProps, newProps)) {
+      if (newProps.chat?.id && newProps.chat.id !== oldProps.chat?.id) {
+        this.getChatUsers(newProps.chat.id);
+      }
+
+      this.children.ChatSelectedHeader.setProps({
+        chat: newProps.chat || ({} as Chat),
+      });
+
+      this.children.MessageList.setProps({
+        chatId: newProps.chat?.id || 0,
+      });
+
+      this.children.MessageList.setProps({
+        messages: newProps.messages as Message[],
+      });
+    }
+    return true;
   }
 
   protected render(): string {
@@ -59,6 +127,6 @@ export class ChatSelectedDialog extends Block {
               {{{RoundButton}}}
           </form> 
       </div>
-      `;
+    `;
   }
 }

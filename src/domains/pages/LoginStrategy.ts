@@ -1,3 +1,7 @@
+import { AuthApi } from "@api/auth/auth.controller";
+import { LoginApi } from "@api/types";
+import { router } from "@domains/route/Router";
+import { Routes } from "@domains/route/routes";
 import { StrategyType } from "@domains/validation/StrategyType";
 import { Block } from "@shared/blocks/Block";
 import { Button } from "@shared/components/Buttons/Button";
@@ -47,14 +51,16 @@ export class LoginStrategy extends Block implements PageStrategy {
         },
         text: "Авторизоваться",
         onClick: (event: Event) => {
-          this.handleFormSubmit(event, "login-form", this.onLogin);
+          this.handleFormSubmit(event, "login-form", (data) => {
+            this.onLogin(data as unknown as LoginApi);
+          });
         },
       }),
       Spacer: new Spacer(),
       Link: new Link({
         attr: {
           id: "register-link",
-          to: "/sign-up",
+          to: Routes.SIGN_UP,
           className: "link__auth",
         },
         linkText: "Нет аккаунта?",
@@ -62,11 +68,15 @@ export class LoginStrategy extends Block implements PageStrategy {
     });
   }
 
-  private onLogin(data: Record<string, string>): void {
-    console.log("Отправка формы логина с данными:", data);
-    setTimeout(() => {
-      window.location.href = "/messenger";
-    }, 3000);
+  private async onLogin(data: LoginApi): Promise<void> {
+    try {
+      const response = await AuthApi.login(data);
+      if (response.status === 200) {
+        router.go(Routes.MESSENGER);
+      }
+    } catch (error) {
+      console.log(error, "error");
+    }
   }
 
   protected render(): string {
@@ -75,6 +85,6 @@ export class LoginStrategy extends Block implements PageStrategy {
 
   public renderPage(appElement: HTMLElement): void {
     appElement.innerHTML = "";
-    appElement.appendChild(this.getContent());
+    appElement.appendChild(this.getContent() as Node);
   }
 }
