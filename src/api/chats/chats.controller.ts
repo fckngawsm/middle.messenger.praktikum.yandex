@@ -3,6 +3,7 @@ import {
   ApiRequest,
   CreateChatApi,
   DeleteChatApi,
+  DeleteUserFromChatApi,
   GetChatFilesApi,
   GetChatUsersApi,
   UpdateChatAvatarApi,
@@ -49,5 +50,11 @@ export class ChatApi {
   static getChatUsers: ApiRequest<GetChatUsersApi> = (data) =>
     chatsAPIInstance.request(`/${data?.chatId}/users`, {
       method: METHOD.GET,
+    });
+
+  static deleteUserFromChat: ApiRequest<DeleteUserFromChatApi> = (data) =>
+    chatsAPIInstance.request("/users", {
+      method: METHOD.DELETE,
+      data,
     });
 }

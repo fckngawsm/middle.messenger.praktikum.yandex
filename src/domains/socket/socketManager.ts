@@ -46,7 +46,11 @@ export class SocketManager {
 
       console.log("Получены данные", data);
 
-      if (event.type === "message" && data.type !== "pong") {
+      if (
+        event.type === "message" &&
+        data.type !== "pong" &&
+        data.type !== "user connected"
+      ) {
         if (this.eventHandlers.message) this.eventHandlers.message(data);
       }
     });

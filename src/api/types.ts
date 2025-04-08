@@ -57,3 +57,8 @@ export interface GetChatFilesApi {
 export interface GetChatUsersApi {
   chatId: number;
 }
+
+export interface DeleteUserFromChatApi {
+  chatId: number;
+  users: number[];
+}

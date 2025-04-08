@@ -56,11 +56,10 @@ class Router {
       return;
     }
 
-    // Проверяем авторизацию для защищенных маршрутов
     if (pathname !== Routes.SIGN_IN && pathname !== Routes.SIGN_UP) {
       try {
         const { response } = await AuthApi.getMe();
-        if (!response) {
+        if (!JSON.parse(response).id) {
           this.go(Routes.SIGN_IN);
           return;
         }
