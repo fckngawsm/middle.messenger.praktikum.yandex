@@ -55,6 +55,15 @@
   width: 100%;
 }
 
+.profile__avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: opacity 0.2s ease;
+}
+
+
 .profile__avatar-container {
   position: relative;
   width: 130px;
@@ -70,14 +79,6 @@
       opacity: 0.8;
     }
   }
-}
-
-.profile__avatar {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  transition: opacity 0.2s ease;
 }
 
 .hidden {

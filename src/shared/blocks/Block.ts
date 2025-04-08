@@ -215,20 +215,19 @@ export abstract class Block {
 
     fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
-    // Заменяем заглушки для обычных дочерних элементов
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
       if (stub) {
-        stub.replaceWith(child.getContent());
+        stub.replaceWith(child.getContent() as Node);
       }
     });
 
-    // Заменяем заглушки для элементов списков
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     Object.entries(this.lists).forEach(([_, list]) => {
       list.forEach((item: Block) => {
         const stub = fragment.content.querySelector(`[data-id="${item._id}"]`);
         if (stub) {
-          stub.replaceWith(item.getContent());
+          stub.replaceWith(item.getContent() as Node);
         }
       });
     });
