@@ -44,3 +44,12 @@ export interface AddUserToChatApi {
   users: number[];
   chatId: number;
 }
+
+export interface UpdateChatAvatarApi {
+  chatId: number;
+  avatar: FormData;
+}
+
+export interface GetChatFilesApi {
+  chatId: number;
+}

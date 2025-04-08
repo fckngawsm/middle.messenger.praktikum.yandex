@@ -3,6 +3,8 @@ import {
   ApiRequest,
   CreateChatApi,
   DeleteChatApi,
+  GetChatFilesApi,
+  UpdateChatAvatarApi,
 } from "@api/types";
 import { METHOD } from "@domains/requestService/constants";
 import { RequestService } from "@domains/requestService/requestService";
@@ -30,5 +32,16 @@ export class ChatApi {
     chatsAPIInstance.request("users", {
       method: METHOD.PUT,
       data,
+    });
+
+  static updateChatAvatar: ApiRequest<UpdateChatAvatarApi> = (data) =>
+    chatsAPIInstance.request("", {
+      method: METHOD.PUT,
+      data,
+    });
+
+  static getChatFiles: ApiRequest<GetChatFilesApi> = (data) =>
+    chatsAPIInstance.request(`/${data?.chatId}/files`, {
+      method: METHOD.GET,
     });
 }

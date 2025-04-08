@@ -9,7 +9,6 @@ interface ModalProps {
 
 export class Modal extends Block {
   constructor(props: ModalProps) {
-    console.log(props);
     super({
       ...props,
       events: {

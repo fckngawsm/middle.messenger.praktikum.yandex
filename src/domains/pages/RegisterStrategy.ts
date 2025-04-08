@@ -158,6 +158,6 @@ export class RegisterStrategy extends Block implements PageStrategy {
 
   public renderPage(appElement: HTMLElement): void {
     appElement.innerHTML = "";
-    appElement.appendChild(this.getContent());
+    appElement.appendChild(this.getContent() as Node);
   }
 }

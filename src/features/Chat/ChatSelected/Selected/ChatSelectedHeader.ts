@@ -6,10 +6,12 @@ import { Avatar } from "@shared/components/Avatar/Avatar";
 import { IconButton } from "@shared/components/IconButton/IconButton";
 import { Chat } from "@shared/types/Chat";
 import { AddUserToChatModal } from "./Modal/AddUserToChatModal";
+import { ChatInfoModal } from "./Modal/ChatInfoModal";
 
 export interface ChatSelectedHeaderProps {
   chat: Chat;
-  isModalOpen?: boolean;
+  isAddUserModalOpen?: boolean;
+  isInfoModalOpen?: boolean;
   onChatDelete?: () => void;
 }
 
@@ -17,29 +19,41 @@ export class ChatSelectedHeader extends Block {
   constructor(props: ChatSelectedHeaderProps) {
     super({
       ...props,
-      isModalOpen: props.isModalOpen || false,
+      isAddUserModalOpen: props.isAddUserModalOpen || false,
+      isInfoModalOpen: props.isInfoModalOpen || false,
       Avatar: new Avatar({
         attr: {
           className: "selected-user__avatar",
-          avatarUrl:
-            "https://img.freepik.com/premium-vector/female-user-profile-avatar-is-woman-character-screen-saver-with-emotions_505620-617.jpg",
+          avatarUrl: props.chat.avatar || "",
           alt: "Аватар",
+        },
+        events: {
+          click: () => {
+            this.setProps({ isInfoModalOpen: true });
+          },
         },
       }),
       AddUserToChatModal: new AddUserToChatModal({
         isOpen: false,
         onClose: () => {
-          this.setProps({ isModalOpen: false });
+          this.setProps({ isAddUserModalOpen: false });
         },
         onDeleteChat: () => {
           this.onDeleteChat();
         },
       }),
+      ChatInfoModal: new ChatInfoModal({
+        isOpen: false,
+        onClose: () => {
+          this.setProps({ isInfoModalOpen: false });
+        },
+        chat: props.chat,
+      }),
       IconButton: new IconButton({
         icon: dots,
         alt: "Точки",
         onClick: () => {
-          this.setProps({ isModalOpen: true });
+          this.setProps({ isAddUserModalOpen: true });
         },
       }),
     });
@@ -49,7 +63,7 @@ export class ChatSelectedHeader extends Block {
     try {
       await ChatApi.deleteChat({ chatId: this.props.chat.id });
       store.set("selectedChat", null);
-      this.setProps({ isModalOpen: false });
+      this.setProps({ isAddUserModalOpen: false });
       if (this.props.onChatDelete) {
         this.props.onChatDelete();
       }
@@ -62,9 +76,15 @@ export class ChatSelectedHeader extends Block {
     oldProps: ChatSelectedHeaderProps,
     newProps: ChatSelectedHeaderProps
   ): boolean {
-    if (oldProps.isModalOpen !== newProps.isModalOpen) {
+    if (oldProps.isAddUserModalOpen !== newProps.isAddUserModalOpen) {
       this.children.AddUserToChatModal.setProps({
-        isOpen: newProps.isModalOpen || false,
+        isOpen: newProps.isAddUserModalOpen || false,
+      });
+    }
+    if (oldProps.isInfoModalOpen !== newProps.isInfoModalOpen) {
+      this.children.ChatInfoModal.setProps({
+        isOpen: newProps.isInfoModalOpen || false,
+        chat: newProps.chat,
       });
     }
     return true;
@@ -80,8 +100,11 @@ export class ChatSelectedHeader extends Block {
           <h2 class="chat__selected-header-name">${chat.title}</h2>
         </div>
         {{{IconButton}}}
-        {{#if isModalOpen}}
+        {{#if isAddUserModalOpen}}
           {{{AddUserToChatModal}}}
+        {{/if}}
+        {{#if isInfoModalOpen}}
+          {{{ChatInfoModal}}}
         {{/if}}
       </div>
     `;

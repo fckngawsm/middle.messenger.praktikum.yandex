@@ -1,3 +1,5 @@
+import { User } from "./User";
+
 export interface Chat {
   id: number;
   title: string;
@@ -6,5 +8,6 @@ export interface Chat {
     content: string;
     time: string;
   };
+  users: User[];
   unread_count: number;
 }
