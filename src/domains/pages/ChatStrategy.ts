@@ -50,7 +50,6 @@ export class ChatStrategy extends Block implements PageStrategy {
     const tokenData = JSON.parse(token.response);
     const tokenValue = tokenData.token;
 
-    // Очищаем сообщения перед созданием нового соединения
     this.children.ChatSelectedDialog.setProps({
       chat,
       messages: [],

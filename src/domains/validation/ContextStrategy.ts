@@ -43,19 +43,16 @@ export class ContextStrategy {
     const strategy = this.getStrategy(type);
     this.setFormElements(type);
 
-    // Проверяем, изменилось ли значение
     const originalValue = this.originalData[type] || "";
     if (value === originalValue) {
       this.hideValidationErrors();
       return true;
     }
 
-    // Для паролей проверяем, заполнены ли оба поля
     if (type === "old_password" || type === "new_password") {
       const oldPassword = this.originalData.old_password || "";
       const newPassword = this.originalData.new_password || "";
 
-      // Если одно из полей пустое, пропускаем валидацию
       if (!oldPassword || !newPassword) {
         this.hideValidationErrors();
         return true;

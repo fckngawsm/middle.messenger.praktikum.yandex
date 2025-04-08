@@ -1,6 +1,5 @@
 import { Message } from "@shared/types/message";
 
-// const socket = new WebSocket('wss://ya-praktikum.tech/ws/chats/<USER_ID>/<CHAT_ID>/<TOKEN_VALUE>');
 type WebSocketEvents = {
   open: () => void;
   close: (event: CloseEvent) => void;
