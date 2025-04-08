@@ -26,6 +26,7 @@ export class ChatSelectedDialog extends Block {
       ...props,
       ChatSelectedHeader: new ChatSelectedHeader({
         chat: props?.chat || ({} as Chat),
+        chatUsers: [],
         onChatDelete: () => {
           this.getChats();
           if (this.props.onChatDelete) {
@@ -60,6 +61,10 @@ export class ChatSelectedDialog extends Block {
         },
       }),
     });
+
+    if (props?.chat?.id) {
+      this.getChatUsers(props.chat.id);
+    }
   }
 
   private async getChats() {
@@ -74,17 +79,35 @@ export class ChatSelectedDialog extends Block {
     }
   }
 
+  private async getChatUsers(chatId: number) {
+    try {
+      const response = await ChatApi.getChatUsers({ chatId });
+      const users = JSON.parse(response.response);
+      this.children.ChatSelectedHeader.setProps({
+        chatUsers: users,
+      });
+    } catch (error) {
+      console.error("Ошибка при получении пользователей чата:", error);
+    }
+  }
+
   componentDidUpdate(
     oldProps: ChatSelectDialogProps,
     newProps: ChatSelectDialogProps
   ) {
     if (!isEqual(oldProps, newProps)) {
+      if (newProps.chat?.id && newProps.chat.id !== oldProps.chat?.id) {
+        this.getChatUsers(newProps.chat.id);
+      }
+
       this.children.ChatSelectedHeader.setProps({
         chat: newProps.chat || ({} as Chat),
       });
+
       this.children.MessageList.setProps({
         chatId: newProps.chat?.id || 0,
       });
+
       this.children.MessageList.setProps({
         messages: newProps.messages as Message[],
       });

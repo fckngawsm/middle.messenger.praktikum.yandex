@@ -53,3 +53,7 @@ export interface UpdateChatAvatarApi {
 export interface GetChatFilesApi {
   chatId: number;
 }
+
+export interface GetChatUsersApi {
+  chatId: number;
+}

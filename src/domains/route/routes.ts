@@ -9,6 +9,7 @@ export enum Routes {
 }
 
 export const AVAILABLE_ROUTES = [
+  "/",
   "/messenger",
   "/sign-up",
   "/sign-in",

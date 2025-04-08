@@ -17,7 +17,7 @@ export class ProfileSettingAvatar extends Block {
     super({
       Avatar: new Avatar({
         attr: {
-          avatarUrl: props.value,
+          avatarUrl: props.value || "",
           alt: "Аватар",
           className: "profile__avatar",
         },

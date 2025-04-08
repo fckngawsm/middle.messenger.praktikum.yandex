@@ -20,6 +20,7 @@ export class ChatStrategy extends Block implements PageStrategy {
       ChatHeader: new ChatHeader(),
       ChatSelectedDialog: new ChatSelectedDialog({
         chat: undefined,
+        chatUsers: [],
         messages: [],
         events: {
           submit: (data: Record<string, string>) => {
@@ -80,16 +81,28 @@ export class ChatStrategy extends Block implements PageStrategy {
     });
   }
 
+  private async getChatUsers(chatId: number) {
+    if (!chatId) return;
+    const response = await ChatApi.getChatUsers({ chatId });
+    if (response.status === 200) {
+      const users = JSON.parse(response.response);
+      this.setProps({
+        chatUsers: users,
+      });
+    }
+  }
+
   private async handleChatSelect(chat: Chat) {
     try {
       await this.connectToChat(chat);
-
+      const users = await this.getChatUsers(chat.id);
       this.setProps({
         selectedChat: chat,
       });
 
       this.children.ChatSelectedDialog.setProps({
         chat,
+        chatUsers: users,
       });
 
       store.set("chat", chat);

@@ -5,11 +5,13 @@ import { Block } from "@shared/blocks/Block";
 import { Avatar } from "@shared/components/Avatar/Avatar";
 import { IconButton } from "@shared/components/IconButton/IconButton";
 import { Chat } from "@shared/types/Chat";
+import { User } from "@shared/types/User";
 import { AddUserToChatModal } from "./Modal/AddUserToChatModal";
 import { ChatInfoModal } from "./Modal/ChatInfoModal";
 
 export interface ChatSelectedHeaderProps {
   chat: Chat;
+  chatUsers: User[];
   isAddUserModalOpen?: boolean;
   isInfoModalOpen?: boolean;
   onChatDelete?: () => void;
@@ -48,6 +50,7 @@ export class ChatSelectedHeader extends Block {
           this.setProps({ isInfoModalOpen: false });
         },
         chat: props.chat,
+        chatUsers: props.chatUsers,
       }),
       IconButton: new IconButton({
         icon: dots,
@@ -81,10 +84,15 @@ export class ChatSelectedHeader extends Block {
         isOpen: newProps.isAddUserModalOpen || false,
       });
     }
-    if (oldProps.isInfoModalOpen !== newProps.isInfoModalOpen) {
+    if (
+      oldProps.isInfoModalOpen !== newProps.isInfoModalOpen ||
+      oldProps.chat.id !== newProps.chat.id ||
+      oldProps.chatUsers !== newProps.chatUsers
+    ) {
       this.children.ChatInfoModal.setProps({
         isOpen: newProps.isInfoModalOpen || false,
         chat: newProps.chat,
+        chatUsers: newProps.chatUsers,
       });
     }
     return true;

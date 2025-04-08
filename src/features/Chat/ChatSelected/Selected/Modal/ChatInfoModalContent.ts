@@ -1,4 +1,5 @@
 import { ChatApi } from "@api/chats/chats.controller";
+import defaultAvatar from "@assets/images/default-avatar.avif";
 import { Block } from "@shared/blocks/Block";
 import { Avatar } from "@shared/components/Avatar/Avatar";
 import { Input } from "@shared/components/Inputs/Input";
@@ -7,6 +8,7 @@ import { User } from "@shared/types/User";
 
 interface ChatInfoModalContentProps {
   chat: Chat;
+  chatUsers: User[];
 }
 
 export class ChatInfoModalContent extends Block {
@@ -15,7 +17,7 @@ export class ChatInfoModalContent extends Block {
       ...props,
       Avatar: new Avatar({
         attr: {
-          avatarUrl: props.chat.avatar || "",
+          avatarUrl: props.chat?.avatar || "",
           alt: "Аватар чата",
           className: "chat-info-avatar-img",
         },
@@ -77,18 +79,28 @@ export class ChatInfoModalContent extends Block {
   }
 
   protected render(): string {
-    const { chat } = this.props;
+    const { chat, chatUsers } = this.props;
 
-    console.log(chat, "chat");
+    if (!chat || !chat.id) {
+      return `
+        <div class="chat-info-modal-content">
+          <div class="chat-info-loading">
+            <p>Загрузка информации о чате...</p>
+          </div>
+        </div>
+      `;
+    }
 
     return `
       <div class="chat-info-modal-content">
         <div class="chat-info-header">
-          <div class="chat-info-avatar">
-            {{{Avatar}}}
-            <div class="chat-info-avatar-overlay">
-              {{{Input}}}
-              <span class="chat-info-avatar-text">Изменить аватар</span>
+          <div class="chat-info-avatar-container">
+            <div class="chat-info-avatar">
+              {{{Avatar}}}
+              <div class="chat-info-avatar-overlay">
+                {{{Input}}}
+                <span class="chat-info-avatar-text">Изменить аватар</span>
+              </div>
             </div>
           </div>
           <h2 class="chat-info-title">${chat.title}</h2>
@@ -97,18 +109,28 @@ export class ChatInfoModalContent extends Block {
         <div class="chat-info-section">
           <h3 class="chat-info-section-title">Участники чата</h3>
           <div class="chat-info-users">
-            ${chat.users
-              ?.map(
-                (user: User) => `
-              <div class="chat-info-user">
-                <img src="${user.avatar || "/default-avatar.png"}" alt="${
-                  user.login
-                }" class="chat-info-user-avatar">
-                <span class="chat-info-user-name">${user.login}</span>
-              </div>
-            `
-              )
-              .join("")}
+            ${
+              chatUsers && chatUsers.length > 0
+                ? chatUsers
+                    .map(
+                      (user: User) => `
+                <div class="chat-info-user">
+                  <div class="chat-info-user-avatar-container">
+                    <img src="${
+                      user.avatar
+                        ? `https://ya-praktikum.tech/api/v2/resources/${user.avatar}`
+                        : defaultAvatar
+                    }" alt="${user.login}" class="chat-info-user-avatar">
+                  </div>
+                  <span class="chat-info-user-name">${user.login}</span>
+                </div>
+              `
+                    )
+                    .join("")
+                : `<div class="chat-info-files-empty">
+                  <p>Нет участников</p>
+                </div>`
+            }
           </div>
         </div>
 

@@ -46,7 +46,6 @@ class Router {
     } catch (error) {
       console.log(error, "error");
     }
-
     this._onRoute(window.location.pathname);
   }
 
