@@ -1,7 +1,7 @@
 import checkIcon from "@assets/images/check.svg";
 import { store } from "@domains/store/Store";
 import { Block } from "@shared/blocks/Block";
-import { Message } from "@shared/types/Message";
+import { Message } from "@shared/types/message";
 import { User } from "@shared/types/User";
 import { convertDate } from "@utils/convertDate";
 import { MessageItem } from "./MessageItem";

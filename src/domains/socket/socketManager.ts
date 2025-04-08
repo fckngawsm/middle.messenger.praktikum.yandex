@@ -1,4 +1,4 @@
-import { Message } from "@shared/types/Message";
+import { Message } from "@shared/types/message";
 
 // const socket = new WebSocket('wss://ya-praktikum.tech/ws/chats/<USER_ID>/<CHAT_ID>/<TOKEN_VALUE>');
 type WebSocketEvents = {

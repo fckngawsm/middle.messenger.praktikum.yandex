@@ -248,9 +248,9 @@ export abstract class Block {
 
   protected componentDidUpdate(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    oldProps: BlockProps,
+    _oldProps: BlockProps,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    newProps: BlockProps
+    _newProps: BlockProps
   ): boolean {
     return true;
   }

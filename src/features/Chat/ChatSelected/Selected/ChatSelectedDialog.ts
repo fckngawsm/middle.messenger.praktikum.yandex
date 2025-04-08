@@ -6,7 +6,7 @@ import { RoundSubmitButton } from "@shared/components/Buttons/RoundSubmitButton"
 import { ChatInput } from "@shared/components/Inputs/ChatInput";
 import { Spacer } from "@shared/components/Spacer/Spacer";
 import { Chat } from "@shared/types/Chat";
-import { Message } from "@shared/types/Message";
+import { Message } from "@shared/types/message";
 import isEqual from "@utils/isEqual";
 import { ChatSelectedHeader } from "./ChatSelectedHeader";
 import { MessageList } from "./MessageList";

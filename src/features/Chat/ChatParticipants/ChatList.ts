@@ -1,5 +1,5 @@
 import { Block } from "@shared/blocks/Block";
-import { Dialog } from "@shared/types/Dialog";
+import { Dialog } from "@shared/types/dialog";
 import { ChatItem } from "./ChatItem";
 
 interface ChatListProps {
