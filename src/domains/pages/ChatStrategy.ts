@@ -1,13 +1,13 @@
-import { ChatApi } from "@api/chats/chats.controller";
-import { SocketManager } from "@domains/socket/socketManager";
-import { store } from "@domains/store/Store";
-import { ChatHeader } from "@features/Chat/ChatParticipants/ChatHeader";
-import { ChatListContacts } from "@features/Chat/ChatParticipants/ChatListContacts";
-import { ChatSelectDialog } from "@features/Chat/ChatSelected/Select/ChatSelectDialog";
-import { ChatSelectedDialog } from "@features/Chat/ChatSelected/Selected/ChatSelectedDialog";
-import { Block } from "@shared/blocks/Block";
-import { Chat } from "@shared/types/Chat";
-import { ChatPage } from "@templates/chat";
+import { ChatApi } from "../../api/chats/chats.controller";
+import { ChatHeader } from "../../features/Chat/ChatParticipants/ChatHeader";
+import { ChatListContacts } from "../../features/Chat/ChatParticipants/ChatListContacts";
+import { ChatSelectDialog } from "../../features/Chat/ChatSelected/Select/ChatSelectDialog";
+import { ChatSelectedDialog } from "../../features/Chat/ChatSelected/Selected/ChatSelectedDialog";
+import { Block } from "../../shared/blocks/Block";
+import { Chat } from "../../shared/types/Chat";
+import { ChatPage } from "../../templates/chat";
+import { SocketManager } from "../socket/socketManager";
+import { store } from "../store/Store";
 import { PageStrategy } from "./PageStrategies";
 
 export class ChatStrategy extends Block implements PageStrategy {

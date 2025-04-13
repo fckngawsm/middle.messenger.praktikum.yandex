@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
-import { ContextStrategy } from "@domains/validation/ContextStrategy";
-import { StrategyType } from "@domains/validation/StrategyType";
 import Handlebars from "handlebars";
+import { ContextStrategy } from "../../domains/validation/ContextStrategy";
+import { StrategyType } from "../../domains/validation/StrategyType";
 import { EventBus } from "./EventBus";
 
 interface BlockProps {

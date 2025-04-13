@@ -5,7 +5,7 @@
     "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
-    "types": ["node"],
+    "types": ["node", "mocha", "chai"],
 
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -34,5 +34,5 @@
       "@utils/*": ["utils/*"]
     }
   },
-  "include": ["src", "vite.config.ts", "postcss.config.js"]
+  "include": ["src", "vite.config.ts", "postcss.config.js", "mochaSetup.js"]
 }

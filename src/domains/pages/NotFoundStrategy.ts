@@ -1,5 +1,5 @@
-import { Error } from "@features/Error/Error";
-import { Block } from "@shared/blocks/Block";
+import { Error } from "../../features/Error/Error";
+import { Block } from "../../shared/blocks/Block";
 import { PageStrategy } from "./PageStrategies";
 
 export class NotFoundStrategy extends Block implements PageStrategy {

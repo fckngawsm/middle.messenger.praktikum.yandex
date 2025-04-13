@@ -1,7 +1,7 @@
-import { ApiRequest, LoginApi, RegisterApi } from "@api/types";
-import { METHOD } from "@domains/requestService/constants";
-import { RequestService } from "@domains/requestService/requestService";
-import { User } from "@shared/types/User";
+import { ApiRequest, LoginApi, RegisterApi } from "../../api/types";
+import { METHOD } from "../../domains/requestService/constants";
+import { RequestService } from "../../domains/requestService/requestService";
+import { User } from "../../shared/types/User";
 
 const authAPIInstance = new RequestService("auth");
 
