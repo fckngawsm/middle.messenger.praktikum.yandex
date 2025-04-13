@@ -1,4 +1,4 @@
-import { Block } from "@shared/blocks/Block";
+import { Block } from "../../blocks/Block";
 
 interface ButtonProps {
   attr: {

@@ -1,1 +1,2 @@
 mochaSetup.js
+*.test.ts
