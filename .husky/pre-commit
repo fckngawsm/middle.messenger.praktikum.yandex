@@ -1,2 +1,2 @@
-npm run lint:css
-npm run lint:ts
+npm run lint:all
+npm run test
