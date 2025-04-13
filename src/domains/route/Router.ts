@@ -6,7 +6,7 @@ import { AVAILABLE_ROUTES, Routes } from "./routes";
 
 class Router {
   private routes: Route[] = [];
-  public history: History = window.history;
+  private history: History = window.history;
   private _currentRoute: Route | undefined;
   private _rootQuery!: string;
 

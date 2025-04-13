@@ -21,7 +21,6 @@ global.history = window.history
 global.document = dom.window.document;
 global.HTMLElement = dom.window.HTMLElement;
 
-// Создаем элемент main с id
 const mainElement = document.createElement("main");
 mainElement.id = "main";
 mainElement.className = "main";
