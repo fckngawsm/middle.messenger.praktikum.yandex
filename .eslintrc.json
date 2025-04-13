@@ -41,6 +41,7 @@
     "implicit-arrow-linebreak": "off",
     "lines-between-class-members": "off",
     "import/no-extraneous-dependencies": "off",
-    "function-paren-newline": "off"
+    "function-paren-newline": "off",
+    "@typescript-eslint/no-unused-expressions": "off"
   }
 }

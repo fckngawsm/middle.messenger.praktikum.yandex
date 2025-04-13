@@ -1,6 +1,6 @@
-import { EventBus } from "@shared/blocks/EventBus";
-import { Indexed } from "@shared/types/Indexed";
-import { setToObject } from "@utils/set";
+import { EventBus } from "../../shared/blocks/EventBus";
+import { Indexed } from "../../shared/types/Indexed";
+import { setToObject } from "../../utils/set";
 import { StoreEvents } from "./events";
 
 class Store extends EventBus {

@@ -1,5 +1,5 @@
-import { router } from "@domains/route/Router";
-import { Block } from "@shared/blocks/Block";
+import { router } from "../../../domains/route/Router";
+import { Block } from "../../../shared/blocks/Block";
 
 interface LinkProps {
   attr: {

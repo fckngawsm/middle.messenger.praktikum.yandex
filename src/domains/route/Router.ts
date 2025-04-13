@@ -1,12 +1,12 @@
-import { AuthApi } from "@api/auth/auth.controller";
-import { PageStrategy } from "@domains/pages/PageStrategies";
-import { store } from "@domains/store/Store";
+import { AuthApi } from "../../api/auth/auth.controller";
+import { PageStrategy } from "../pages/PageStrategies";
+import { store } from "../store/Store";
 import { Route } from "./Route";
 import { AVAILABLE_ROUTES, Routes } from "./routes";
 
 class Router {
   private routes: Route[] = [];
-  private history: History = window.history;
+  public history: History = window.history;
   private _currentRoute: Route | undefined;
   private _rootQuery!: string;
 
